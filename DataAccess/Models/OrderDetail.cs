@@ -31,5 +31,6 @@ namespace DataAccess.Models
 		public bool? IsVATApplied { get; set; }
 		public string? ItemCode { get; set; }
 		public string? Description { get; set; }
+		public IEnumerable<OrderModifierDetail?>? Modifiers { get; set; }
 	}
 }

@@ -52,40 +52,81 @@ namespace Pos_API.Controllers
 
             return res;
 		}
+		private async Task<List<Category>> GetItemsFromDb(int locationId)
+		{
+			List<Category> res = new();
+			var itemsTask = _data.GetItems(locationId);
+			var categoriesTask = _categories.GetCategories(locationId);
+			var subcategoriesTask = _subcategories.GetSubCategories(locationId);
 
-        private async Task<List<Category>> GetItemsFromDb(int locationId)
-        {
-            List<Category> res = new();
-            var itemsTask = _data.GetItems(locationId);
-            var categoriesTask = _categories.GetCategories(locationId);
-            var subcategoriesTask = _subcategories.GetSubCategories(locationId);
+			await Task.WhenAll(itemsTask, categoriesTask, subcategoriesTask);
 
-            await Task.WhenAll(itemsTask, categoriesTask, subcategoriesTask);
+			var items = itemsTask.Result;
+			var categories = categoriesTask.Result;
+			var subcategories = subcategoriesTask.Result;
 
-            var items = itemsTask.Result;
-            var categories = categoriesTask.Result;
-            var subcategories = subcategoriesTask.Result;
+			foreach (var category in categories)
+			{
+				Global.InsertImagePreURL<Category>(category);
 
-            foreach (var category in categories)
-            {
-                Global.InsertImagePreURL<Category>(category);
+				var subcategoriesGroup = subcategories.Where(sub => sub.CategoryID == category.ID).ToList();
+				Global.InsertImagePreURL<SubCategory>(subcategoriesGroup);
 
-                var subcategoriesGroup = subcategories.Where(sub => sub.CategoryID == category.ID).ToList();
-                Global.InsertImagePreURL<SubCategory>(subcategoriesGroup);
+				category.SubCategories = subcategoriesGroup;
 
-                category.SubCategories = subcategoriesGroup;
+				foreach (var subcategory in subcategoriesGroup)
+				{
+					var itemsGroup = items.Where(item => item.SubCategoryID == subcategory.ID).ToList();
+					Global.InsertImagePreURL<Item>(itemsGroup);
+					subcategory.Items = itemsGroup;
 
-                foreach (var subcategory in subcategoriesGroup)
-                {
-                    var itemsGroup = items.Where(item => item.SubCategoryID == subcategory.ID).ToList();
-                    Global.InsertImagePreURL<Item>(itemsGroup);
-                    subcategory.Items = itemsGroup;
-                }
+					foreach (var item in itemsGroup)
+					{
+						var modifiers = await _data.GetModifiers(item.ID);
+						item.Modifiers = modifiers.ToList();
+					}
+				}
+				res.Add(category);
+			}
 
-                res.Add(category);
-            }
+			return res;
+		}
+		//     private async Task<List<Category>> GetItemsFromDb(int locationId)
+		//     {
+		//         List<Category> res = new();
+		//         var itemsTask = _data.GetItems(locationId);
+		//         var categoriesTask = _categories.GetCategories(locationId);
+		//         var subcategoriesTask = _subcategories.GetSubCategories(locationId);
+		//         //var modifiersTask = _data.GetModifiers(locationId);
 
-            return res;
-        }
-    }
+		//         await Task.WhenAll(itemsTask, categoriesTask, subcategoriesTask);
+
+		//         var items = itemsTask.Result;
+		//         var categories = categoriesTask.Result;
+		//         var subcategories = subcategoriesTask.Result;
+		////var modifiers = modifiersTask.Result;
+
+		//foreach (var category in categories)
+		//         {
+		//             Global.InsertImagePreURL<Category>(category);
+
+		//             var subcategoriesGroup = subcategories.Where(sub => sub.CategoryID == category.ID).ToList();
+		//             Global.InsertImagePreURL<SubCategory>(subcategoriesGroup);
+
+		//             category.SubCategories = subcategoriesGroup;
+
+		//             foreach (var subcategory in subcategoriesGroup)
+		//             {
+		//                 var itemsGroup = items.Where(item => item.SubCategoryID == subcategory.ID).ToList();
+		//                 Global.InsertImagePreURL<Item>(itemsGroup);
+		//                 subcategory.Items = itemsGroup;
+		//             }
+
+		//             res.Add(category);
+		//         }
+
+
+		//return res;
+		//     }
+	}
 }

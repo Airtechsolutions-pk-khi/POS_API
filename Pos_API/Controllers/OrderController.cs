@@ -1,10 +1,13 @@
-﻿using DataAccess.Data.IDataModel;
+﻿using Dapper;
+using DataAccess.Data.IDataModel;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Pos_API.GlobalAndCommon;
 using System.Data;
+using System.Linq;
 
 namespace Pos_API.Controllers
 {
@@ -30,6 +33,8 @@ namespace Pos_API.Controllers
 			_logger.LogInformation("Saving data...");
 			if (model == null) return BadRequest(Message.CanNotBeNull);
 			var result = await _data.SaveData(model);
+			var GrandTotal = model.GrandTotal;
+			var Tax = model.Tax;
 			return Ok( new{ data = result, message = Message.Success } );
 		}
 
@@ -75,18 +80,26 @@ namespace Pos_API.Controllers
 
             var orderTask = _data.GetOrderByLocation(LocationID, FromDate, ToDate);
 			var orderDetailTask = _data.GetOrderDetailsByLocation(LocationID, FromDate, ToDate);
+			//var orderDetailmodTask = _data.GetOrderModifiers(LocationID, FromDate, ToDate);
+
 
 			await Task.WhenAll(orderTask, orderDetailTask);
 
 			var orderList = orderTask.Result;
 			var orderDetailList = orderDetailTask.Result;
+			//var modifierList = orderDetailmodTask.Result;
 
 			foreach (var order in orderList)
 			{
 				var orderDetailsGroup = orderDetailList.Where(od => od.OrderID == order.ID).ToList();
 				Global.InsertImagePreURL<OrderDetail>(orderDetailsGroup);
 				order.Items = orderDetailsGroup;
-                res.Add(order);
+				//foreach (var od in orderDetailsGroup)
+				//{
+				//	var orderDetailsModGroup = modifierList.Where(odm => odm.OrderDetailID == od.OrderDetailID).ToList();
+				//	od.Modifiers = orderDetailsModGroup;
+				//}
+				res.Add(order);
             }
             return res;
         }

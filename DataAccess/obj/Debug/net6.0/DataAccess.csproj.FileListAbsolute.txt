@@ -22,3 +22,15 @@ E:\Project\POS_API_V2\DataAccess\obj\Debug\net6.0\DataAccess.dll
 E:\Project\POS_API_V2\DataAccess\obj\Debug\net6.0\refint\DataAccess.dll
 E:\Project\POS_API_V2\DataAccess\obj\Debug\net6.0\DataAccess.pdb
 E:\Project\POS_API_V2\DataAccess\obj\Debug\net6.0\ref\DataAccess.dll
+F:\Projects\POS_API\DataAccess\bin\Debug\net6.0\DataAccess.deps.json
+F:\Projects\POS_API\DataAccess\bin\Debug\net6.0\DataAccess.dll
+F:\Projects\POS_API\DataAccess\bin\Debug\net6.0\DataAccess.pdb
+F:\Projects\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.csproj.AssemblyReference.cache
+F:\Projects\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projects\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.AssemblyInfoInputs.cache
+F:\Projects\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.AssemblyInfo.cs
+F:\Projects\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.csproj.CoreCompileInputs.cache
+F:\Projects\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.dll
+F:\Projects\POS_API\DataAccess\obj\Debug\net6.0\refint\DataAccess.dll
+F:\Projects\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.pdb
+F:\Projects\POS_API\DataAccess\obj\Debug\net6.0\ref\DataAccess.dll

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>F:\Projects Publish\POS_API</_PublishTargetUrl>
+    <History>True|2023-10-18T09:06:06.1209790Z;True|2023-10-18T12:33:26.6389719+05:00;True|2023-10-17T13:28:49.8355887+05:00;True|2023-10-17T12:21:33.7102290+05:00;False|2023-10-17T12:19:59.5370834+05:00;True|2023-09-27T15:16:48.2499006+05:00;True|2023-09-22T19:20:11.2231535+05:00;True|2023-09-22T14:27:07.4053841+05:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

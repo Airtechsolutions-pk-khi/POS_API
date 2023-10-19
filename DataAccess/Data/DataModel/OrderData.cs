@@ -63,7 +63,18 @@ namespace DataAccess.Data.DataModel
 			}
 			return res;
 		}
-		//await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByLocation_P_API]",
-		//	new { LocationID });
+		//public async Task<IEnumerable<OrderModifierDetail>> GetOrderModifiers(int LocationID, DateTime FromDate, DateTime ToDate)
+		//{
+		//	IEnumerable<OrderModifierDetail>? res;
+
+		//	string key = string.Format("{0}{1}{2}{3}", LocationID.ToString(), "Modifiers", FromDate.ToString(), ToDate.ToString());
+		//	res = _cache.Get<IEnumerable<OrderModifierDetail>>(key);
+		//	if (res == null)
+		//	{
+		//		res = await _service.LoadData<OrderModifierDetail, dynamic>("[dbo].[sp_GetOrderModifiers_P_API]", new { LocationID, FromDate, ToDate });
+		//		_cache.Set(key, res, TimeSpan.FromMinutes(1));
+		//	}
+		//	return res;
+		//}
 	}
 }

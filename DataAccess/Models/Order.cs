@@ -4,7 +4,7 @@ namespace DataAccess.Models
     public class Order<T>
 	{
 		public int ID { get; set; }
-		public int? CustomerID { get; set; }
+		public string? CustomerID { get; set; }
 		public int? LocationID { get; set; }
 		public int? TransactionNo { get; set; }
 		public int? OrderNo { get; set; }
@@ -75,5 +75,8 @@ namespace DataAccess.Models
 		public int TransactionNo { get; set; }
 		public string? LocationName { get; set; }
 		public IEnumerable<OrderDetail>? Items { get; set; }
+		public double? GrandTotal { get; set; }
+		public double? Tax { get; set; }
+
 	}
 }

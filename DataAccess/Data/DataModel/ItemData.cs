@@ -29,5 +29,19 @@ namespace DataAccess.Data.DataModel
 			}
 			return res;
 		}
+
+		public async Task<IEnumerable<OrderModifierDetail>> GetModifiers(int itemid)
+		{
+			IEnumerable<OrderModifierDetail>? res;
+
+			string key = string.Format("{0}{1}", itemid.ToString(), "Modifiers");
+			res = _cache.Get<IEnumerable<OrderModifierDetail>>(key);
+			if (res == null)
+			{
+				res = await _service.LoadData<OrderModifierDetail, dynamic>("[dbo].[sp_GetModifiers_P_API]", new { itemid });
+				_cache.Set(key, res, TimeSpan.FromMinutes(1));
+			}
+			return res;
+		}
 	}
 }

@@ -11,7 +11,6 @@
 		public int? UnitID { get; set; }
 		public string? Name { get; set; }
 		public int? Quantity { get; set; }
-		//public double? DiscountPrice { get; set; }
 		public string? ArabicName { get; set; }
 		public string? NameOnReceipt { get; set; }
 		public string? Description { get; set; }
@@ -33,8 +32,16 @@
 		public DateTime? CreatedOn { get; set; }
 		public string? CreatedBy { get; set; }
 		public double? CurrentStockLevel { get; set; }
-		//public bool? IsVATApplied { get; set; }
-		//public bool? IsFeatured { get; set; }
-		//public bool? IsStockOut { get; set; }
+		public List<OrderModifierDetail?>? Modifiers { get; set; } = new List<OrderModifierDetail?>();
+		
+	}
+	public class OrderModifierDetail
+	{
+		public int? OrderDetailID { get; set; }
+		public int? ModifierID { get; set; }
+		public decimal? Price { get; set; }
+		public int? StatusID { get; set; }
+		public string? Type { get; set; }
+		public string? Name { get; set; }
 	}
 }
