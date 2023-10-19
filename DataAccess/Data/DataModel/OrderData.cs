@@ -47,9 +47,6 @@ namespace DataAccess.Data.DataModel
 			}
 			return res;
 		}
-		//await _service.LoadData<Order<OrderDetail>, dynamic>("[dbo].[sp_GetOrderByLocation_P_API]",
-		//	new { LocationID });
-
 		public async Task<IEnumerable<OrderDetail>> GetOrderDetailsByLocation(int LocationID, DateTime FromDate, DateTime ToDate)
 		{
 			IEnumerable<OrderDetail>? res;
