@@ -24,7 +24,6 @@ namespace DataAccess.Data.DataModel
 
 			var od = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
 
-
 			or.Items = od;
 
 			return or;
