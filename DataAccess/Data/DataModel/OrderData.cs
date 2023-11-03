@@ -4,6 +4,9 @@ using DataAccess.Services.IService;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Memory;
 using System;
+using System.Linq;
+using Newtonsoft.Json.Linq;
+using System.Runtime.Intrinsics.Arm;
 
 namespace DataAccess.Data.DataModel
 {
@@ -22,10 +25,28 @@ namespace DataAccess.Data.DataModel
             var or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_InsertOrder_P_API_V2]",
 				new { ParamTable1 = JsonConvert.SerializeObject(order) });
 
+			var orderID = or.OrderID;
+			foreach (var item in order.Items)
+			{
+                //insert order detail
+                var OD = await _service.SaveSingleQueryable<OrderDetail, dynamic>("[dbo].[sp_InsertOrderDetail_P_API]",
+                new { orderID, item.ID, item.Name, item.Price, item.StatusID, item.LocationID, item.Quantity });
+
+				if (item.Modifiers != null)
+				{
+                    foreach (var modi in or.Items)
+                    {
+                        var odM = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
+                        //insert modifier						
+						
+                        //var mData = odM.Where(x => x.OrderDetailID == OD.OrderDetailID);
+
+                        var inM = await _service.SaveSingleQueryable<OrderModifierDetail, dynamic>("[dbo].[sp_InsertModifier_P_API]",
+                    new {  });
+                    }
+                }              
+			}			 
 			var od = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
-
-			or.Items = od;
-
 			return or;
 		}
 

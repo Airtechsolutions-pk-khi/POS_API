@@ -79,4 +79,10 @@ namespace DataAccess.Models
 		public double? Tax { get; set; }
 
 	}
+    public class OrderDetailIDReturn
+    {
+        public int? OrderDetailID { get; set; }
+        
+
+    }
 }
