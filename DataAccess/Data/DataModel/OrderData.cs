@@ -7,10 +7,12 @@ using System;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using System.Runtime.Intrinsics.Arm;
+using System.Data.SqlClient;
+using WebAPICode.Helpers;
 
 namespace DataAccess.Data.DataModel
 {
-    public class OrderData : IOrderData
+    public class OrderData : IOrderData 
 	{
 		private readonly IGenericCrudService _service;
 		private readonly IMemoryCache _cache;
@@ -28,11 +30,36 @@ namespace DataAccess.Data.DataModel
 			var orderID = or.OrderID;
 			foreach (var item in order.Items)
 			{
-                //insert order detail
-                var OD = await _service.SaveSingleQueryable<OrderDetail, dynamic>("[dbo].[sp_InsertOrderDetail_P_API]",
-                new { orderID, item.ID, item.Name, item.Price, item.StatusID, item.LocationID, item.Quantity });
+				try
+				{
+                    //insert order detail
+                    int OrderDetailID = 0;
+                    SqlParameter[] p = new SqlParameter[9];
+                    p[0] = new SqlParameter("@OrderID", orderID);
+                    p[1] = new SqlParameter("@Name", item.Name);
+                    p[2] = new SqlParameter("@Price", item.Price);
+                    p[3] = new SqlParameter("@ItemID", item.ID);
+                    p[4] = new SqlParameter("@Quantity", item.Quantity);
+                    p[5] = new SqlParameter("@StatusID", item.StatusID);
+                    p[6] = new SqlParameter("@OrderDate", DateTime.UtcNow);
+                    p[7] = new SqlParameter("@TransactionNo", order.TransactionNo);
+                    p[8] = new SqlParameter("@OrderNo", order.OrderNo);
 
-				if (item.Modifiers != null)
+                    //rtn = (new DBHelper().ExecuteNonQueryReturn)("dbo.sp_InsertCategory_Admin", p);
+                     OrderDetailID = int.Parse(new DBHelper().GetTableFromSP("sp_InsertOrderDetail_P_API", p).Rows[0]["ID"].ToString());
+                }
+				catch (Exception ex)
+				{
+
+					throw;
+				}
+             
+
+                //var OD = await _service.SaveSingleQueryable<OrderDetail, dynamic>("[dbo].[sp_InsertOrderDetail_P_API]",
+                //new { ParamTable2 = JsonConvert.SerializeObject(order) });
+                //new { orderID, item.ID, item.Name, item.Price, item.StatusID, order.CreatedOn, item.Quantity });
+
+                if (item.Modifiers != null)
 				{
                     foreach (var modi in or.Items)
                     {

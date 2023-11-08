@@ -1,8 +1,9 @@
 ﻿using DataAccess.Models;
 
+
 namespace DataAccess.Data.IDataModel
 {
-    public interface IOrderData
+    public interface IOrderData 
     {
         Task<OrderReturn> SaveData(Order<Item> Order);
         Task UpdateData(Order<Item> Order);
