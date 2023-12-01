@@ -4,7 +4,7 @@ namespace DataAccess.Models
 	public class OrderDetail
 	{
 		public int OrderID { get; set; }
-		public int OrderDetailID { get; set; }
+		public int ID { get; set; }
 		public int ItemID { get; set; }
 		public string? TransactionNo { get; set; }
 		public string? OrderNo { get; set; }
