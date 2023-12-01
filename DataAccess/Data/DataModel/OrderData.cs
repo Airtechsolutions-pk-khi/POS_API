@@ -51,27 +51,27 @@ namespace DataAccess.Data.DataModel
 				catch (Exception ex)
 				{
 
-					throw;
+					
 				}
-             
 
-                //var OD = await _service.SaveSingleQueryable<OrderDetail, dynamic>("[dbo].[sp_InsertOrderDetail_P_API]",
-                //new { ParamTable2 = JsonConvert.SerializeObject(order) });
-                //new { orderID, item.ID, item.Name, item.Price, item.StatusID, order.CreatedOn, item.Quantity });
 
-                if (item.Modifiers != null)
+				//var OD = await _service.SaveSingleQueryable<OrderDetail, dynamic>("[dbo].[sp_InsertOrderDetail_P_API]",
+				//new { ParamTable2 = JsonConvert.SerializeObject(order) });
+				//new { orderID, item.ID, item.Name, item.Price, item.StatusID, order.CreatedOn, item.Quantity });
+
+				if (item.Modifiers != null && item.Modifiers.Count>0)
 				{
-                    foreach (var modi in or.Items)
-                    {
-                        var odM = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
-                        //insert modifier						
-						
-                        //var mData = odM.Where(x => x.OrderDetailID == OD.OrderDetailID);
+					foreach (var modi in or.Items)
+					{
+						var odM = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
+						//insert modifier						
 
-                        var inM = await _service.SaveSingleQueryable<OrderModifierDetail, dynamic>("[dbo].[sp_InsertModifier_P_API]",
-                    new {  });
-                    }
-                }              
+						//var mData = odM.Where(x => x.OrderDetailID == OD.OrderDetailID);
+
+						var inM = await _service.SaveSingleQueryable<OrderModifierDetail, dynamic>("[dbo].[sp_InsertModifier_P_API]",
+					new { });
+					}
+				}
 			}			 
 			var od = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
 			return or;

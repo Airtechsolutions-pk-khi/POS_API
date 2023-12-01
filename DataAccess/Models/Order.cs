@@ -65,15 +65,23 @@ namespace DataAccess.Models
 	{
 		public int OrderID { get; set; }
 		public string? OrderType { get; set; }
-		public string? PaymentType { get; set; }
-		public string? CounterType { get; set; }
-		public DateTime? CreatedOn { get; set; }
+        public DateTime? OrderCreatedDT { get; set; }
+        public string? CashierName { get; set; }
+        public string? PaymentType { get; set; }
+        public string? CompanyName { get; set; }
+        public string? CRN { get; set; }
+        public string? TaxID { get; set; }
+        public string? Email { get; set; }
+        public string? CounterType { get; set; }
+        public string? Address { get; set; }
+        public string? ContactNo { get; set; }
+        public string? LocationName { get; set; }
+        public DateTime? CreatedOn { get; set; }
 		public decimal? Total { get; set; }
 		public decimal? AmountDiscount { get; set; }
 		public decimal? VATper { get; set; }
 		public int OrderNo { get; set; }
-		public int TransactionNo { get; set; }
-		public string? LocationName { get; set; }
+		public int TransactionNo { get; set; }		
 		public IEnumerable<OrderDetail>? Items { get; set; }
 		public double? GrandTotal { get; set; }
 		public double? Tax { get; set; }

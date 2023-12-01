@@ -221,3 +221,4 @@ E:\Project\POS_API\Pos_API\obj\Debug\net6.0\refint\Pos_API.dll
 E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.pdb
 E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.genruntimeconfig.cache
 E:\Project\POS_API\Pos_API\obj\Debug\net6.0\ref\Pos_API.dll
+E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.MvcApplicationPartsAssemblyInfo.cs
