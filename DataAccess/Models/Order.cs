@@ -68,7 +68,7 @@ namespace DataAccess.Models
 		public string? PaymentType { get; set; }
 		public string? CounterType { get; set; }
 		public DateTime? CreatedOn { get; set; }
-		public decimal? Total { get; set; }
+		public double? Total { get; set; }
 		public decimal? AmountDiscount { get; set; }
 		public decimal? VATper { get; set; }
 		public int OrderNo { get; set; }
