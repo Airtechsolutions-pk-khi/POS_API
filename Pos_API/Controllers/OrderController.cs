@@ -80,25 +80,25 @@ namespace Pos_API.Controllers
 
             var orderTask = _data.GetOrderByLocation(LocationID, FromDate, ToDate);
 			var orderDetailTask = _data.GetOrderDetailsByLocation(LocationID, FromDate, ToDate);
-			//var orderDetailmodTask = _data.GetOrderModifiers(LocationID, FromDate, ToDate);
+			var orderDetailmodTask = _data.GetOrderModifiers(LocationID, FromDate, ToDate);
 
 
 			await Task.WhenAll(orderTask, orderDetailTask);
 
 			var orderList = orderTask.Result;
 			var orderDetailList = orderDetailTask.Result;
-			//var modifierList = orderDetailmodTask.Result;
+			var modifierList = orderDetailmodTask.Result;
 
 			foreach (var order in orderList)
 			{
 				var orderDetailsGroup = orderDetailList.Where(od => od.OrderID == order.ID).ToList();
 				Global.InsertImagePreURL<OrderDetail>(orderDetailsGroup);
 				order.Items = orderDetailsGroup;
-				//foreach (var od in orderDetailsGroup)
-				//{
-				//	var orderDetailsModGroup = modifierList.Where(odm => odm.OrderDetailID == od.OrderDetailID).ToList();
-				//	od.Modifiers = orderDetailsModGroup;
-				//}
+				foreach (var od in orderDetailsGroup)
+				{
+					var orderDetailsModGroup = modifierList.Where(odm => odm.OrderDetailID == od.OrderDetailID).ToList();
+					od.Modifiers = orderDetailsModGroup;
+				}
 				res.Add(order);
             }
             return res;

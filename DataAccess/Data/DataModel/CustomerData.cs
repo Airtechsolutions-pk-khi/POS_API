@@ -35,5 +35,9 @@ namespace DataAccess.Data.DataModel
 		public async Task SaveCustomer(Customer customer) => 
 			await _service.SaveData<dynamic>("[dbo].[sp_InsertCustomer_P_API]",
 				new { ParamTable1 = JsonConvert.SerializeObject(customer) });
-	}
+
+        public async Task EditCustomer(Customer customer) =>
+            await _service.SaveData<dynamic>("[dbo].[sp_UpdateCustomer_P_API]",
+                new { ParamTable1 = JsonConvert.SerializeObject(customer) });
+    }
 }

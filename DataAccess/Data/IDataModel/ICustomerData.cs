@@ -6,5 +6,6 @@ namespace DataAccess.Data.IDataModel
     {
         Task<IEnumerable<Customer>> GetAllCustomers(int LocationID);
         Task SaveCustomer(Customer customer);
+        Task EditCustomer(Customer customer);
     }
 }

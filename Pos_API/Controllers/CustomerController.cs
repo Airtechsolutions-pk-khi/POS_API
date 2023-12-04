@@ -29,5 +29,16 @@ namespace Pos_API.Controllers
 			await _data.SaveCustomer(model);
 			return Ok( new { message = Message.Success } );
 		}
-	}
+
+        [HttpPost("Edit")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> Edit(Customer model)
+        {
+            _logger.LogInformation("Saving data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            Global.StrDateTimeSqlFormat(model);
+            await _data.EditCustomer(model);
+            return Ok(new { message = Message.Success });
+        }
+    }
 }
