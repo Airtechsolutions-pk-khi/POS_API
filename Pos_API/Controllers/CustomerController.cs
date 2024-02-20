@@ -26,8 +26,16 @@ namespace Pos_API.Controllers
 			_logger.LogInformation("Saving data...");
 			if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
 			Global.StrDateTimeSqlFormat(model);
-			await _data.SaveCustomer(model);
-			return Ok( new { message = Message.Success } );
+			var res = await _data.SaveCustomer(model);
+			if (res.Description == "Customer is Already Exist!")
+			{
+				return BadRequest(res);
+			}
+			else
+			{
+                return Ok(res);
+            }
+			
 		}
 
         [HttpPost("Edit")]

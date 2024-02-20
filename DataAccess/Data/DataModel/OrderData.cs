@@ -28,7 +28,7 @@ namespace DataAccess.Data.DataModel
 			var or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_InsertOrder_P_API_V2]",
 				new { ParamTable1 = JsonConvert.SerializeObject(order) });
 
-			or.GrandTotal = or.Total;
+			//or.GrandTotal = or.Total;
 			var Tax = or.Tax;
 			var orderID = or.OrderID;
 			var TransactionNo = or.TransactionNo;
@@ -41,18 +41,19 @@ namespace DataAccess.Data.DataModel
 				{
 
 					item.StatusID = 1;
-					SqlParameter[] p = new SqlParameter[9];
+					SqlParameter[] p = new SqlParameter[10];
 					p[0] = new SqlParameter("@OrderId", orderID);
 					p[1] = new SqlParameter("@Name", item.Name);
 					p[2] = new SqlParameter("@Price", item.Price);
 					p[3] = new SqlParameter("@ItemID", item.ID);
 					p[4] = new SqlParameter("@Quantity", item.Quantity);
 					p[5] = new SqlParameter("@StatusID", item.StatusID);
-					p[6] = new SqlParameter("@OrderDate", DateTime.UtcNow);
+					p[6] = new SqlParameter("@OrderDate", DateTime.UtcNow.AddMinutes(180));
 					p[7] = new SqlParameter("@TransactionNo", TransactionNo);
 					p[8] = new SqlParameter("@OrderNo", OrderNo);
+                    p[9] = new SqlParameter("@DiscountPrice", item.DiscountPrice);
 
-					OrderDetailID = int.Parse(new DBHelper().GetTableFromSP("sp_InsertOrderDetail_P_API", p).Rows[0]["ID"].ToString());
+                    OrderDetailID = int.Parse(new DBHelper().GetTableFromSP("sp_InsertOrderDetail_P_API", p).Rows[0]["ID"].ToString());
 
 				}
 				catch { }

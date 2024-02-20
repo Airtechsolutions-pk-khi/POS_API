@@ -17,7 +17,8 @@ namespace DataAccess.Models
 		public string? LastName { get; set; }
 		public string? Designation { get; set; }
 		public string? ImagePath { get; set; }
-		public string? Password { get; set; }
+        public string? ImageURL { get; set; }
+        public string? Password { get; set; }
 		public string? Email { get; set; }
 		public string? ContactNo { get; set; }
 		public string? Address { get; set; }
@@ -31,8 +32,8 @@ namespace DataAccess.Models
 		public int? TimeZoneID { get; set; }
 		public string? LastUpdatedBy { get; set; }
 		public System.DateTime? LastUpdatedDate { get; set; }
-		public int? StatusID { get; set; }
-		public string? States { get; set; }
+		public int? StatusID { get; set; }        
+        public string? States { get; set; }
 		public string? Zipcode { get; set; }
 		public System.DateTime? CreatedOn { get; set; }
 		public string? CreatedBy { get; set; }

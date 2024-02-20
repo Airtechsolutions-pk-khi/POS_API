@@ -166,12 +166,6 @@ F:\Projects\POS_API\Pos_API\obj\Debug\net6.0\refint\Pos_API.dll
 F:\Projects\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.pdb
 F:\Projects\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.genruntimeconfig.cache
 F:\Projects\POS_API\Pos_API\obj\Debug\net6.0\ref\Pos_API.dll
-E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.csproj.AssemblyReference.cache
-E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.GeneratedMSBuildEditorConfig.editorconfig
-E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.AssemblyInfoInputs.cache
-E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.AssemblyInfo.cs
-E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.csproj.CoreCompileInputs.cache
-E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.MvcApplicationPartsAssemblyInfo.cache
 E:\Project\POS_API\Pos_API\bin\Debug\net6.0\appsettings.Development.json
 E:\Project\POS_API\Pos_API\bin\Debug\net6.0\appsettings.json
 E:\Project\POS_API\Pos_API\bin\Debug\net6.0\Pos_API.exe
@@ -207,7 +201,13 @@ E:\Project\POS_API\Pos_API\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\Syst
 E:\Project\POS_API\Pos_API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 E:\Project\POS_API\Pos_API\bin\Debug\net6.0\DataAccess.dll
 E:\Project\POS_API\Pos_API\bin\Debug\net6.0\DataAccess.pdb
+E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.csproj.AssemblyReference.cache
+E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.GeneratedMSBuildEditorConfig.editorconfig
+E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.AssemblyInfoInputs.cache
+E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.AssemblyInfo.cs
+E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.csproj.CoreCompileInputs.cache
 E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.MvcApplicationPartsAssemblyInfo.cs
+E:\Project\POS_API\Pos_API\obj\Debug\net6.0\Pos_API.MvcApplicationPartsAssemblyInfo.cache
 E:\Project\POS_API\Pos_API\obj\Debug\net6.0\staticwebassets\msbuild.Pos_API.Microsoft.AspNetCore.StaticWebAssets.props
 E:\Project\POS_API\Pos_API\obj\Debug\net6.0\staticwebassets\msbuild.build.Pos_API.props
 E:\Project\POS_API\Pos_API\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Pos_API.props

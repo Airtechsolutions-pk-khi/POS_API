@@ -11,7 +11,8 @@
 		public int? UnitID { get; set; }
 		public string? Name { get; set; }
 		public int? Quantity { get; set; }
-		public string? ArabicName { get; set; }
+        public double? DiscountPrice { get; set; }
+        public string? ArabicName { get; set; }
 		public string? NameOnReceipt { get; set; }
 		public string? Description { get; set; }
 		public string? ArabicDescription { get; set; }

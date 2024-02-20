@@ -5,36 +5,55 @@ namespace DataAccess.Models
 	{
 		public string? LocationName { get; set; }
 		public string? Type { get; set; }
-		public double? GrossSales { get; set; }
-		public double? CreditOrderDue { get; set; }
-		public double? TotalDiscount { get; set; }
-		public double? ServiceCharges { get; set; }
-		public double? TaxPercent { get; set; }
-		public double? TaxAmount { get; set; }
-		public double? RefundAmount { get; set; }
-		public double? NetSales { get; set; }
-		public int? CashOrder { get; set; }
-		public double? ItemDiscountAmount { get; set; }
-		public double? CashOrderAmount { get; set; }
-		public int? CreditOrder { get; set; }
-		public double? CreditOrderAmount { get; set; }
-		public int? CardOrder { get; set; }
-		public double? CardOrderAmount { get; set; }
-		public int? MultiOrder { get; set; }
-		public int? VoidOrder { get; set; }
-		public int? TotalOrders { get; set; }
-		public int? Checkout { get; set; }
-		public int? CheckoutOrders { get; set; }
-		public int? Delivery { get; set; }
-		public double? TotalExpanse { get; set; }
-		public int? DeliveryOrders { get; set; }
-		public int? Pickup { get; set; }
-		public int? PickupCount { get; set; }
-		public int? TakeAway { get; set; }
-		public int? TakeAwayCount { get; set; }
-		public int? WebCash { get; set; }
-		public int? WebCashCount { get; set; }
-		public int? WebCard { get; set; }
-		public int? WebCardCount { get; set; }
-	}
+		public double? GrossSales { get; set; } = 0;
+		public double? CreditOrderDue { get; set; } = 0;
+		public double? TotalDiscount { get; set; } = 0;
+		public double? ServiceCharges { get; set; } = 0;
+		public double? TaxPercent { get; set; } = 0;
+		public double? TaxAmount { get; set; } = 0;
+		public double? RefundAmount { get; set; } = 0;
+		public double? NetSales { get; set; } = 0;
+        public int? CashOrder { get; set; } = 0;
+        public double? ItemDiscountAmount { get; set; } = 0;
+        public double? CashOrderAmount { get; set;} = 0;
+        public int? CreditOrder { get; set; } = 0;
+		public double? CreditOrderAmount { get; set; } = 0;
+		public int? CardOrder { get; set; } = 0;
+		public double? CardOrderAmount { get; set; } = 0;
+		public int? MultiOrder { get; set; } = 0;
+		public int? VoidOrder { get; set; } = 0;
+		public int? TotalOrders { get; set; } = 0;
+		public double? Checkout { get; set; } = 0;
+		public double? CheckoutOrders { get; set; } = 0;
+         
+        public double? Delivery { get; set; } = 0;
+		public double? TotalExpanse { get; set; } = 0;
+		public double? DeliveryOrders { get; set; } = 0;
+		public double? Pickup { get; set; } = 0;
+		 	 
+        public double? WebCash { get; set; } = 0;		 
+		public double? WebCard { get; set; } = 0;		 
+        public decimal? VisaTotal { get; set; } = 0;
+        public decimal? MasterTotal { get; set; } = 0;
+        public decimal? StcpayTotal { get; set; } = 0;        
+        public decimal? BenefitPayTotal { get; set; } = 0;
+        public decimal? TalabatTotal { get; set; } = 0;
+        public decimal? JahezTotal { get; set; } = 0;
+        public decimal? AhlanTotal { get; set; } = 0;
+        public double? Takeaway { get; set; } = 0;      
+
+        //fill Order type counter
+        public double? CounterSellCount { get; set; } = 0;
+        public double? CounterSellAmount { get; set; } = 0;
+        public double? DeliveryCount { get; set; } = 0;
+        public double? DeliveryAmount { get; set; } = 0;
+        public double? TakeawayCount { get; set; } = 0;
+        public double? TakeawayAmount { get; set; } = 0;
+        public double? PickUpCount { get; set; } = 0;
+        public double? PickUpAmount { get; set; } = 0;
+        public double? WebCashCount { get; set; } = 0;
+        public double? WebCashAmount { get; set; } = 0;
+        public double? WebCardCount { get; set; } = 0;
+        public double? WebCardAmount { get; set; } = 0;
+    }
 }

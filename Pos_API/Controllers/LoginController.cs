@@ -51,9 +51,17 @@ namespace Pos_API.Controllers
 			if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
 
 			var result = await _authService.GetDataforSubUserAuth(BusinessKey, Passcode);
-			if (result == null) return Unauthorized("Invalid credentials.");
-			
-			var Locations = await _authService.GetDataforSubUserLocations(result.ID);
+			if (result == null)
+			{
+				RspModel model = new()
+				{
+					Status = 0,
+					Description = "Invalid credentials"
+				};
+				//return Unauthorized("Invalid credentials.");
+				return Ok(model);
+            }
+            var Locations = await _authService.GetDataforSubUserLocations(result.ID);
 
 			var jwt = GenerateJwt(BusinessKey, result?.Email ?? "", "Cashier");
 

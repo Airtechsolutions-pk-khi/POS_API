@@ -94,10 +94,14 @@ namespace Pos_API.Controllers
 				var orderDetailsGroup = orderDetailList.Where(od => od.OrderID == order.ID).ToList();
 				Global.InsertImagePreURL<OrderDetail>(orderDetailsGroup);
 				order.Items = orderDetailsGroup;
-				foreach (var od in orderDetailsGroup)
+
+                order.ItemDiscountAmount = 0.0;
+
+                foreach (var od in orderDetailsGroup)
 				{
 					var orderDetailsModGroup = modifierList.Where(odm => odm.OrderDetailID == od.OrderDetailID).ToList();
 					od.Modifiers = orderDetailsModGroup;
+					order.ItemDiscountAmount += (double)od.DiscountPrice;
 				}
 				res.Add(order);
             }

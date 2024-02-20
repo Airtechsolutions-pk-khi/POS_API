@@ -63,20 +63,24 @@ var app = builder.Build();
 
 #region Swagger for Development only
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
+if (app.Environment.IsDevelopment())
+{
+	app.UseSwagger();
+	app.UseSwaggerUI();
+}
 #endregion
-
+if (app.Environment.IsProduction())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 #region Swagger for Production and Development
 app.UseSwagger();
 
-//app.UseSwaggerUI(c =>
+//app.useswaggerui(c =>
 //{
-//	c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Documentation");
-//	c.RoutePrefix = string.Empty; // Serve the Swagger UI at the root URL
+//	c.swaggerendpoint("/swagger/v1/swagger.json", "api documentation");
+//	c.routeprefix = string.empty; // serve the swagger ui at the root url
 //});
 
 app.UseSwaggerUI();

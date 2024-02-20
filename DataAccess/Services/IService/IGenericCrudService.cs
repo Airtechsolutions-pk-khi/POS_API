@@ -7,5 +7,6 @@
         //Task InsertModifier<T>(string SP, T parameters);
         Task<S> SaveSingleQueryable<S, T>(string SP, T parameters);
 		Task<T> LoadSingleOrDefaultData<T, U>(string SP, U parameters);
+
 	}
 }
