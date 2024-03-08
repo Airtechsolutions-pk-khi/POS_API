@@ -28,5 +28,15 @@ namespace Pos_API.Controllers
 			if (result == null) return BadRequest();
 			return Ok(new { message = Message.Success, data = result });
 		}
-	}
+        [HttpGet("StockReport/{LocationID}")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> StockReport(int LocationID)
+        {
+            _Logger.LogInformation("Getting data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            var result = await _data.GetStockReportData(LocationID);
+            if (result == null) return BadRequest();
+            return Ok(new { message = Message.Success, data = result });
+        }
+    }
 }

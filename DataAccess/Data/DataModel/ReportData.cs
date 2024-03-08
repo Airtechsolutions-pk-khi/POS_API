@@ -12,15 +12,22 @@ namespace DataAccess.Data.DataModel
 		{
 			_service = service;
 		}
-
-		public async Task<Report?> GetXZReportData(int SubUserID, int LocationID, DateTime OrderStartDate, DateTime OrderLastDate)
-		{
+        public async Task<IEnumerable<StockReport>> GetStockReportData(int LocationID)
+        {
+            var result = await _service.LoadData<StockReport, dynamic>(
+                  "[dbo].[sp_StockStoreSummary_P_API]",
+                  new { LocationID});
              
-            var result = await _service.LoadSingleOrDefaultData<Report, dynamic>(
-				"[dbo].[sp_ZXReport_P_API]",
-				new { SubUserID, LocationID, OrderLastDate, OrderStartDate });
- 
+            return result;
+        }
 
+        public async Task<Report?> GetXZReportData(int SubUserID, int LocationID, DateTime OrderStartDate, DateTime OrderLastDate)
+		{
+            
+               var result = await _service.LoadSingleOrDefaultData<Report, dynamic>(
+                    "[dbo].[sp_ZXReport_P_API]",
+                    new { SubUserID, LocationID, OrderLastDate, OrderStartDate });
+             
             var resultOrderType = await _service.LoadData<CardTypeModel, dynamic>(
                 "[dbo].[sp_RptOrderType_P_API]",
                 new { SubUserID, LocationID, OrderLastDate, OrderStartDate });
