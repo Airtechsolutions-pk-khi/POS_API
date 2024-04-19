@@ -10,7 +10,7 @@
 		public string? SubCategoryName { get; set; }
 		public int? UnitID { get; set; }
 		public string? Name { get; set; }
-		public int? Quantity { get; set; }
+		public float? Quantity { get; set; }
         public double? DiscountPrice { get; set; }
         public string? ArabicName { get; set; }
 		public string? NameOnReceipt { get; set; }

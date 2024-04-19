@@ -12,7 +12,7 @@ namespace DataAccess.Data.DataModel
 		{
 			_service = service;
 		}
-        public async Task<IEnumerable<StockReport>> GetStockReportData(int LocationID)
+        public async Task<IEnumerable<StockReport>> GetStockReportData(string LocationID)
         {
             var result = await _service.LoadData<StockReport, dynamic>(
                   "[dbo].[sp_StockStoreSummary_P_API]",

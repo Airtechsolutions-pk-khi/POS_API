@@ -35,7 +35,8 @@ namespace DataAccess.Models
 		public bool? IsOrderFbr { get; set; } = false;
 		public string? FbrStatus { get; set; } = "";
 		public double? GrandTotal { get; set; } = 0;
-		public double? AmountTotal { get; set; } = 0;
+        public double? RefundAmount { get; set; } = 0;
+        public double? AmountTotal { get; set; } = 0;
 		public double? AmountDiscount { get; set; } = 0;
 		public double? ServiceCharges { get; set; } = 0;
 		public double? Tax { get; set; } = 0;

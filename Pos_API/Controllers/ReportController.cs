@@ -30,7 +30,7 @@ namespace Pos_API.Controllers
 		}
         [HttpGet("StockReport/{LocationID}")]
         [Authorize(Roles = "Cashier")]
-        public async Task<IActionResult> StockReport(int LocationID)
+        public async Task<IActionResult> StockReport(string LocationID)
         {
             _Logger.LogInformation("Getting data...");
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");

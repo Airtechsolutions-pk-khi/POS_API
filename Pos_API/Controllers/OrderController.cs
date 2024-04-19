@@ -37,8 +37,19 @@ namespace Pos_API.Controllers
 			var Tax = model.Tax;
 			return Ok( new{ data = result, message = Message.Success } );
 		}
+        [HttpPost("Credit")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> CreditInsert(Order<Item> model)
+        {
+            _logger.LogInformation("Saving data...");
+            if (model == null) return BadRequest(Message.CanNotBeNull);
+            var result = await _data.SaveData(model);
+            var GrandTotal = model.GrandTotal;
+            var Tax = model.Tax;
+            return Ok(new { data = result, message = Message.Success });
+        }
 
-		[HttpPost("Update")]
+        [HttpPost("Update")]
 		[Authorize(Roles = "Cashier")]
 		public async Task<IActionResult> Update(Order<Item> model)
 		{
@@ -104,6 +115,65 @@ namespace Pos_API.Controllers
 					order.ItemDiscountAmount += (double)od.DiscountPrice;
 				}
 				res.Add(order);
+            }
+            return res;
+        }
+
+
+        [HttpGet("GetOrderByID/{LocationID}/{OrderID}")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> GetOrderByOrderID(int LocationID, int OrderID)
+        {
+            _logger.LogInformation("Getting data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            var result = await GetOrderByID(LocationID, OrderID);
+            if (result == null) return BadRequest();
+            return Ok(new { message = Message.Success, data = result });
+        }
+        private async Task<List<Order<OrderDetail>>> GetOrderByID(int LocationID,int OrderID)
+        {
+            List<Order<OrderDetail>>? res;
+
+            string key = string.Format("{0}{1}{2}", LocationID.ToString(), "OrdersList", OrderID);
+            res = _cache.Get<List<Order<OrderDetail>>>(key);
+            if (res == null)
+            {
+                res = await GetOrder(LocationID, OrderID);
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+
+            return res;
+        }
+        private async Task<List<Order<OrderDetail>>> GetOrder(int LocationID, int OrderID)
+        {
+            List<Order<OrderDetail>> res = new();
+
+            var orderTask = _data.GetOrderByID(LocationID, OrderID);
+            var orderDetailTask = _data.GetOrderDetailsByID(LocationID, OrderID);
+            var orderDetailmodTask = _data.GetOrderIDModifiers(LocationID, OrderID);
+
+
+            await Task.WhenAll(orderTask, orderDetailTask);
+
+            var orderList = orderTask.Result;
+            var orderDetailList = orderDetailTask.Result;
+            var modifierList = orderDetailmodTask.Result;
+
+            foreach (var order in orderList)
+            {
+                var orderDetailsGroup = orderDetailList.Where(od => od.OrderID == order.ID).ToList();
+                Global.InsertImagePreURL<OrderDetail>(orderDetailsGroup);
+                order.Items = orderDetailsGroup;
+
+                order.ItemDiscountAmount = 0.0;
+
+                foreach (var od in orderDetailsGroup)
+                {
+                    var orderDetailsModGroup = modifierList.Where(odm => odm.OrderDetailID == od.OrderDetailID).ToList();
+                    od.Modifiers = orderDetailsModGroup;
+                    order.ItemDiscountAmount += (double)od.DiscountPrice;
+                }
+                res.Add(order);
             }
             return res;
         }

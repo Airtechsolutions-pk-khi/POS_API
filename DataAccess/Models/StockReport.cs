@@ -8,6 +8,7 @@ namespace DataAccess.Models
         public string Barcode { get; set; } = "";
         public Nullable<double> CostPrice { get; set; } = 0;
         public string StoreName { get; set; } = "";
+        public string LocationName { get; set; } = "";
         public Nullable<double> MinimumStock { get; set; } = 0;
         public Nullable<double> CurrentStock { get; set; } = 0;
         public Nullable<double> OpeningStock { get; set; } = 0;

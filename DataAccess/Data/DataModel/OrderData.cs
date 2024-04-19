@@ -86,7 +86,69 @@ namespace DataAccess.Data.DataModel
 			return or;
 		}
 
-		public async Task UpdateData(Order<Item> order) =>
+        public async Task<OrderReturn> SaveCreditData(Order<Item> order)
+        {
+            var or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_InsertCreditOrder_P_API]",
+                new { ParamTable1 = JsonConvert.SerializeObject(order) });
+
+            //or.GrandTotal = or.Total;
+            var Tax = or.Tax;
+            var orderID = or.OrderID;
+            var TransactionNo = or.TransactionNo;
+            var OrderNo = or.OrderNo;
+
+            foreach (var item in order.Items)
+            {
+                int OrderDetailID = 0;
+                try
+                {
+
+                    item.StatusID = 1;
+                    SqlParameter[] p = new SqlParameter[10];
+                    p[0] = new SqlParameter("@OrderId", orderID);
+                    p[1] = new SqlParameter("@Name", item.Name);
+                    p[2] = new SqlParameter("@Price", item.Price);
+                    p[3] = new SqlParameter("@ItemID", item.ID);
+                    p[4] = new SqlParameter("@Quantity", item.Quantity);
+                    p[5] = new SqlParameter("@StatusID", item.StatusID);
+                    p[6] = new SqlParameter("@OrderDate", DateTime.UtcNow.AddMinutes(180));
+                    p[7] = new SqlParameter("@TransactionNo", TransactionNo);
+                    p[8] = new SqlParameter("@OrderNo", OrderNo);
+                    p[9] = new SqlParameter("@DiscountPrice", item.DiscountPrice);
+
+                    OrderDetailID = int.Parse(new DBHelper().GetTableFromSP("sp_InsertOrderDetail_P_API", p).Rows[0]["ID"].ToString());
+
+                }
+                catch { }
+
+                if (item.Modifiers != null && OrderDetailID > 0)
+                {
+                    foreach (var m in item.Modifiers)
+                    {
+                        m.OrderDetailID = OrderDetailID;
+                        m.StatusID = 1;
+                        m.Type = "Modifier";
+                        SqlParameter[] p = new SqlParameter[6];
+                        p[0] = new SqlParameter("@OrderDetailID", OrderDetailID);
+                        p[1] = new SqlParameter("@ModifierID", m.ModifierID);
+                        p[2] = new SqlParameter("@Name", m.Name);
+                        p[3] = new SqlParameter("@Price", m.Price);
+                        p[4] = new SqlParameter("@Type", m.Type);
+                        p[5] = new SqlParameter("@StatusID", m.StatusID);
+                        (new DBHelper().ExecuteNonQueryReturn)("sp_InsertModifier_P_API", p);
+                    }
+                }
+            }
+
+            or.Items = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
+            var odm = await _service.LoadData<OrderModifierDetail, dynamic>("[dbo].[sp_GetOrderModifierByOrderId_P_API]", new { or.OrderID });
+            foreach (var item in or.Items)
+            {
+                item.Modifiers = odm.Where(x => x.OrderDetailID == item.ID).ToList();
+            }
+            return or;
+        }
+        public async Task UpdateData(Order<Item> order) =>
 			await _service.SaveData("[dbo].[sp_UpdateOrder_P_API_V2]",
 				new { ParamTable1 = JsonConvert.SerializeObject(order) });
 
@@ -99,6 +161,17 @@ namespace DataAccess.Data.DataModel
 			if (res == null)
 			{
 				res = await _service.LoadData<Order<OrderDetail>, dynamic>("[dbo].[sp_GetOrderByLocation_P_API]", new { LocationID, FromDate, ToDate });
+				foreach (var item in res)
+				{
+					if (item.RefundAmount != null)
+					{
+						item.IsPartial = true;
+					}
+					else {
+                        item.IsPartial = false;
+                    }
+					
+				}
 				_cache.Set(key, res, TimeSpan.FromMinutes(1));
 			}
 			return res;
@@ -129,5 +202,57 @@ namespace DataAccess.Data.DataModel
 			}
 			return res;
 		}
-	}
+
+        public async Task<IEnumerable<Order<OrderDetail>>> GetOrderByID(int LocationID, int OrderID)
+        {
+            IEnumerable<Order<OrderDetail>>? res;
+
+            string key = string.Format("{0}{1}{2}", LocationID.ToString(), "Orders", OrderID);
+            res = _cache.Get<IEnumerable<Order<OrderDetail>>>(key);
+            if (res == null)
+            {
+                res = await _service.LoadData<Order<OrderDetail>, dynamic>("[dbo].[sp_GetOrderByID_P_API]", new { LocationID, OrderID });
+                foreach (var item in res)
+                {
+                    if (item.RefundAmount != null)
+                    {
+                        item.IsPartial = true;
+                    }
+                    else
+                    {
+                        item.IsPartial = false;
+                    }
+
+                }
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+            return res;
+        }
+        public async Task<IEnumerable<OrderDetail>> GetOrderDetailsByID(int LocationID, int OrderID)
+        {
+            IEnumerable<OrderDetail>? res;
+
+            string key = string.Format("{0}{1}{2}", LocationID.ToString(), "OrderDetails", OrderID);
+            res = _cache.Get<IEnumerable<OrderDetail>>(key);
+            if (res == null)
+            {
+                res = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByID_P_API]", new { LocationID, OrderID });
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+            return res;
+        }
+        public async Task<IEnumerable<OrderModifierDetail>> GetOrderIDModifiers(int LocationID, int OrderID)
+        {
+            IEnumerable<OrderModifierDetail>? res;
+
+            string key = string.Format("{0}{1}{2}", LocationID.ToString(), "Modifiers", OrderID);
+            res = _cache.Get<IEnumerable<OrderModifierDetail>>(key);
+            if (res == null)
+            {
+                res = await _service.LoadData<OrderModifierDetail, dynamic>("[dbo].[sp_GetOrderModifiersByID_P_API]", new { LocationID, OrderID });
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+            return res;
+        }
+    }
 }
