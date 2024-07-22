@@ -74,33 +74,63 @@ namespace Pos_API.Controllers
 
 			return Ok(loginModel);
 		}
+        [HttpGet("Admin/GetLoginWithEmail/{Email}/{Password}")]
+        public async Task<IActionResult> ValidateAdmin(string Email, string Password)
+        {
+            _logger.LogInformation("Getting all data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
 
-		//[HttpGet("GetSubUserLocations/{ID}")]
-  //      public async Task<IActionResult> GetSubUserLocations(int ID)
-		//{
-		//	_logger.LogInformation("Getting all data...");
-		//	if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            var result = await _authService.GetDataforAdminAuth(Email, Password);
+            if (result == null)
+            {
+                RspModel model = new()
+                {
+                    Status = 0,
+                    Description = "Invalid credentials"
+                };
+                //return Unauthorized("Invalid credentials.");
+                return Ok(model);
+            }
+            var Locations = await _authService.GetLocationsByUserID(result.ID);
 
-		//	var result = await _authService.GetDataforSubUserLocations(ID);
+            var jwt = GenerateJwt(Email, result?.Email ?? "", "Admin");
 
-		//	if (result == null) return NotFound("Invalid credentials.");
+            AdminLoginModel loginModel = new()
+            {
+                Token = jwt,
+                UserData = result,
+                Locations = Locations
+            };
 
-		//	return Ok(new {Locations = result});
-		//}
+            return Ok(loginModel);
+        }
 
-		//[HttpGet("Logout")]
-  //      public IActionResult Logout()
-  //      {
-		//	// Delete the JwtToken cookie by setting its value to null and its expiration date to a past date
-		//	Response.Cookies.Append("JwtToken", "", new CookieOptions
-		//	{
-		//		Expires = DateTime.Now.AddDays(-1)
-		//	});
+        //[HttpGet("GetSubUserLocations/{ID}")]
+        //      public async Task<IActionResult> GetSubUserLocations(int ID)
+        //{
+        //	_logger.LogInformation("Getting all data...");
+        //	if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
 
-		//	return Ok();
-		//}
+        //	var result = await _authService.GetDataforSubUserLocations(ID);
 
-		internal string GenerateJwt(string userId, string email, string role)
+        //	if (result == null) return NotFound("Invalid credentials.");
+
+        //	return Ok(new {Locations = result});
+        //}
+
+        //[HttpGet("Logout")]
+        //      public IActionResult Logout()
+        //      {
+        //	// Delete the JwtToken cookie by setting its value to null and its expiration date to a past date
+        //	Response.Cookies.Append("JwtToken", "", new CookieOptions
+        //	{
+        //		Expires = DateTime.Now.AddDays(-1)
+        //	});
+
+        //	return Ok();
+        //}
+
+        internal string GenerateJwt(string userId, string email, string role)
 		{
 			var claims = new[] {
                     new Claim(JwtRegisteredClaimNames.Sub, _configuration.GetValue<string>("Jwt:Subject")),

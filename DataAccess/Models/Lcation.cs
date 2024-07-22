@@ -8,7 +8,8 @@ namespace DataAccess.Models
 {
 	public class Location
 	{
-		public int LocationID { get; set; }
+		public int ID { get; set; }
+        public int LocationID { get; set; }
         public int CountryID { get; set; }
         public int CityID { get; set; }
         public string? Name { get; set; }

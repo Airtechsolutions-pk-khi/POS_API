@@ -17,10 +17,15 @@
 		public string? Description { get; set; }
 		public string? ArabicDescription { get; set; }
 		public string? Image { get; set; }
-		public string? Barcode { get; set; }
+        public Nullable<bool> IsSelected { get; set; }
+        public Nullable<double> UnitPrice { get; set; }
+        public Nullable<double> RefundPrice { get; set; }
+        public Nullable<double> RefundQuantity { get; set; }
+        public string? Barcode { get; set; }
 		public string? SKU { get; set; }
 		public int? DisplayOrder { get; set; }
-		public bool? IsOpenPrice { get; set; }
+        public int? ItemMode { get; set; }
+        public bool? IsOpenPrice { get; set; }
         public bool? IsFeatured { get; set; }
         public double? Price { get; set; }
         public double? MinPrice { get; set; }

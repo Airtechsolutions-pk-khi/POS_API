@@ -6,5 +6,6 @@ namespace DataAccess.Data.IDataModel
     {
         Task<Report?> GetXZReportData(int SubUserID, int LocationID, DateTime OrderStartDate, DateTime OrderLastDate);
         Task<IEnumerable<StockReport>> GetStockReportData(string LocationID);
+        
     }
 }

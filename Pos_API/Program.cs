@@ -57,6 +57,8 @@ builder.Services.AddScoped<IWaiterData, WaiterData>();
 builder.Services.AddScoped<ITablesData, TablesData>();
 builder.Services.AddScoped<ICustomerData, CustomerData>();
 builder.Services.AddScoped<IReportData, ReportData>();
+builder.Services.AddScoped<IRefundOrderData, RefundOrderData>();
+builder.Services.AddScoped<IAdminData, AdminData>();
 #endregion
 
 var app = builder.Build();

@@ -85,7 +85,63 @@ namespace DataAccess.Data.DataModel
             return result.FirstOrDefault();
 		}
 
-		public async Task<IEnumerable<Location>?> GetDataforSubUserLocations(int ID)
+        public async Task<User?> GetDataforAdminAuth(string Email, string Password)
+        {
+            var result = await _service.LoadData<User, dynamic>(
+                "[dbo].[sp_LoginUser_P_API]",
+                new { Email, Password });
+            
+            foreach (var item in result.ToList())
+            {
+                if (item.UserType == "1")
+                {
+                    item.Designation = "MANAGER";
+                }
+                else if (item.UserType == "2")
+                {
+                    item.Designation = "CASHIER";
+                }
+                else if (item.UserType == "3")
+                {
+                    item.Designation = "STAFF";
+                }
+                else if (item.UserType == "4")
+                {
+                    item.Designation = "CEO";
+                }
+                else if (item.UserType == "5")
+                {
+                    item.Designation = "ACCOUNTANT";
+                }
+                else if (item.UserType == "6")
+                {
+                    item.Designation = "STORE INCHARGE";
+                }
+                else if (item.UserType == "7")
+                {
+                    item.Designation = "SUPERVISOR";
+                }
+                else if (item.UserType == "8")
+                {
+                    item.Designation = "WAITER";
+                }
+                else if (item.UserType == "9")
+                {
+                    item.Designation = "PRODUCT MANAGER";
+                }
+                else if (item.UserType == "10")
+                {
+                    item.Designation = "INVENTORY STAFF";
+                }
+                else
+                {
+                    item.Designation = "N/A";
+                }
+            }
+            return result.FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<Location>?> GetDataforSubUserLocations(int ID)
 		{
 			var result = await _service.LoadData<Location, dynamic>(
 				"[dbo].[sp_SubUserLocations_P_API]",
@@ -105,5 +161,26 @@ namespace DataAccess.Data.DataModel
             }
             return result;
 		}
-	}
+        public async Task<IEnumerable<Location>?> GetLocationsByUserID(int ID)
+        {
+            var result = await _service.LoadData<Location, dynamic>(
+                "[dbo].[sp_GetLocationsByUserID_Track_API]",
+                new { ID });
+
+            foreach (var item in result.ToList())
+            {
+                if (item.ImageURL != null && item.ImageURL != "")
+                {
+                    item.ImageURL = "http://retail.premium-pos.com/" + item.ImageURL;
+                }
+                else
+                {
+                    item.ImageURL = "";
+
+                }
+            }
+            return result;
+        }
+         
+    }
 }
