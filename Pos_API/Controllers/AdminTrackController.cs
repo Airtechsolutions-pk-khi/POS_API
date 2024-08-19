@@ -85,5 +85,14 @@ namespace Pos_API.Controllers
             if (result == null) return BadRequest();
             return Ok(new { message = Message.Success, data = result });
         }
+        [HttpGet("Admin/Branches/{userid}")]
+        public async Task<IActionResult> Branches(int userid)
+        {
+            _Logger.LogInformation("Getting all data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            var result = await _data.Branches(userid);
+            if (result == null) return BadRequest();
+            return Ok(new { message = Message.Success, data = result });
+        }
     }
 }

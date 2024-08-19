@@ -13,5 +13,6 @@ namespace DataAccess.Data.IDataModel
         Task<IEnumerable<SeavenDaysSales>> LastSeavenDaysSales(string Locations);
 
         Task<IEnumerable<SalesSummary>> SalesSummary(string Locations, string StartDate, string LastDate);
+        Task<IEnumerable<Branches>> Branches(int userid);
     }
 }

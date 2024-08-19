@@ -62,7 +62,16 @@ namespace DataAccess.Data.DataModel
 
             return result;
         }
+        public async Task<IEnumerable<Branches>> Branches(int userid)
+        {
+            var result = await _service.LoadData<Branches, dynamic>(
+                  "[dbo].[sp_BranchesDetail_Track_API]",
+                  new { userid });
 
+            return result;
+        }
+
+        
         public async Task<IEnumerable<SalesSummary>> SalesSummary(string Locations, string OrderStartDate, string OrderLastDate)
         {
             var dataOT = await _service.LoadData<SalesSummaryOT, dynamic>(
