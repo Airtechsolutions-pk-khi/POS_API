@@ -29,8 +29,20 @@ namespace DataAccess.Data.DataModel
 			}
 			return res;
 		}
+        public async Task<IEnumerable<Item>> GetFavoriteItems(int LocationID)
+        {
+            IEnumerable<Item>? res;
 
-		public async Task<IEnumerable<OrderModifierDetail>> GetModifiers(int itemid)
+            string key = string.Format("{0}{1}", LocationID.ToString(), "Items");
+            res = _cache.Get<IEnumerable<Item>>(key);
+            if (res == null)
+            {
+                res = await _service.LoadData<Item, dynamic>("[dbo].[sp_GetFavoriteItems_P_API]", new { LocationID });
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+            return res;
+        }
+        public async Task<IEnumerable<OrderModifierDetail>> GetModifiers(int itemid)
 		{
 			IEnumerable<OrderModifierDetail>? res;
 
