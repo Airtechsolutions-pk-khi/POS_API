@@ -39,7 +39,7 @@ namespace DataAccess.Data.DataModel
             p[8] = new SqlParameter("@OrderCreatedDT", order.CreatedOn);
             p[9] = new SqlParameter("@DeliveryAddress", order.DeliveryAddress);
             p[10] = new SqlParameter("@DeliveryTime", order.DeliveryTime);
-            p[11] = new SqlParameter("@StatusID", order.StatusID);
+            p[11] = new SqlParameter("@StatusID", 1);
             p[12] = new SqlParameter("@LastUpdateBy", order.LastUpdatedBy);
             p[13] = new SqlParameter("@LastUpdateDT", order.LastUpdatedDate);
             p[14] = new SqlParameter("@DeliveryStatus", order.DeliveryStatus);
