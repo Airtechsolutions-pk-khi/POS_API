@@ -49,6 +49,7 @@ builder.Services.AddCors();
 #region Services
 builder.Services.AddScoped<IGenericCrudService, GenericCrudService>();
 builder.Services.AddScoped<IAuthData, AuthData>();
+builder.Services.AddScoped<IHoldOrderData, HoldOrderData>();
 builder.Services.AddScoped<ICategoryData, CategoryData>();
 builder.Services.AddScoped<ISubCategoryData, SubCategoryData>();
 builder.Services.AddScoped<IItemData, ItemData>();

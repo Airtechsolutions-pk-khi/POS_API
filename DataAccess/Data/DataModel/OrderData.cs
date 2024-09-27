@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Runtime.Intrinsics.Arm;
 using System.Data.SqlClient;
 using WebAPICode.Helpers;
+using System.Transactions;
 
 namespace DataAccess.Data.DataModel
 {
@@ -25,8 +26,20 @@ namespace DataAccess.Data.DataModel
 
 		public async Task<OrderReturn> SaveData(Order<Item> order)
 		{
-			var or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_InsertOrder_P_API_V2]",
-				new { ParamTable1 = JsonConvert.SerializeObject(order) });
+
+            var or = new OrderReturn();
+            if (order.ID > 0)
+            {
+                or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_UpdateHoldOrder_P_API_V2]",
+                new { ParamTable1 = JsonConvert.SerializeObject(order) });
+
+            }
+            if (order.ID == 0)
+            {
+                or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_InsertOrder_P_API_V2]",
+                new { ParamTable1 = JsonConvert.SerializeObject(order) });
+            }
+            
 
 			//or.GrandTotal = or.Total;
 			var Tax = or.Tax;
@@ -53,7 +66,15 @@ namespace DataAccess.Data.DataModel
 					p[8] = new SqlParameter("@OrderNo", OrderNo);
                     p[9] = new SqlParameter("@DiscountPrice", item.DiscountPrice);
 
-                    OrderDetailID = int.Parse(new DBHelper().GetTableFromSP("sp_InsertOrderDetail_P_API", p).Rows[0]["ID"].ToString());
+                    if (item.ItemMode == 1)
+                    {
+                        OrderDetailID = int.Parse(new DBHelper().GetTableFromSP("sp_InsertOrderDetail_P_API", p).Rows[0]["ID"].ToString());
+                    }
+                    if (item.ItemMode == 2)
+                    {
+                        OrderDetailID = int.Parse(new DBHelper().GetTableFromSP("sp_UpdateOrderDetail_P_API", p).Rows[0]["ID"].ToString());
+                    }
+                    
 
 				}
 				catch { }
@@ -254,5 +275,48 @@ namespace DataAccess.Data.DataModel
             }
             return res;
         }
+        public async Task DeleteCustomerFromCart(Item Item)
+		{
+			//await _service.SaveData<dynamic>("[dbo].[sp_UpdateCustomer_P_API]",
+			// new { ParamTable1 = JsonConvert.SerializeObject(Item) });
+			try
+			{
+                if (Item.ItemMode == 3)
+                {
+                    if (Item.OrderID != null)
+                    {
+                        SqlParameter[] p = new SqlParameter[2];
+                        p[0] = new SqlParameter("@ItemID", Item.ID);
+                        p[1] = new SqlParameter("@OrderID", Item.OrderID);
+
+                        var dataTable = await new DBHelper().GetTableFromSPAsync("sp_DeleteCartOrderDetail_P_API", p);
+                    }
+                    
+
+                    //if (dataTable != null && dataTable.Rows.Count > 0)
+                    //{
+                    //    var OrderDetailID = int.Parse(dataTable.Rows[0]["ID"].ToString());
+                    //}
+                    //else
+                    //{
+
+                    //    throw new Exception("No data returned from stored procedure.");
+                    //}
+                }
+                else
+                {
+
+                }
+               
+
+                //var OrderDetailID = await  int.Parse(new DBHelper().GetTableFromSPAsync("sp_InsertOrderDetail_P_API", p).Rows[0]["ID"].ToString());
+            }
+			catch (Exception ex)
+			{
+
+				 
+			}
+        }
+         
     }
 }

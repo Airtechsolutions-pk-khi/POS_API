@@ -43,7 +43,7 @@ namespace Pos_API.Controllers
         {
             _logger.LogInformation("Saving data...");
             if (model == null) return BadRequest(Message.CanNotBeNull);
-            var result = await _data.SaveData(model);
+            var result = await _data.SaveCreditData(model);
             var GrandTotal = model.GrandTotal;
             var Tax = model.Tax;
             return Ok(new { data = result, message = Message.Success });

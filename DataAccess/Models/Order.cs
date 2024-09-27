@@ -4,7 +4,8 @@ namespace DataAccess.Models
     public class Order<T>
 	{
 		public int ID { get; set; }
-		public string? CustomerID { get; set; }
+        public int? OrderID { get; set; }
+        public string? CustomerID { get; set; }
 		public int? LocationID { get; set; } 
 		public int? TransactionNo { get; set; }
 		public int? OrderNo { get; set; }
@@ -24,7 +25,7 @@ namespace DataAccess.Models
 		public int? LastUpdatedBy { get; set; } = 0;
         public int? Mode { get; set; } = 0;
         public DateTime? LastUpdatedDate { get; set; } = DateTime.UtcNow.AddMinutes(180);
-        public DateTime? CreatedOn { get; set; } = DateTime.UtcNow.AddMinutes(180);
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow.AddMinutes(180);
 		public DateTime? OrderDate { get; set; } = DateTime.UtcNow.AddMinutes(180);
 		public int? CreatedBy { get; set; }= 0;
 		public bool? IsAvailiable { get; set; }
