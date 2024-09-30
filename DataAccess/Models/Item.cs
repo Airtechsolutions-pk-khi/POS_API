@@ -3,7 +3,8 @@
 	public class Item
 	{
 		public int ID { get; set; }
-		public int? CategoryID { get; set; }
+        public int? OrderID { get; set; }
+        public int? CategoryID { get; set; }
 		public int? LocationID { get; set; }
 		public int? SubCategoryID { get; set; }
 		public string? CategoryName { get; set; }

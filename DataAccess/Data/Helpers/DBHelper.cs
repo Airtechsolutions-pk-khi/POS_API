@@ -45,6 +45,49 @@ namespace WebAPICode.Helpers
 
             }
         }
+        public async Task<DataTable> GetTableFromSPAsync(string sp, SqlParameter[] prms)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(sp, connection)
+                    {
+                        CommandType = CommandType.StoredProcedure,
+                        CommandTimeout = connection.ConnectionTimeout
+                    };
+
+                    await connection.OpenAsync(); // Open the connection asynchronously
+
+                    command.Parameters.AddRange(prms);
+
+                    DataSet dataSet = new DataSet();
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+                    // Fill the DataSet asynchronously
+                    await Task.Run(() => adapter.Fill(dataSet));
+
+                    command.Parameters.Clear();
+
+                    if (dataSet.Tables.Count > 0)
+                    {
+                        return dataSet.Tables[0];
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    await connection.CloseAsync(); // Close the connection asynchronously
+                }
+            }
+        }
 
         public DataTable GetTableFromSP(string sp, SqlParameter[] prms)
         {

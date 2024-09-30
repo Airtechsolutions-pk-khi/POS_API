@@ -59,7 +59,9 @@ namespace Pos_API.Controllers
 			return Ok( new{ message = Message.Success } );
 		}
 
-		[HttpGet("GetOrderByLocation/{LocationID}/{FromDate}/{ToDate}")]
+         
+
+        [HttpGet("GetOrderByLocation/{LocationID}/{FromDate}/{ToDate}")]
 		[Authorize(Roles = "Cashier")]
 		public async Task<IActionResult> GetOrderByLocation(int LocationID, DateTime FromDate, DateTime ToDate)
 		{
@@ -90,8 +92,10 @@ namespace Pos_API.Controllers
             List<Order<OrderDetail>> res = new();
 
             var orderTask = _data.GetOrderByLocation(LocationID, FromDate, ToDate);
+
 			var orderDetailTask = _data.GetOrderDetailsByLocation(LocationID, FromDate, ToDate);
-			var orderDetailmodTask = _data.GetOrderModifiers(LocationID, FromDate, ToDate);
+            
+            var orderDetailmodTask = _data.GetOrderModifiers(LocationID, FromDate, ToDate);
 
 
 			await Task.WhenAll(orderTask, orderDetailTask);
@@ -176,6 +180,16 @@ namespace Pos_API.Controllers
                 res.Add(order);
             }
             return res;
+        }
+        [HttpPost("DeleteCartItems")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> Edit(Item model)
+        {
+            _logger.LogInformation("Saving data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            Global.StrDateTimeSqlFormat(model);
+            await _data.DeleteCustomerFromCart(model);
+            return Ok(new { message = Message.Success });
         }
     }
 }
