@@ -31,7 +31,6 @@ namespace DataAccess.Data.DataModel
             }
             return res;
         }
-        
         public async Task<RspModel> SaveExpenseType(ExpenseType expenseType)
         {
             RspModel model = new RspModel();
@@ -65,18 +64,181 @@ namespace DataAccess.Data.DataModel
                 }
             }
             catch (Exception)
-            {
-                 
-            }            
-            
-            
-            
+            { }
             return model;
         }
-        public async Task EditCustomer(Customer customer) =>
-            await _service.SaveData<dynamic>("[dbo].[sp_UpdateCustomer_P_API]",
-                new { ParamTable1 = JsonConvert.SerializeObject(customer) });
 
-        
+        public async Task<RspModel> SaveExpense(Expense expense)
+        {
+            RspModel model = new RspModel();
+            try
+            {
+                SqlParameter[] parm = new SqlParameter[8];
+                parm[0] = new SqlParameter("@ExpenseTypeID", expense.ExpenseTypeID);
+                parm[1] = new SqlParameter("@LocationID", expense.LocationID);
+                parm[2] = new SqlParameter("@Name", expense.Name);
+                parm[3] = new SqlParameter("@Amount", expense.Amount);
+                parm[4] = new SqlParameter("@Date", expense.Date);
+                parm[5] = new SqlParameter("@Reason", expense.Reason);
+                parm[6] = new SqlParameter("@StatusID", 1);
+                parm[7] = new SqlParameter("@CreatedDate", DateTime.UtcNow.AddMinutes(180));
+                int? id = int.Parse(new DBHelper().GetTableFromSP("sp_InsertExpense_P_API", parm).Rows[0]["ID"].ToString());
+                if (id != null || id > 0)
+                {
+                    model = new()
+                    {
+                        Status = 1,
+                        Description = "Expense is Added!"
+                    };
+                    return model;
+                }
+                else
+                {
+                    RspModel model1 = new()
+                    {
+                        Status = 0,
+                        Description = "Error!"
+                    };
+                    return model1;
+                }
+            }
+            catch (Exception)
+            { }
+            return model;
+        }
+
+        public async Task<IEnumerable<ExpenseType>> GetExpenseTypeByLocation(int LocationID)
+        {
+            IEnumerable<ExpenseType>? res;
+
+            string key = string.Format("{0}{1}", LocationID.ToString(), "ExpenseType");
+            res = _cache.Get<IEnumerable<ExpenseType>>(key);
+            if (res == null)
+            {
+                res = await _service.LoadData<ExpenseType, dynamic>("[dbo].[sp_GetExpenseTypeByLocation_P_API]", new { LocationID });
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+            return res;
+        }
+
+        public async Task<IEnumerable<Expense>> GetExpenseByLocation(int LocationID, DateTime FromDate, DateTime ToDate)
+        {
+            IEnumerable<Expense>? res;
+
+            string key = string.Format("{0}{1}", LocationID.ToString(), "Expense", FromDate.ToString(), ToDate.ToString());
+            res = _cache.Get<IEnumerable<Expense>>(key);
+            if (res == null)
+            {
+                res = await _service.LoadData<Expense, dynamic>("[dbo].[sp_GetExpenseByLocation_P_API]", new { LocationID, FromDate, ToDate });
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+            return res;
+        }
+
+        public async Task<IEnumerable<ExpenseType>> GetExpenseTypeByID(int LocationID, int ExpenseTypeID)
+        {
+            IEnumerable<ExpenseType>? res;
+
+            string key = string.Format("{0}{1}", LocationID.ToString(), "ExpenseType");
+            res = _cache.Get<IEnumerable<ExpenseType>>(key);
+            if (res == null)
+            {
+                res = await _service.LoadData<ExpenseType, dynamic>("[dbo].[sp_GetExpenseTypeByID_P_API]", new { LocationID, ExpenseTypeID });
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+            return res;
+        }
+
+        public async Task<IEnumerable<Expense>> GetExpenseByID(int LocationID, int ExpenseID)
+        {
+            IEnumerable<Expense>? res;
+
+            string key = string.Format("{0}{1}", LocationID.ToString(), "Expense");
+            res = _cache.Get<IEnumerable<Expense>>(key);
+            if (res == null)
+            {
+                res = await _service.LoadData<Expense, dynamic>("[dbo].[sp_GetExpenseByID_P_API]", new { LocationID, ExpenseID });
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+            return res;
+        }
+
+        public async Task<RspModel> UpdateExpense(Expense expense)
+        {
+            RspModel model = new RspModel();
+            try
+            {
+                SqlParameter[] parm = new SqlParameter[9];
+                parm[0] = new SqlParameter("@ExpenseTypeID", expense.ExpenseTypeID);
+                parm[1] = new SqlParameter("@LocationID", expense.LocationID);
+                parm[2] = new SqlParameter("@Name", expense.Name);
+                parm[3] = new SqlParameter("@Amount", expense.Amount);
+                parm[4] = new SqlParameter("@Date", expense.Date);
+                parm[5] = new SqlParameter("@Reason", expense.Reason);
+                parm[6] = new SqlParameter("@StatusID", 1);
+                parm[7] = new SqlParameter("@LastUpdatedDate", DateTime.UtcNow.AddMinutes(180));
+                parm[8] = new SqlParameter("@ExpenseID", expense.ExpenseID);
+                int? id = int.Parse(new DBHelper().GetTableFromSP("sp_UpdateExpense_P_API", parm).Rows[0]["ID"].ToString());
+                if (id != null || id > 0)
+                {
+                    model = new()
+                    {
+                        Status = 1,
+                        Description = "Expense Updated!"
+                    };
+                    return model;
+                }
+                else
+                {
+                    RspModel model1 = new()
+                    {
+                        Status = 0,
+                        Description = "Error!"
+                    };
+                    return model1;
+                }
+            }
+            catch (Exception)
+            { }
+            return model;
+        }
+
+        public async Task<RspModel> UpdateExpenseType(ExpenseType expenseType)
+        {
+            RspModel model = new RspModel();
+            try
+            {
+                SqlParameter[] parm = new SqlParameter[6];
+                parm[0] = new SqlParameter("@LocationID", expenseType.LocationID);
+                parm[1] = new SqlParameter("@Name", expenseType.Name);
+                parm[2] = new SqlParameter("@Description", expenseType.Description);
+                parm[3] = new SqlParameter("@StatusID", 1);
+                parm[4] = new SqlParameter("@LastUpdatedDate", DateTime.UtcNow.AddMinutes(180));
+                parm[5] = new SqlParameter("@ExpenseTypeID", expenseType.ExpenseTypeID);
+                int? id = int.Parse(new DBHelper().GetTableFromSP("sp_UpdateExpenseType_P_API", parm).Rows[0]["ID"].ToString());
+                if (id != null || id > 0)
+                {
+                    model = new()
+                    {
+                        Status = 1,
+                        Description = "Expense Type Updated!"
+                    };
+                    return model;
+                }
+                else
+                {
+                    RspModel model1 = new()
+                    {
+                        Status = 0,
+                        Description = "Error!"
+                    };
+                    return model1;
+                }
+            }
+            catch (Exception)
+            { }
+            return model;
+        }
+
     }
 }
