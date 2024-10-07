@@ -135,5 +135,41 @@ namespace Pos_API.Controllers
                 return Ok(res);
             }
         }
+
+        [HttpPost("DeleteExpenseType")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> DeleteExpenseType(ExpenseType model)
+        {
+            _logger.LogInformation("Saving data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            Global.StrDateTimeSqlFormat(model);
+            var res = await _data.DeleteExpenseType(model);
+            if (res.Description == "Error!")
+            {
+                return BadRequest(res);
+            }
+            else
+            {
+                return Ok(res);
+            }
+        }
+
+        [HttpPost("DeleteExpense")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> DeleteExpense(Expense model)
+        {
+            _logger.LogInformation("Saving data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            Global.StrDateTimeSqlFormat(model);
+            var res = await _data.DeleteExpense(model);
+            if (res.Description == "Error!")
+            {
+                return BadRequest(res);
+            }
+            else
+            {
+                return Ok(res);
+            }
+        }
     }
 }

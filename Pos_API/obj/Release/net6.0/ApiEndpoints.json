@@ -1,0 +1,731 @@
+[
+  {
+    "ContainingType": "Pos_API.Controllers.AdminTrackController",
+    "Method": "BestItems",
+    "RelativePath": "api/AdminTrack/Admin/BestItems/{Locations}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.AdminTrackController",
+    "Method": "Branches",
+    "RelativePath": "api/AdminTrack/Admin/Branches/{userid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.AdminTrackController",
+    "Method": "BranchStats",
+    "RelativePath": "api/AdminTrack/Admin/BranchStats/{Locations}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.AdminTrackController",
+    "Method": "LastSeavenDaysSales",
+    "RelativePath": "api/AdminTrack/Admin/LastSeavenDaysSales/{Locations}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.AdminTrackController",
+    "Method": "ValidateSubUser",
+    "RelativePath": "api/AdminTrack/Admin/OverView/{Locations}/{StartDate}/{EndDate}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "StartDate",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "EndDate",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.AdminTrackController",
+    "Method": "SaleSummaryMultiLocation",
+    "RelativePath": "api/AdminTrack/Admin/Report/SaleSummaryMultiLocation/{Locations}/{StartDate}/{LastDate}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "StartDate",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "LastDate",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.AdminTrackController",
+    "Method": "SaleStatistic",
+    "RelativePath": "api/AdminTrack/Admin/SaleStats/{Locations}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.AdminTrackController",
+    "Method": "StockAlert",
+    "RelativePath": "api/AdminTrack/Admin/StockAlert/{Locations}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.CustomerController",
+    "Method": "Edit",
+    "RelativePath": "api/Customer/Edit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Customer",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.CustomerController",
+    "Method": "Insert",
+    "RelativePath": "api/Customer/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Customer",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "DeleteExpenseType",
+    "RelativePath": "api/Expense/DeleteExpenseType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.ExpenseType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "GetExpenseByLocation",
+    "RelativePath": "api/Expense/GetExpense/{LocationID}/{FromDate}/{ToDate}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "FromDate",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "ToDate",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "GetExpenseByID",
+    "RelativePath": "api/Expense/GetExpenseByID/{locationid}/{expenseid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "expenseid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "GetExpenseTypeByLocation",
+    "RelativePath": "api/Expense/GetExpenseType/{LocationID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "GetExpenseTypeByID",
+    "RelativePath": "api/Expense/GetExpenseTypeByID/{locationid}/{expensetypeid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "expensetypeid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "InsertExpenseType",
+    "RelativePath": "api/Expense/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.ExpenseType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "InsertExpense",
+    "RelativePath": "api/Expense/InsertExpense",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Expense",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "UpdateExpense",
+    "RelativePath": "api/Expense/UpdateExpense",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Expense",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "UpdateExpenseType",
+    "RelativePath": "api/Expense/UpdateExpenseType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.ExpenseType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.HoldOrderController",
+    "Method": "CreditInsert",
+    "RelativePath": "api/HoldOrder/Credit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Order\u00601[[DataAccess.Models.Item, DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.HoldOrderController",
+    "Method": "GetOrderByOrderID",
+    "RelativePath": "api/HoldOrder/GetOrderByID/{LocationID}/{OrderID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "OrderID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.HoldOrderController",
+    "Method": "GetOrderByLocation",
+    "RelativePath": "api/HoldOrder/GetOrderByLocation/{LocationID}/{FromDate}/{ToDate}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "FromDate",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "ToDate",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.HoldOrderController",
+    "Method": "Insert",
+    "RelativePath": "api/HoldOrder/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Order\u00601[[DataAccess.Models.Item, DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.HoldOrderController",
+    "Method": "Update",
+    "RelativePath": "api/HoldOrder/Update",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Order\u00601[[DataAccess.Models.Item, DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ItemController",
+    "Method": "GetFavItemsList",
+    "RelativePath": "api/Item/GetFavItemsList/{locationid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ItemController",
+    "Method": "GetItemsList",
+    "RelativePath": "api/Item/GetItemsList/{locationid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.LoginController",
+    "Method": "ValidateAdmin",
+    "RelativePath": "api/Login/Admin/GetLoginWithEmail/{Email}/{Password}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "Password",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.LoginController",
+    "Method": "ValidateSubUser",
+    "RelativePath": "api/Login/GetLoginWithPasscode/{BusinessKey}/{Passcode}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "BusinessKey",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "Passcode",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.OrderController",
+    "Method": "CreditInsert",
+    "RelativePath": "api/Order/Credit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Order\u00601[[DataAccess.Models.Item, DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.OrderController",
+    "Method": "Edit",
+    "RelativePath": "api/Order/DeleteCartItems",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Item",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.OrderController",
+    "Method": "GetOrderByOrderID",
+    "RelativePath": "api/Order/GetOrderByID/{LocationID}/{OrderID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "OrderID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.OrderController",
+    "Method": "GetOrderByLocation",
+    "RelativePath": "api/Order/GetOrderByLocation/{LocationID}/{FromDate}/{ToDate}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "FromDate",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "ToDate",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.OrderController",
+    "Method": "Insert",
+    "RelativePath": "api/Order/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Order\u00601[[DataAccess.Models.Item, DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.OrderController",
+    "Method": "Update",
+    "RelativePath": "api/Order/Update",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Order\u00601[[DataAccess.Models.Item, DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.RefundOrderController",
+    "Method": "GetOrderByTransNo",
+    "RelativePath": "api/RefundOrder/GetOrderByTransNo/{LocationID}/{transno}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "TransNo",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.RefundOrderController",
+    "Method": "RefundInsert",
+    "RelativePath": "api/RefundOrder/RefundInsert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Order\u00601[[DataAccess.Models.Item, DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ReportController",
+    "Method": "StockReport",
+    "RelativePath": "api/Report/StockReport/{LocationID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LocationID",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ReportController",
+    "Method": "XZReport",
+    "RelativePath": "api/Report/XZReport/{SubUserID}/{LocationID}/{OrderStartDate}/{OrderLastDate}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "SubUserID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "OrderStartDate",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      },
+      {
+        "Name": "OrderLastDate",
+        "Type": "System.DateTime",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.SettingsController",
+    "Method": "GetAllSettingsData",
+    "RelativePath": "api/Settings/GetAllSettingsData/{LocationID}/{UserID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "UserID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

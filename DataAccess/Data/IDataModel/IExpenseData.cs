@@ -20,5 +20,7 @@ namespace DataAccess.Data.IDataModel
 
         Task<RspModel> UpdateExpense(Expense expense);
         Task<RspModel> UpdateExpenseType(ExpenseType expenseType);
+        Task<RspModel> DeleteExpenseType(ExpenseType expenseType);
+        Task<RspModel> DeleteExpense(Expense expense);
     }
 }

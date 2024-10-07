@@ -181,15 +181,31 @@
   },
   {
     "ContainingType": "Pos_API.Controllers.ExpenseController",
-    "Method": "Edit",
-    "RelativePath": "api/Expense/Edit",
+    "Method": "DeleteExpense",
+    "RelativePath": "api/Expense/DeleteExpense",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "model",
-        "Type": "DataAccess.Models.Customer",
+        "Type": "DataAccess.Models.Expense",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "DeleteExpenseType",
+    "RelativePath": "api/Expense/DeleteExpenseType",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.ExpenseType",
         "IsRequired": true
       }
     ],
@@ -223,6 +239,27 @@
   },
   {
     "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "GetExpenseByID",
+    "RelativePath": "api/Expense/GetExpenseByID/{locationid}/{expenseid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "expenseid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
     "Method": "GetExpenseTypeByLocation",
     "RelativePath": "api/Expense/GetExpenseType/{LocationID}",
     "HttpMethod": "GET",
@@ -239,8 +276,77 @@
   },
   {
     "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "GetExpenseTypeByID",
+    "RelativePath": "api/Expense/GetExpenseTypeByID/{locationid}/{expensetypeid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "expensetypeid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
     "Method": "InsertExpenseType",
     "RelativePath": "api/Expense/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.ExpenseType",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "InsertExpense",
+    "RelativePath": "api/Expense/InsertExpense",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Expense",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "UpdateExpense",
+    "RelativePath": "api/Expense/UpdateExpense",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Expense",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "UpdateExpenseType",
+    "RelativePath": "api/Expense/UpdateExpenseType",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -433,6 +539,22 @@
       {
         "Name": "model",
         "Type": "DataAccess.Models.Order\u00601[[DataAccess.Models.Item, DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.OrderController",
+    "Method": "Edit",
+    "RelativePath": "api/Order/DeleteCartItems",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.Item",
         "IsRequired": true
       }
     ],
