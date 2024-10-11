@@ -67,13 +67,13 @@ namespace Pos_API.Controllers
             return Ok(new { message = Message.Success, data = result });
         }
 
-        [HttpGet("GetExpense/{LocationID}/{FromDate}/{ToDate}")]
+        [HttpGet("GetExpense/{LocationID}")]
         [Authorize(Roles = "Cashier")]
-        public async Task<IActionResult> GetExpenseByLocation(int LocationID, DateTime FromDate, DateTime ToDate)
+        public async Task<IActionResult> GetExpenseByLocation(int LocationID)
         {
             _logger.LogInformation("Getting data...");
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
-            var result = await _data.GetExpenseByLocation(LocationID, FromDate, ToDate);
+            var result = await _data.GetExpenseByLocation(LocationID);
             if (result == null) return BadRequest();
             return Ok(new { message = Message.Success, data = result });
         }

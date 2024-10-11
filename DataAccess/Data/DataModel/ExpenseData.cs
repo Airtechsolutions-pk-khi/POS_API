@@ -121,7 +121,7 @@ namespace DataAccess.Data.DataModel
             return res;
         }
 
-        public async Task<IEnumerable<Expense>> GetExpenseByLocation(int LocationID, DateTime FromDate, DateTime ToDate)
+        public async Task<IEnumerable<Expense>> GetExpenseByLocationForReport(int LocationID, DateTime? FromDate, DateTime? ToDate)
         {
             IEnumerable<Expense>? res;
 
@@ -130,6 +130,19 @@ namespace DataAccess.Data.DataModel
             if (res == null)
             {
                 res = await _service.LoadData<Expense, dynamic>("[dbo].[sp_GetExpenseByLocation_P_API]", new { LocationID, FromDate, ToDate });
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+            return res;
+        }
+        public async Task<IEnumerable<Expense>> GetExpenseByLocation(int LocationID)
+        {
+            IEnumerable<Expense>? res;
+
+            string key = string.Format("{0}{1}", LocationID.ToString(), "Expense");
+            res = _cache.Get<IEnumerable<Expense>>(key);
+            if (res == null)
+            {
+                res = await _service.LoadData<Expense, dynamic>("[dbo].[sp_GetExpenseByLocation_P_API]", new { LocationID});
                 _cache.Set(key, res, TimeSpan.FromMinutes(1));
             }
             return res;

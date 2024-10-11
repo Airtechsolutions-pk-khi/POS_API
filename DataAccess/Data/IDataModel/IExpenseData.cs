@@ -12,7 +12,7 @@ namespace DataAccess.Data.IDataModel
 
         Task<IEnumerable<ExpenseType>> GetExpenseTypeByLocation(int LocationID);
 
-        Task<IEnumerable<Expense>> GetExpenseByLocation(int LocationID, DateTime FromDate, DateTime ToDate);
+        Task<IEnumerable<Expense>> GetExpenseByLocation(int LocationID);
 
         Task<IEnumerable<ExpenseType>> GetExpenseTypeByID(int LocationID, int ExpenseTypeID);
 
