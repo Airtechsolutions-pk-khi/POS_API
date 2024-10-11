@@ -181,22 +181,6 @@
   },
   {
     "ContainingType": "Pos_API.Controllers.ExpenseController",
-    "Method": "DeleteExpense",
-    "RelativePath": "api/Expense/DeleteExpense",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "model",
-        "Type": "DataAccess.Models.Expense",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Pos_API.Controllers.ExpenseController",
     "Method": "DeleteExpenseType",
     "RelativePath": "api/Expense/DeleteExpenseType",
     "HttpMethod": "POST",
