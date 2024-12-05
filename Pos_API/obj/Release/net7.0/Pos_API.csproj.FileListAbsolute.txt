@@ -1,0 +1,6 @@
+E:\Project\POS_API\Pos_API\obj\Release\net7.0\Pos_API.csproj.AssemblyReference.cache
+E:\Project\POS_API\Pos_API\obj\Release\net7.0\Pos_API.GeneratedMSBuildEditorConfig.editorconfig
+E:\Project\POS_API\Pos_API\obj\Release\net7.0\Pos_API.AssemblyInfoInputs.cache
+E:\Project\POS_API\Pos_API\obj\Release\net7.0\Pos_API.AssemblyInfo.cs
+E:\Project\POS_API\Pos_API\obj\Release\net7.0\Pos_API.csproj.CoreCompileInputs.cache
+E:\Project\POS_API\Pos_API\obj\Release\net7.0\Pos_API.MvcApplicationPartsAssemblyInfo.cache

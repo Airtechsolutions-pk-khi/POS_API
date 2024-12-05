@@ -20,16 +20,30 @@ namespace DataAccess.Data.DataModel
 		{
 			IEnumerable<Category>? res;
 
-            string key = string.Format("{0}{1}", LocationID.ToString(), "Category");
-            res = _cache.Get<IEnumerable<Category>>(key);
-			if (res == null)
-			{
+   //         string key = string.Format("{0}{1}", LocationID.ToString(), "Category");
+   //         res = _cache.Get<IEnumerable<Category>>(key);
+			//if (res == null)
+			//{
 				res = await _service.LoadData<Category, dynamic>("[dbo].[sp_GetCategory_menu]", new { LocationID });
-				_cache.Set(key, res, TimeSpan.FromMinutes(1));
-			}
+				//_cache.Set(key, res, TimeSpan.FromMinutes(1));
+			//}
 			return res;
 		}
-		//_services.LoadData<Category, dynamic>("[dbo].[sp_GetCategory_menu]", new { LocationID });
 
-	}
+        
+        //public async Task<IEnumerable<Category>> GetFavCategories(int LocationID)
+        //{
+        //    IEnumerable<Category>? res;
+
+        //    string key = string.Format("{0}{1}", LocationID.ToString(), "Category");
+        //    res = _cache.Get<IEnumerable<Category>>(key);
+        //    if (res == null)
+        //    {
+        //        res = await _service.LoadData<Category, dynamic>("[dbo].[sp_GetCategory_menu]", new { LocationID });
+        //        _cache.Set(key, res, TimeSpan.FromMinutes(1));
+        //    }
+        //    return res;
+        //}
+
+    }
 }

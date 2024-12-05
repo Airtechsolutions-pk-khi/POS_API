@@ -29,68 +29,124 @@ namespace Pos_API.Controllers
 
         [HttpGet("GetItemsList/{locationid}")]
 		[Authorize(Roles = "Cashier")]
-		public async Task<IActionResult> GetItemsList(int locationid)
+		public async Task<IActionResult> GetItemsList(int locationid, int pageNumber, int pageSize)
 		{
-			_logger.LogInformation("Getting all data...");
-			if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
-			var result = await GetItemsSerialized(locationid);
-			if (result == null) return NotFound();
-			return Ok(new { message = Message.Success, data = new { Categories = result } });
-		}
+            _logger.LogInformation("Getting all data...");
 
-		private async Task<List<Category>> GetItemsSerialized(int locationId)
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+
+            var pagingParams = new PagingParameterModel { PageNumber = pageNumber, PageSize = pageSize };
+            var result = await GetItemsSerialized(locationid, pagingParams);
+            if (result == null) return NotFound();
+
+            return Ok(new { message = Message.Success, data = new { Categories = result } });
+            
+        }
+
+		private async Task<List<Category>> GetItemsSerialized(int locationId, PagingParameterModel pagingParams)
 		{
             List<Category>? res;
 
-            string key = string.Format("{0}{1}", locationId.ToString(), "ItemLists");
-            res = _cache.Get<List<Category>>(key);
-            if (res == null)
+            //string key = string.Format("{0}{1}", locationId.ToString(), "ItemLists");
+            //res = _cache.Get<List<Category>>(key);
+            //if (res == null)
+            //{
+                res = await GetItemsFromDb(locationId, pagingParams); // Pass paging parameters
+               // _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
+
+            return res;
+            
+        }
+		private async Task<List<Category>> GetItemsFromDb(int locationId,  PagingParameterModel pagingParams)
+		{
+            List<Category> res = new();
+            var itemsTask = _data.GetItems(locationId, pagingParams);
+            var categoriesTask = _categories.GetCategories(locationId);
+            var subcategoriesTask = _subcategories.GetSubCategories(locationId);
+
+            await Task.WhenAll(itemsTask, categoriesTask, subcategoriesTask);
+
+            var items = itemsTask.Result;
+            var categories = categoriesTask.Result
+                .Skip((pagingParams.PageNumber - 1) * pagingParams.PageSize) // Paginate Categories
+                .Take(pagingParams.PageSize)
+                .ToList();
+
+            var subcategories = subcategoriesTask.Result;
+
+            foreach (var category in categories)
             {
-                res = await GetItemsFromDb(locationId);
-                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+                Global.InsertImagePreURL<Category>(category);
+
+                // Paginate Subcategories within each Category
+                var subcategoriesGroup = subcategories.Where(sub => sub.CategoryID == category.ID)
+                    .Skip((pagingParams.PageNumber - 1) * pagingParams.PageSize)
+                    .Take(pagingParams.PageSize)
+                    .ToList();
+
+                Global.InsertImagePreURL<SubCategory>(subcategoriesGroup);
+
+                category.SubCategories = subcategoriesGroup;
+
+                foreach (var subcategory in subcategoriesGroup)
+                {
+                    // Paginate Items within each Subcategory
+                    var itemsGroup = items.Where(item => item.SubCategoryID == subcategory.ID)
+                        .Skip((pagingParams.PageNumber - 1) * pagingParams.PageSize)
+                        .Take(pagingParams.PageSize)
+                        .ToList();
+
+                    Global.InsertImagePreURL<Item>(itemsGroup);
+                    subcategory.Items = itemsGroup;
+
+                    foreach (var item in itemsGroup)
+                    {
+                        var modifiers = await _data.GetModifiers(item.ID);
+                        item.Modifiers = modifiers.ToList();
+                    }
+                }
+                res.Add(category);
             }
 
             return res;
-		}
-		private async Task<List<Category>> GetItemsFromDb(int locationId)
-		{
-			List<Category> res = new();
-			var itemsTask = _data.GetItems(locationId);
-			var categoriesTask = _categories.GetCategories(locationId);
-			var subcategoriesTask = _subcategories.GetSubCategories(locationId);
+            //List<Category> res = new();
+            //var itemsTask = _data.GetItems(locationId);
+            //var categoriesTask = _categories.GetCategories(locationId);
+            //var subcategoriesTask = _subcategories.GetSubCategories(locationId);
 
-			await Task.WhenAll(itemsTask, categoriesTask, subcategoriesTask);
+            //await Task.WhenAll(itemsTask, categoriesTask, subcategoriesTask);
 
-			var items = itemsTask.Result;
-			var categories = categoriesTask.Result;
-			var subcategories = subcategoriesTask.Result;
+            //var items = itemsTask.Result;
+            //var categories = categoriesTask.Result;
+            //var subcategories = subcategoriesTask.Result;
 
-			foreach (var category in categories)
-			{
-				Global.InsertImagePreURL<Category>(category);
+            //foreach (var category in categories)
+            //{
+            //	Global.InsertImagePreURL<Category>(category);
 
-				var subcategoriesGroup = subcategories.Where(sub => sub.CategoryID == category.ID).ToList();
-				Global.InsertImagePreURL<SubCategory>(subcategoriesGroup);
+            //	var subcategoriesGroup = subcategories.Where(sub => sub.CategoryID == category.ID).ToList();
+            //	Global.InsertImagePreURL<SubCategory>(subcategoriesGroup);
 
-				category.SubCategories = subcategoriesGroup;
+            //	category.SubCategories = subcategoriesGroup;
 
-				foreach (var subcategory in subcategoriesGroup)
-				{
-					var itemsGroup = items.Where(item => item.SubCategoryID == subcategory.ID).ToList();
-					Global.InsertImagePreURL<Item>(itemsGroup);
-					subcategory.Items = itemsGroup;
+            //	foreach (var subcategory in subcategoriesGroup)
+            //	{
+            //		var itemsGroup = items.Where(item => item.SubCategoryID == subcategory.ID).ToList();
+            //		Global.InsertImagePreURL<Item>(itemsGroup);
+            //		subcategory.Items = itemsGroup;
 
-					foreach (var item in itemsGroup)
-					{
-						var modifiers = await _data.GetModifiers(item.ID);
-						item.Modifiers = modifiers.ToList();
-					}
-				}
-				res.Add(category);
-			}
+            //		foreach (var item in itemsGroup)
+            //		{
+            //			var modifiers = await _data.GetModifiers(item.ID);
+            //			item.Modifiers = modifiers.ToList();
+            //		}
+            //	}
+            //	res.Add(category);
+            //}
 
-			return res;
-		}
+            //return res;
+        }
 
 
         [HttpGet("GetFavItemsList/{locationid}")]

@@ -177,14 +177,14 @@ namespace DataAccess.Data.DataModel
 		{
 			IEnumerable<Order<OrderDetail>>? res;
 
-			string key = string.Format("{0}{1}{2}{3}", LocationID.ToString(), "Orders", FromDate.ToString(), ToDate.ToString());
-			res = _cache.Get<IEnumerable<Order<OrderDetail>>>(key);
-			if (res == null)
-			{
+			//string key = string.Format("{0}{1}{2}{3}", LocationID.ToString(), "Orders", FromDate.ToString(), ToDate.ToString());
+			//res = _cache.Get<IEnumerable<Order<OrderDetail>>>(key);
+			//if (res == null)
+			//{
 				res = await _service.LoadData<Order<OrderDetail>, dynamic>("[dbo].[sp_GetOrderByLocation_P_API]", new { LocationID, FromDate, ToDate });
 				foreach (var item in res)
 				{
-					if (item.RefundAmount != null)
+					if (item.RefundAmount != 0)
 					{
 						item.IsPartial = true;
 					}
@@ -193,34 +193,34 @@ namespace DataAccess.Data.DataModel
                     }
 					
 				}
-				_cache.Set(key, res, TimeSpan.FromMinutes(1));
-			}
+				//_cache.Set(key, res, TimeSpan.FromMinutes(1));
+			//}
 			return res;
 		}
 		public async Task<IEnumerable<OrderDetail>> GetOrderDetailsByLocation(int LocationID, DateTime FromDate, DateTime ToDate)
 		{
 			IEnumerable<OrderDetail>? res;
 
-			string key = string.Format("{0}{1}{2}{3}", LocationID.ToString(), "OrderDetails", FromDate.ToString(), ToDate.ToString());
-			res = _cache.Get<IEnumerable<OrderDetail>>(key);
-			if (res == null)
-			{
+			//string key = string.Format("{0}{1}{2}{3}", LocationID.ToString(), "OrderDetails", FromDate.ToString(), ToDate.ToString());
+			//res = _cache.Get<IEnumerable<OrderDetail>>(key);
+			//if (res == null)
+			//{
 				res = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByLocation_P_API]", new { LocationID, FromDate, ToDate });
-				_cache.Set(key, res, TimeSpan.FromMinutes(1));
-			}
+				//_cache.Set(key, res, TimeSpan.FromMinutes(1));
+			//}
 			return res;
 		}
 		public async Task<IEnumerable<OrderModifierDetail>> GetOrderModifiers(int LocationID, DateTime FromDate, DateTime ToDate)
 		{
 			IEnumerable<OrderModifierDetail>? res;
 
-			string key = string.Format("{0}{1}{2}{3}", LocationID.ToString(), "Modifiers", FromDate.ToString(), ToDate.ToString());
-			res = _cache.Get<IEnumerable<OrderModifierDetail>>(key);
-			if (res == null)
-			{
+			//string key = string.Format("{0}{1}{2}{3}", LocationID.ToString(), "Modifiers", FromDate.ToString(), ToDate.ToString());
+			//res = _cache.Get<IEnumerable<OrderModifierDetail>>(key);
+			//if (res == null)
+			//{
 				res = await _service.LoadData<OrderModifierDetail, dynamic>("[dbo].[sp_GetOrderModifiers_P_API]", new { LocationID, FromDate, ToDate });
-				_cache.Set(key, res, TimeSpan.FromMinutes(1));
-			}
+				//_cache.Set(key, res, TimeSpan.FromMinutes(1));
+			//}
 			return res;
 		}
 
@@ -228,51 +228,51 @@ namespace DataAccess.Data.DataModel
         {
             IEnumerable<Order<OrderDetail>>? res;
 
-            string key = string.Format("{0}{1}{2}", LocationID.ToString(), "Orders", OrderID);
-            res = _cache.Get<IEnumerable<Order<OrderDetail>>>(key);
-            if (res == null)
-            {
+            //string key = string.Format("{0}{1}{2}", LocationID.ToString(), "Orders", OrderID);
+            //res = _cache.Get<IEnumerable<Order<OrderDetail>>>(key);
+            //if (res == null)
+            //{
                 res = await _service.LoadData<Order<OrderDetail>, dynamic>("[dbo].[sp_GetOrderByID_P_API]", new { LocationID, OrderID });
-                foreach (var item in res)
-                {
-                    if (item.RefundAmount != null)
-                    {
-                        item.IsPartial = true;
-                    }
-                    else
-                    {
-                        item.IsPartial = false;
-                    }
+                //foreach (var item in res)
+                //{
+                //    if (item.RefundAmount != null)
+                //    {
+                //        item.IsPartial = true;
+                //    }
+                //    else
+                //    {
+                //        item.IsPartial = false;
+                //    }
 
-                }
-                _cache.Set(key, res, TimeSpan.FromMinutes(1));
-            }
+                //}
+              //  _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
             return res;
         }
         public async Task<IEnumerable<OrderDetail>> GetOrderDetailsByID(int LocationID, int OrderID)
         {
             IEnumerable<OrderDetail>? res;
 
-            string key = string.Format("{0}{1}{2}", LocationID.ToString(), "OrderDetails", OrderID);
-            res = _cache.Get<IEnumerable<OrderDetail>>(key);
-            if (res == null)
-            {
+            //string key = string.Format("{0}{1}{2}", LocationID.ToString(), "OrderDetails", OrderID);
+            //res = _cache.Get<IEnumerable<OrderDetail>>(key);
+            //if (res == null)
+            //{
                 res = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByID_P_API]", new { LocationID, OrderID });
-                _cache.Set(key, res, TimeSpan.FromMinutes(1));
-            }
+              //  _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
             return res;
         }
         public async Task<IEnumerable<OrderModifierDetail>> GetOrderIDModifiers(int LocationID, int OrderID)
         {
             IEnumerable<OrderModifierDetail>? res;
 
-            string key = string.Format("{0}{1}{2}", LocationID.ToString(), "Modifiers", OrderID);
-            res = _cache.Get<IEnumerable<OrderModifierDetail>>(key);
-            if (res == null)
-            {
+            //string key = string.Format("{0}{1}{2}", LocationID.ToString(), "Modifiers", OrderID);
+            //res = _cache.Get<IEnumerable<OrderModifierDetail>>(key);
+            //if (res == null)
+            //{
                 res = await _service.LoadData<OrderModifierDetail, dynamic>("[dbo].[sp_GetOrderModifiersByID_P_API]", new { LocationID, OrderID });
-                _cache.Set(key, res, TimeSpan.FromMinutes(1));
-            }
+              //  _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
             return res;
         }
         public async Task DeleteCustomerFromCart(Item Item)

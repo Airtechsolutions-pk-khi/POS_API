@@ -16,19 +16,38 @@ namespace DataAccess.Data.DataModel
 			_cache = cache;
 		}
 
-		public async Task<IEnumerable<Item>> GetItems(int LocationID)
+		public async Task<IEnumerable<Item>> GetItems(int LocationID, PagingParameterModel pagingParams)
 		{
-			IEnumerable<Item>? res;
+            IEnumerable<Item>? res;
 
-            string key = string.Format("{0}{1}", LocationID.ToString(), "Items");
-            res = _cache.Get<IEnumerable<Item>>(key);
-			if (res == null)
-			{
-				res = await _service.LoadData<Item, dynamic>("[dbo].[sp_GetItems_P_API]", new { LocationID });
-				_cache.Set(key, res, TimeSpan.FromMinutes(1));
-			}
-			return res;
-		}
+            //string key = string.Format("{0}{1}", LocationID.ToString(), "Items");
+            //res = _cache.Get<IEnumerable<Item>>(key);
+            //if (res == null)
+            //{
+                res = await _service.LoadData<Item, dynamic>("[dbo].[sp_GetItems_P_API_V2]", new
+                {
+                    LocationID = LocationID,
+                    PageNumber = pagingParams.PageNumber,
+                    PageSize = pagingParams.PageSize
+                });
+                //_cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
+
+            // Paginate items
+            res = res.Skip((pagingParams.PageNumber - 1) * pagingParams.PageSize).Take(pagingParams.PageSize);
+
+            return res;
+            //IEnumerable<Item>? res;
+
+            //         string key = string.Format("{0}{1}", LocationID.ToString(), "Items");
+            //         res = _cache.Get<IEnumerable<Item>>(key);
+            //if (res == null)
+            //{
+            //	res = await _service.LoadData<Item, dynamic>("[dbo].[sp_GetItems_P_API]", new { LocationID });
+            //	_cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
+            //return res;
+        }
         public async Task<IEnumerable<Item>> GetFavoriteItems(int LocationID)
         {
             IEnumerable<Item>? res;

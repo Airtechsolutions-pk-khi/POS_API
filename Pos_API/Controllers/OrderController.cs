@@ -67,25 +67,25 @@ namespace Pos_API.Controllers
 		{
 			_logger.LogInformation("Getting data...");
 			if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
-			var result = await GetOrdersSerialized(LocationID, FromDate, ToDate);
+			var result = await GetOrderList(LocationID, FromDate, ToDate);
 			if (result == null) return BadRequest();
 			return Ok( new {message = Message.Success, data = result } );
 		}
 
-        private async Task<List<Order<OrderDetail>>> GetOrdersSerialized(int LocationID, DateTime FromDate, DateTime ToDate)
-        {
-            List<Order<OrderDetail>>? res;
+        //private async Task<List<Order<OrderDetail>>> GetOrdersSerialized(int LocationID, DateTime FromDate, DateTime ToDate)
+        //{
+        //    List<Order<OrderDetail>>? res;
 
-            string key = string.Format("{0}{1}{2}{3}", LocationID.ToString(), "OrdersList", FromDate.ToString(), ToDate.ToString());
-            res = _cache.Get<List<Order<OrderDetail>>>(key);
-            if (res == null)
-            {
-                res = await GetOrderList(LocationID, FromDate, ToDate);
-                _cache.Set(key, res, TimeSpan.FromMinutes(1));
-            }
+        //    //string key = string.Format("{0}{1}{2}{3}", LocationID.ToString(), "OrdersList", FromDate.ToString(), ToDate.ToString());
+        //    //res = _cache.Get<List<Order<OrderDetail>>>(key);
+        //    //if (res == null)
+        //    //{
+        //        res = await GetOrderList(LocationID, FromDate, ToDate);
+        //      //  _cache.Set(key, res, TimeSpan.FromMinutes(1));
+        //    //}
 
-            return res;
-        }
+        //    return res;
+        //}
 
         private async Task<List<Order<OrderDetail>>> GetOrderList(int LocationID, DateTime FromDate, DateTime ToDate)
 		{
@@ -98,7 +98,7 @@ namespace Pos_API.Controllers
             var orderDetailmodTask = _data.GetOrderModifiers(LocationID, FromDate, ToDate);
 
 
-			await Task.WhenAll(orderTask, orderDetailTask);
+			await Task.WhenAll(orderTask, orderDetailTask, orderDetailmodTask);
 
 			var orderList = orderTask.Result;
 			var orderDetailList = orderDetailTask.Result;
