@@ -42,8 +42,30 @@ namespace Pos_API.Controllers
             return Ok(new { message = Message.Success, data = new { Categories = result } });
             
         }
+        [HttpGet("GetItemsSearch/{locationid}/{name}")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> GetItemsSearch(int locationid, string name)
+        {
+            _logger.LogInformation("Getting all data...");
 
-		private async Task<List<Category>> GetItemsSerialized(int locationId, PagingParameterModel pagingParams)
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+
+            
+            var result = await _data.GetItemsByName(locationid,name);
+
+            foreach (var item in result)
+            {
+                var modifiers = await _data.GetModifiers(item.ID);
+                item.Modifiers = modifiers.ToList();
+            }
+
+            if (result == null) return NotFound();
+
+            return Ok(new { message = Message.Success, data = new { Items = result } });
+
+        }
+
+        private async Task<List<Category>> GetItemsSerialized(int locationId, PagingParameterModel pagingParams)
 		{
             List<Category>? res;
 

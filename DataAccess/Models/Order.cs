@@ -32,9 +32,9 @@ namespace DataAccess.Models
 		public string? CounterType { get; set; } = "";
 		public string? Country { get; set; } = "";
 		public string? ContactNo { get; set; } = "";
-		public int? DeliveryStatus { get; set; } = 0;
+		public int? DeliveryStatus { get; set; } 
 		public string? FbrInvoiceNumber { get; set; } = "";
-		public bool? IsOrderFbr { get; set; } = false;
+		public bool? IsOrderFbr { get; set; } 
 		public string? FbrStatus { get; set; } = "";
 		public double? GrandTotal { get; set; } = 0;
         public double? RefundAmount { get; set; } = 0;
@@ -47,7 +47,7 @@ namespace DataAccess.Models
 		public double? CashPayment { get; set; } = 0;
 		public double? CardPayment { get; set; } = 0;
 		public double? CreditPayment { get; set; } = 0;
-		public bool? IsCheckout { get; set; }= false;
+		public bool? IsCheckout { get; set; }
 		public int? PaymentMode { get; set; } = 0;
 		public double? AmountPaid { get; set; } = 0;		
         public double? DiscountPrice { get; set; } = 0;
@@ -57,7 +57,7 @@ namespace DataAccess.Models
         public string? ReferenceNo { get; set; } = "";
         public string? CardHolderName { get; set; } = "";
 		public string? CardType { get; set; } = "";
-		public bool? IsPartial { get; set; }=false;
+		public bool? IsPartial { get; set; }
 		public double? PartialAmount { get; set; }= 0;
 		public double? FbrAmount { get; set; } = 0;
 		public string? FbrInvoiceResponse { get; set; } = "";

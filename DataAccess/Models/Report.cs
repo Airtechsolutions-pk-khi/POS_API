@@ -15,6 +15,8 @@ namespace DataAccess.Models
 		public double? NetSales { get; set; } = 0;
         public int? CashOrder { get; set; } = 0;
         public double? ItemDiscountAmount { get; set; } = 0;
+        public double? OldInvRefundAmount { get; set; } = 0;
+        
         public double? CashOrderAmount { get; set;} = 0;
         public int? CreditOrder { get; set; } = 0;
 		public double? CreditOrderAmount { get; set; } = 0;

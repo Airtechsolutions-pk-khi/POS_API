@@ -115,13 +115,13 @@ namespace DataAccess.Data.DataModel
         {
             IEnumerable<ExpenseType>? res;
 
-            string key = string.Format("{0}{1}", LocationID.ToString(), "ExpenseType");
-            res = _cache.Get<IEnumerable<ExpenseType>>(key);
-            if (res == null)
-            {
+            //string key = string.Format("{0}{1}", LocationID.ToString(), "ExpenseType");
+            //res = _cache.Get<IEnumerable<ExpenseType>>(key);
+            //if (res == null)
+            //{
                 res = await _service.LoadData<ExpenseType, dynamic>("[dbo].[sp_GetExpenseTypeByLocation_P_API]", new { LocationID });
-                _cache.Set(key, res, TimeSpan.FromMinutes(1));
-            }
+               // _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
             return res;
         }
 
@@ -129,13 +129,13 @@ namespace DataAccess.Data.DataModel
         {
             IEnumerable<Expense>? res;
 
-            string key = string.Format("{0}{1}", LocationID.ToString(), "Expense", FromDate.ToString(), ToDate.ToString());
-            res = _cache.Get<IEnumerable<Expense>>(key);
-            if (res == null)
-            {
+            //string key = string.Format("{0}{1}", LocationID.ToString(), "Expense", FromDate.ToString(), ToDate.ToString());
+            //res = _cache.Get<IEnumerable<Expense>>(key);
+            //if (res == null)
+            //{
                 res = await _service.LoadData<Expense, dynamic>("[dbo].[sp_GetExpenseByLocation_P_API]", new { LocationID, FromDate, ToDate });
-                _cache.Set(key, res, TimeSpan.FromMinutes(1));
-            }
+               // _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
             return res;
         }
         public async Task<IEnumerable<Expense>> GetExpenseByLocation(int LocationID)
@@ -143,12 +143,12 @@ namespace DataAccess.Data.DataModel
             IEnumerable<Expense>? res;
 
             string key = string.Format("{0}{1}", LocationID.ToString(), "Expense");
-            res = _cache.Get<IEnumerable<Expense>>(key);
-            if (res == null)
-            {
+            //res = _cache.Get<IEnumerable<Expense>>(key);
+            //if (res == null)
+            //{
                 res = await _service.LoadData<Expense, dynamic>("[dbo].[sp_GetExpenseByLocation_P_API]", new { LocationID});
-                _cache.Set(key, res, TimeSpan.FromMinutes(1));
-            }
+               // _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
             return res;
         }
 
@@ -156,13 +156,13 @@ namespace DataAccess.Data.DataModel
         {
             IEnumerable<ExpenseType>? res;
 
-            string key = string.Format("{0}{1}", LocationID.ToString(), "ExpenseType");
-            res = _cache.Get<IEnumerable<ExpenseType>>(key);
-            if (res == null)
-            {
+            //string key = string.Format("{0}{1}", LocationID.ToString(), "ExpenseType");
+            //res = _cache.Get<IEnumerable<ExpenseType>>(key);
+            //if (res == null)
+            //{
                 res = await _service.LoadData<ExpenseType, dynamic>("[dbo].[sp_GetExpenseTypeByID_P_API]", new { LocationID, ExpenseTypeID });
-                _cache.Set(key, res, TimeSpan.FromMinutes(1));
-            }
+               // _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
             return res;
         }
 
@@ -170,18 +170,19 @@ namespace DataAccess.Data.DataModel
         {
             IEnumerable<Expense>? res;
 
-            string key = string.Format("{0}{1}", LocationID.ToString(), "Expense");
-            res = _cache.Get<IEnumerable<Expense>>(key);
-            if (res == null)
-            {
+            //string key = string.Format("{0}{1}", LocationID.ToString(), "Expense");
+            //res = _cache.Get<IEnumerable<Expense>>(key);
+            //if (res == null)
+            //{
                 res = await _service.LoadData<Expense, dynamic>("[dbo].[sp_GetExpenseByID_P_API]", new { LocationID, ExpenseID });
-                _cache.Set(key, res, TimeSpan.FromMinutes(1));
-            }
+               // _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
             return res;
         }
 
         public async Task<RspModel> UpdateExpense(Expense expense)
         {
+            int id = 0;
             RspModel model = new RspModel();
             try
             {
@@ -195,7 +196,7 @@ namespace DataAccess.Data.DataModel
                 parm[6] = new SqlParameter("@StatusID", 1);
                 parm[7] = new SqlParameter("@LastUpdatedDate", DateTime.UtcNow.AddMinutes(180));
                 parm[8] = new SqlParameter("@ExpenseID", expense.ExpenseID);
-                int? id = int.Parse(new DBHelper().GetTableFromSP("sp_UpdateExpense_P_API", parm).Rows[0]["ID"].ToString());
+                id = int.Parse(new DBHelper().GetTableFromSP("sp_UpdateExpense_P_API", parm).Rows[0]["ID"].ToString());
                 if (id != null || id > 0)
                 {
                     model = new()

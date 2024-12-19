@@ -32,9 +32,9 @@ namespace DataAccess.Data.DataModel
                 foreach (var item in order.Items.ToList())
                 {
                     if (item.IsSelected == true)
-                    { 
-                        //var p = item.UnitPrice * item.Quantity;
-                        var UPrice = item.UnitPrice / item.Quantity;
+                    {                         
+                        //var UPrice = item.UnitPrice / item.Quantity;
+                        var UPrice = item.UnitPrice;
 
                         if (item.DiscountPrice > 0)
                         {

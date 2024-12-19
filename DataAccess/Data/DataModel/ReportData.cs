@@ -25,7 +25,7 @@ namespace DataAccess.Data.DataModel
 		{
             
                var result = await _service.LoadSingleOrDefaultData<Report, dynamic>(
-                    "[dbo].[sp_ZXReport_P_API]",
+                    "[dbo].[sp_ZXReport_P_API_V2]",
                     new { SubUserID, LocationID, OrderLastDate, OrderStartDate });
              
             var resultOrderType = await _service.LoadData<CardTypeModel, dynamic>(

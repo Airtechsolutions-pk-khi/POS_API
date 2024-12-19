@@ -48,6 +48,19 @@ namespace DataAccess.Data.DataModel
             //}
             //return res;
         }
+        public async Task<IEnumerable<Item>> GetItemsByName(int locationid, string name)
+        {
+            IEnumerable<Item>? res;
+ 
+            res = await _service.LoadData<Item, dynamic>("[dbo].[sp_GetItemsSearch_P_API]", new
+            {
+                LocationID = locationid,
+                name = name                
+            });
+            
+            return res;
+            
+        }
         public async Task<IEnumerable<Item>> GetFavoriteItems(int LocationID)
         {
             IEnumerable<Item>? res;
