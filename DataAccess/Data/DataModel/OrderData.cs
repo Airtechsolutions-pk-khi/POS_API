@@ -182,19 +182,27 @@ namespace DataAccess.Data.DataModel
 			//if (res == null)
 			//{
 				res = await _service.LoadData<Order<OrderDetail>, dynamic>("[dbo].[sp_GetOrderByLocation_P_API]", new { LocationID, FromDate, ToDate });
-				//foreach (var item in res)
-				//{
-				//	if (item.RefundAmount != 0)
-				//	{
-				//		item.IsPartial = true;
-				//	}
-				//	else {
-    //                    item.IsPartial = false;
-    //                }
-					
-				//}
-				//_cache.Set(key, res, TimeSpan.FromMinutes(1));
-			//}
+            //foreach (var item in res)
+            //{
+            //	if (item.RefundAmount != 0)
+            //	{
+            //		item.IsPartial = true;
+            //	}
+            //	else {
+            //                    item.IsPartial = false;
+            //                }
+
+            //}
+            //_cache.Set(key, res, TimeSpan.FromMinutes(1));
+            //}
+            foreach (var item in res)
+            {
+                if (item.PartialAmount == 0)
+                {
+                    item.IsPartial = false;
+                }
+                
+            }
 			return res;
 		}
 		public async Task<IEnumerable<OrderDetail>> GetOrderDetailsByLocation(int LocationID, DateTime FromDate, DateTime ToDate)
