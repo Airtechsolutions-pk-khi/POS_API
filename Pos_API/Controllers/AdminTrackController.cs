@@ -40,12 +40,12 @@ namespace Pos_API.Controllers
             return Ok(new { message = Message.Success, data = result });
         }
 
-        [HttpGet("Admin/BranchStats/{Locations}")]
-        public async Task<IActionResult> BranchStats(string Locations)
+        [HttpGet("Admin/BranchStats/{Locations}/{StartDate}/{EndDate}")]
+        public async Task<IActionResult> BranchStats(string Locations, string StartDate, string EndDate)
         {
             _Logger.LogInformation("Getting all data...");
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
-            var result = await _data.BranchStats(Locations);
+            var result = await _data.BranchStats(Locations, StartDate, EndDate);
             if (result == null) return BadRequest();
             return Ok(new { message = Message.Success, data = result });
         }

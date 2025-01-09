@@ -30,7 +30,7 @@ namespace DataAccess.Data.DataModel
 
             return result;
         }
-        public async Task<IEnumerable<BranchStats>> BranchStats(string Locations)
+        public async Task<IEnumerable<BranchStats>> BranchStats(string Locations, string OrderStartDate, string OrderLastDate)
         {
             var result = await _service.LoadData<BranchStats, dynamic>(
                   "[dbo].[sp_GetBranchStats_Track_API]",
