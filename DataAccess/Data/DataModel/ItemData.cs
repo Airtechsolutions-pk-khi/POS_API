@@ -34,7 +34,7 @@ namespace DataAccess.Data.DataModel
             //}
 
             // Paginate items
-            res = res.Skip((pagingParams.PageNumber - 1) * pagingParams.PageSize).Take(pagingParams.PageSize);
+            //res = res.Skip((pagingParams.PageNumber - 1) * pagingParams.PageSize).Take(pagingParams.PageSize);
 
             return res;
             //IEnumerable<Item>? res;
