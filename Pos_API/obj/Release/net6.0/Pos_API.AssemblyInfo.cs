@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pos_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9932d8a385fa8d5ee1ed3737035050f283cc01c8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b9c8430f4f50abeea077643bb4a220525355a76")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pos_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pos_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -49,21 +49,21 @@ namespace Pos_API.Controllers
             if (result == null) return BadRequest();
             return Ok(new { message = Message.Success, data = result });
         }
-        [HttpGet("Admin/BestItems/{Locations}")]
-        public async Task<IActionResult> BestItems(string Locations)
+        [HttpGet("Admin/BestItems/{Locations}/{StartDate}/{EndDate}")]
+        public async Task<IActionResult> BestItems(string Locations, string StartDate, string EndDate)
         {
             _Logger.LogInformation("Getting all data...");
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
-            var result = await _data.BestItems(Locations);
+            var result = await _data.BestItems(Locations, StartDate, EndDate);
             if (result == null) return BadRequest();
             return Ok(new { message = Message.Success, data = result });
         }
-        [HttpGet("Admin/StockAlert/{Locations}")]
-        public async Task<IActionResult> StockAlert(string Locations)
+        [HttpGet("Admin/StockAlert/{Locations}/{StartDate}/{EndDate}")]
+        public async Task<IActionResult> StockAlert(string Locations, string StartDate, string EndDate)
         {
             _Logger.LogInformation("Getting all data...");
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
-            var result = await _data.StockAlert(Locations);
+            var result = await _data.StockAlert(Locations, StartDate, EndDate);
             if (result == null) return BadRequest();
             return Ok(new { message = Message.Success, data = result });
         }

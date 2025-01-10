@@ -2,13 +2,23 @@
   {
     "ContainingType": "Pos_API.Controllers.AdminTrackController",
     "Method": "BestItems",
-    "RelativePath": "api/AdminTrack/Admin/BestItems/{Locations}",
+    "RelativePath": "api/AdminTrack/Admin/BestItems/{Locations}/{StartDate}/{EndDate}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "StartDate",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "EndDate",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -34,13 +44,23 @@
   {
     "ContainingType": "Pos_API.Controllers.AdminTrackController",
     "Method": "BranchStats",
-    "RelativePath": "api/AdminTrack/Admin/BranchStats/{Locations}",
+    "RelativePath": "api/AdminTrack/Admin/BranchStats/{Locations}/{StartDate}/{EndDate}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "StartDate",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "EndDate",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -134,13 +154,23 @@
   {
     "ContainingType": "Pos_API.Controllers.AdminTrackController",
     "Method": "StockAlert",
-    "RelativePath": "api/AdminTrack/Admin/StockAlert/{Locations}",
+    "RelativePath": "api/AdminTrack/Admin/StockAlert/{Locations}/{StartDate}/{EndDate}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "StartDate",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "EndDate",
         "Type": "System.String",
         "IsRequired": true
       }

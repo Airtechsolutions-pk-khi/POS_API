@@ -7,8 +7,8 @@ namespace DataAccess.Data.IDataModel
         Task<IEnumerable<Overview>> GetOverViewData(string Locations, string OrderStartDate, string OrderLastDate);
         Task<IEnumerable<ThreeMonthSales>> SaleStatistics(string Locations);
         Task<IEnumerable<BranchStats>> BranchStats(string Locations, string OrderStartDate, string OrderLastDate);
-        Task<IEnumerable<BestSellingItems>> BestItems(string Locations);
-        Task<IEnumerable<StockAlert>> StockAlert(string Locations);
+        Task<IEnumerable<BestSellingItems>> BestItems(string Locations, string StartDate, string EndDate);
+        Task<IEnumerable<StockAlert>> StockAlert(string Locations, string StartDate, string EndDate);
 
         Task<IEnumerable<SeavenDaysSales>> LastSeavenDaysSales(string Locations);
 
