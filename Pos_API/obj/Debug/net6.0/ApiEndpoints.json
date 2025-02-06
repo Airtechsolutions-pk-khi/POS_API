@@ -2,13 +2,23 @@
   {
     "ContainingType": "Pos_API.Controllers.AdminTrackController",
     "Method": "BestItems",
-    "RelativePath": "api/AdminTrack/Admin/BestItems/{Locations}",
+    "RelativePath": "api/AdminTrack/Admin/BestItems/{Locations}/{StartDate}/{EndDate}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "StartDate",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "EndDate",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -34,13 +44,23 @@
   {
     "ContainingType": "Pos_API.Controllers.AdminTrackController",
     "Method": "BranchStats",
-    "RelativePath": "api/AdminTrack/Admin/BranchStats/{Locations}",
+    "RelativePath": "api/AdminTrack/Admin/BranchStats/{Locations}/{StartDate}/{EndDate}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "StartDate",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "EndDate",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -134,13 +154,23 @@
   {
     "ContainingType": "Pos_API.Controllers.AdminTrackController",
     "Method": "StockAlert",
-    "RelativePath": "api/AdminTrack/Admin/StockAlert/{Locations}",
+    "RelativePath": "api/AdminTrack/Admin/StockAlert/{Locations}/{StartDate}/{EndDate}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "Locations",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "StartDate",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "EndDate",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -214,7 +244,7 @@
   {
     "ContainingType": "Pos_API.Controllers.ExpenseController",
     "Method": "GetExpenseByLocation",
-    "RelativePath": "api/Expense/GetExpense/{LocationID}/{FromDate}/{ToDate}",
+    "RelativePath": "api/Expense/GetExpense/{LocationID}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -222,16 +252,6 @@
       {
         "Name": "LocationID",
         "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "FromDate",
-        "Type": "System.DateTime",
-        "IsRequired": true
-      },
-      {
-        "Name": "ToDate",
-        "Type": "System.DateTime",
         "IsRequired": true
       }
     ],
@@ -481,6 +501,37 @@
       {
         "Name": "locationid",
         "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ItemController",
+    "Method": "GetItemsSearch",
+    "RelativePath": "api/Item/GetItemsSearch/{locationid}/{name}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "name",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

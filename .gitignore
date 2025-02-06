@@ -3,3 +3,5 @@
 ################################################################################
 
 /.vs
+/Pos_API/obj/Release/net6.0
+/Pos_API/Properties/PublishProfiles

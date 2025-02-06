@@ -30,27 +30,27 @@ namespace DataAccess.Data.DataModel
 
             return result;
         }
-        public async Task<IEnumerable<BranchStats>> BranchStats(string Locations)
+        public async Task<IEnumerable<BranchStats>> BranchStats(string Locations, string OrderStartDate, string OrderLastDate)
         {
             var result = await _service.LoadData<BranchStats, dynamic>(
                   "[dbo].[sp_GetBranchStats_Track_API]",
-                  new { Locations });
+                  new { Locations, OrderStartDate, OrderLastDate });
 
             return result;
         }
-        public async Task<IEnumerable<BestSellingItems>> BestItems(string Locations)
+        public async Task<IEnumerable<BestSellingItems>> BestItems(string Locations, string StartDate, string EndDate)
         {
             var result = await _service.LoadData<BestSellingItems, dynamic>(
                   "[dbo].[sp_BestSellingItems_Track_API]",
-                  new { Locations });
+                  new { Locations, StartDate, EndDate });
 
             return result;
         }
-        public async Task<IEnumerable<StockAlert>> StockAlert(string Locations)
+        public async Task<IEnumerable<StockAlert>> StockAlert(string Locations, string StartDate, string EndDate)
         {
             var result = await _service.LoadData<StockAlert, dynamic>(
                   "[dbo].[sp_StockAlert_Track_API]",
-                  new { Locations });
+                  new { Locations, StartDate, EndDate });
 
             return result;
         }
