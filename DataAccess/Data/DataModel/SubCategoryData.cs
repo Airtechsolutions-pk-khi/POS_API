@@ -25,8 +25,9 @@ namespace DataAccess.Data.DataModel
 			//if (res == null)
 			//{
 				res = await _service.LoadData<SubCategory, dynamic>("[dbo].[sp_GetSubCategory_menu]", new { LocationID });
-				//_cache.Set(key, res, TimeSpan.FromMinutes(1));
+			//_cache.Set(key, res, TimeSpan.FromMinutes(1));
 			//}
+			res.OrderBy(x => x.DisplayOrder);
 			return res;
 		}
         //public async Task<IEnumerable<SubCategory>> GetFavSubCategories(int LocationID)

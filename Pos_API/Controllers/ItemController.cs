@@ -74,9 +74,9 @@ namespace Pos_API.Controllers
             //if (res == null)
             //{
                 res = await GetItemsFromDb(locationId, pagingParams); // Pass paging parameters
-               // _cache.Set(key, res, TimeSpan.FromMinutes(1));
-            //}
-
+                                                                      // _cache.Set(key, res, TimeSpan.FromMinutes(1));
+                                                                      //}
+            res.OrderBy(x => x.DisplayOrder);
             return res;
             
         }
