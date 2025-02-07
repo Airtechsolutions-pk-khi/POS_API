@@ -61,6 +61,7 @@ builder.Services.AddScoped<IReportData, ReportData>();
 builder.Services.AddScoped<IRefundOrderData, RefundOrderData>();
 builder.Services.AddScoped<IAdminData, AdminData>();
 builder.Services.AddScoped<IExpenseData, ExpenseData>();
+builder.Services.AddScoped<IQuotationData, QuotationData>();
 #endregion
 
 var app = builder.Build();

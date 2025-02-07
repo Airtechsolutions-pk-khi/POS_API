@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\DataShift\Publish\POS_API_Publish</_PublishTargetUrl>
-    <History>True|2025-02-06T13:46:12.8956464Z;</History>
+    <History>True|2025-02-07T14:15:33.9921917Z;True|2025-02-06T18:46:12.8956464+05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>
