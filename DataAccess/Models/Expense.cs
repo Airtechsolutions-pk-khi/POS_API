@@ -11,8 +11,11 @@ namespace DataAccess.Models
 		public string? Name { get; set; }		 
 		public float? Amount { get; set; }
 		public string? Date { get; set; }
-		public string? Reason { get; set; }		 
-		public int? StatusID { get; set; }
+		public string? Reason { get; set; }
+        public string? Contact { get; set; }
+        public string? Description { get; set; }
+        public string? PaymentMethod { get; set; }
+        public int? StatusID { get; set; }
 		public DateTime? CreatedDate { get; set; }
 		public DateTime? LastUpdatedDate { get; set; }
 		 

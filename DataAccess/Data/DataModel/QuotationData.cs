@@ -17,20 +17,53 @@ namespace DataAccess.Data.DataModel
             _service = service;
             _cache = cache;
         }
-        public async Task<IEnumerable<CompanyQuotationList>> GetAllQuotation(int UserID)
+        public async Task<IEnumerable<CompanyQuotationList>> GetAllQuotation(int UserID, int CompanyQuotationID)
         {
-            IEnumerable<CompanyQuotationList>? res;
             try
             {
-                res = await _service.LoadData<CompanyQuotationList, dynamic>("[dbo].[sp_QuotationAll_P_API]", new { UserID });
+                // Execute stored procedure and get multiple result sets
+                var result = await _service.LoadMultipleData<CompanyQuotationList, CQuotationDetailList, dynamic>(
+                    "[dbo].[sp_QuotationAll_V2_P_API]",
+                    new { UserID, CompanyQuotationID }
+                );
+
+                var companyQuotations = result.Item1.ToList(); // First result set (quotations)
+                var companyQuotationDetails = result.Item2.ToList(); // Second result set (quotation details)
+
+                // Mapping details to the main quotations
+                var quotationDict = companyQuotations.ToDictionary(q => q.CompanyQuotationID);
+
+                foreach (var detail in companyQuotationDetails)
+                {
+                    if (quotationDict.TryGetValue(detail.CompanyQuotationID, out var quotation))
+                    {
+                        quotation.CompanyQuotationDetails ??= new List<CQuotationDetailList>();
+                        quotation.CompanyQuotationDetails.Add(detail);
+                    }
+                }
+
+                return companyQuotations;
             }
             catch (Exception ex)
             {
-
                 throw;
-            }            
-            return res;
+            }
         }
+
+        //public async Task<IEnumerable<CompanyQuotationList>> GetAllQuotation(int UserID, int CompanyQuotationID)
+        //{
+        //    IEnumerable<CompanyQuotationList>? res;
+        //    try
+        //    {
+        //        res = await _service.LoadData<CompanyQuotationList, dynamic>("[dbo].[sp_QuotationAll_V2_P_API]", new { UserID, CompanyQuotationID });
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw;
+        //    }
+        //    return res;
+        //}
         public async Task<RspModel> DeleteQuotation(int CompanyQuotationID)
         {
             RspModel model = new();

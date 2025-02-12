@@ -27,6 +27,26 @@ namespace DataAccess.Services.Service
                     SP, parameters, commandType: CommandType.StoredProcedure);
             }
         } // GENERIC GET ALL
+        public async Task<Tuple<IEnumerable<T1>, IEnumerable<T2>>> LoadMultipleData<T1, T2, U>(
+    string SP,
+    U parameters)
+        {
+            using (IDbConnection con = new SqlConnection(_config.GetConnectionString("Default")))
+            {
+                if (con.State != ConnectionState.Open) con.Open();
+
+                using (var multi = await con.QueryMultipleAsync(SP, parameters, commandType: CommandType.StoredProcedure))
+                {
+                    var result1 = await multi.ReadAsync<T1>(); // First result set (CompanyQuotationList)
+
+                    // Try reading the second result set, but return an empty list if it doesn't exist
+                    var result2 = multi.IsConsumed ? Enumerable.Empty<T2>() : await multi.ReadAsync<T2>();
+
+                    return Tuple.Create(result1, result2);
+                }
+            }
+        }
+
 
         public async Task<T> LoadSingleOrDefaultData<T, U>(
             string SP,

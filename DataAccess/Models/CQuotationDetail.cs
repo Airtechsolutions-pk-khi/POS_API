@@ -6,7 +6,7 @@ namespace DataAccess.Models
     public class CQuotationDetailList
     {
         public int CQuotationDetailID { get; set; }
-        public Nullable<int> CompanyQuotationID { get; set; }
+        public int CompanyQuotationID { get; set; }
         public Nullable<int> ItemID { get; set; }
         public string ItemName { get; set; }
         public string ItemNameArabic { get; set; }

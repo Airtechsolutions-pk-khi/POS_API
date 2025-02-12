@@ -35,7 +35,7 @@ namespace DataAccess.Data.DataModel
 
             // Paginate items
             res = res.Skip((pagingParams.PageNumber - 1) * pagingParams.PageSize).Take(pagingParams.PageSize);
-            res.OrderBy(x => x.DisplayOrder);
+            
             return res;
             //IEnumerable<Item>? res;
 

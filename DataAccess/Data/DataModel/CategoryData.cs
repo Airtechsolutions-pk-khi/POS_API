@@ -27,7 +27,7 @@ namespace DataAccess.Data.DataModel
 				res = await _service.LoadData<Category, dynamic>("[dbo].[sp_GetCategory_menu]", new { LocationID });
 			//_cache.Set(key, res, TimeSpan.FromMinutes(1));
 			//}
-			res.OrderBy(x => x.DisplayOrder);
+			 
 			return res;
 		}
 

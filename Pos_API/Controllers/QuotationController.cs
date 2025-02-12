@@ -19,13 +19,13 @@ namespace Pos_API.Controllers
 			_data = data;
 		}
 
-		[HttpGet("GetQuotation/{UserID}")]
+		[HttpGet("GetQuotation/{UserID}/{CompanyQuotationID}")]
 		[Authorize(Roles = "Cashier")]
-		public async Task<IActionResult> GetItemsList(int UserID)
+		public async Task<IActionResult> GetItemsList(int UserID, int CompanyQuotationID)
 		{
             _logger.LogInformation("Getting all data...");
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
-			var result = await _data.GetAllQuotation(UserID);
+			var result = await _data.GetAllQuotation(UserID, CompanyQuotationID);
             if (result == null) return NotFound();
             return Ok(new { message = Message.Success, data = result });
         }

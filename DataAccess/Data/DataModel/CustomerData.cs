@@ -45,7 +45,7 @@ namespace DataAccess.Data.DataModel
             var check = await _service.LoadData<Customer, dynamic>("[dbo].[sp_GetCustomersByMobile_P_API]", new { MobileNo,LocationID });
             if (!check.Any())
             {
-               var data = await _service.SaveSingleQueryable<RspModel, dynamic>("[dbo].[sp_InsertCustomer_P_API]",
+               var data = await _service.SaveSingleQueryable<RspModel, dynamic>("[dbo].[sp_InsertCustomer_P_API_V2]",
                     new { ParamTable1 = JsonConvert.SerializeObject(customer) });
             }
             else
@@ -65,7 +65,7 @@ namespace DataAccess.Data.DataModel
             return model1;
         }
         public async Task EditCustomer(Customer customer) =>
-            await _service.SaveData<dynamic>("[dbo].[sp_UpdateCustomer_P_API]",
+            await _service.SaveData<dynamic>("[dbo].[sp_UpdateCustomer_P_API_V2]",
                 new { ParamTable1 = JsonConvert.SerializeObject(customer) });
 
         

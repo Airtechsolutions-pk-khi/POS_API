@@ -7,6 +7,7 @@
         //Task InsertModifier<T>(string SP, T parameters);
         Task<S> SaveSingleQueryable<S, T>(string SP, T parameters);
 		Task<T> LoadSingleOrDefaultData<T, U>(string SP, U parameters);
+        Task<Tuple<IEnumerable<T1>, IEnumerable<T2>>> LoadMultipleData<T1, T2, TParams>(string storedProcedure, TParams parameters);
 
-	}
+    }
 }

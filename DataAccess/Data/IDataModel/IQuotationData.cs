@@ -4,7 +4,7 @@ namespace DataAccess.Data.IDataModel
 {
     public interface IQuotationData
     {
-        Task<IEnumerable<CompanyQuotationList>> GetAllQuotation(int UserID);
+        Task<IEnumerable<CompanyQuotationList>> GetAllQuotation(int UserID, int CompanyQuotationID);
        
         Task EditQuotation(CompanyQuotationList customer);
         Task<RspModel> DeleteQuotation(int CompanyQuotationID);
