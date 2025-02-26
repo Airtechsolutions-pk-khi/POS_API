@@ -8,6 +8,7 @@ namespace DataAccess.Models
         public int CompanyQuotationID { get; set; }
         public string QuotationNo { get; set; }
         public Nullable<System.DateTime> QuotationDate { get; set; }
+        public Nullable<System.DateTime> ExpiryDate { get; set; }
         public Nullable<System.DateTime> SupplyDate { get; set; }
         public string TaxNo { get; set; }
         public string SellerName { get; set; }
@@ -20,9 +21,14 @@ namespace DataAccess.Models
         public string BuyerVAT { get; set; }
         public string Notes { get; set; }
         public Nullable<double> TotalDiscount { get; set; }
+        public Nullable<double> DiscountOnTotal { get; set; }
         public Nullable<double> TotalAmount { get; set; }
+        public Nullable<double> SubTotal { get; set; }
+        public Nullable<double> NetTotal { get; set; }
         public Nullable<double> TotalVAT { get; set; }
         public Nullable<double> GrandTotal { get; set; }
+        public Nullable<double> DeliveryCharges { get; set; }
+        public Nullable<double> ServiceCharges { get; set; }
         public Nullable<int> StatusID { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<System.DateTime> LastUpdatedDate { get; set; }

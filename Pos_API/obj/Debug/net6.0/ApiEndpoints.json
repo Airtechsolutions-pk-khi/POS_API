@@ -691,6 +691,70 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Pos_API.Controllers.QuotationController",
+    "Method": "Delete",
+    "RelativePath": "api/Quotation/Delete",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CompanyQuotationID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.QuotationController",
+    "Method": "Edit",
+    "RelativePath": "api/Quotation/Edit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.CompanyQuotationList",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.QuotationController",
+    "Method": "GetItemsList",
+    "RelativePath": "api/Quotation/GetQuotation/{UserID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.QuotationController",
+    "Method": "Insert",
+    "RelativePath": "api/Quotation/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DataAccess.Models.CompanyQuotationList",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Pos_API.Controllers.RefundOrderController",
     "Method": "GetOrderByTransNo",
     "RelativePath": "api/RefundOrder/GetOrderByTransNo/{LocationID}/{transno}",
