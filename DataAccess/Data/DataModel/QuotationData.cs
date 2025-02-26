@@ -36,7 +36,7 @@ namespace DataAccess.Data.DataModel
             RspModel model = new();
 
              
-                var quotationID = await _service.LoadData<int, dynamic>("[dbo].[sp_InsertCompanyQuotation_P_API]", CompanyQuotationID);
+                var quotationID = await _service.LoadData<int, dynamic>("[dbo].[sp_DeleteCompanyQuotation_P_API]", CompanyQuotationID);
                
                 
                 return new RspModel
@@ -61,6 +61,7 @@ namespace DataAccess.Data.DataModel
                 {
                     quotation.QuotationNo,
                     quotation.QuotationDate,
+                    quotation.ExpiryDate,
                     quotation.SupplyDate,
                     quotation.TaxNo,
                     quotation.SellerName,
@@ -72,9 +73,14 @@ namespace DataAccess.Data.DataModel
                     quotation.BuyerContact,
                     quotation.BuyerVAT,
                     quotation.TotalDiscount,
+                    quotation.DiscountOnTotal,
                     quotation.TotalAmount,
+                    quotation.SubTotal,
+                    quotation.NetTotal,
                     quotation.TotalVAT,
                     quotation.GrandTotal,
+                    quotation.DeliveryCharges,
+                    quotation.ServiceCharges,
                     quotation.StatusID,
                     quotation.UserID,
                     LastUpdatedDate = DateTime.UtcNow.AddMinutes(180),
@@ -212,7 +218,6 @@ namespace DataAccess.Data.DataModel
         public async Task EditQuotation(CompanyQuotationList customer) =>
             await _service.SaveData<dynamic>("[dbo].[sp_UpdateCustomer_P_API]",
                 new { ParamTable1 = JsonConvert.SerializeObject(customer) });
-
         
     }
 }

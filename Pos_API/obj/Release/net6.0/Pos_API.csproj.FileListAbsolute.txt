@@ -279,3 +279,7 @@ E:\Project\POS_API\Pos_API\obj\Release\net6.0\refint\Pos_API.dll
 E:\Project\POS_API\Pos_API\obj\Release\net6.0\Pos_API.pdb
 E:\Project\POS_API\Pos_API\obj\Release\net6.0\Pos_API.genruntimeconfig.cache
 E:\Project\POS_API\Pos_API\obj\Release\net6.0\ref\Pos_API.dll
+E:\Projects\POS_API\Pos_API\bin\Release\net6.0\Pos_API.staticwebassets.endpoints.json
+E:\Projects\POS_API\Pos_API\obj\Release\net6.0\staticwebassets.build.endpoints.json
+E:\Projects\POS_API\Pos_API\obj\Release\net6.0\staticwebassets\msbuild.Pos_API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+E:\Projects\POS_API\Pos_API\obj\Release\net6.0\staticwebassets.upToDateCheck.txt
