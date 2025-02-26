@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "PsNvjeS7iRoFdVhjkaaHyxdKmiEhjHEgr5UsJw2DM2s=",
+  "Hash": "rqdacABNZHun9krXYQ5S24UVDwRfuBv70wNqtmbC0xQ=",
   "Source": "Pos_API",
   "BasePath": "_content/Pos_API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }

@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projects\\POS_API\\Pos_API\\Pos_API.csproj": {}
+    "E:\\Project\\POS_API\\Pos_API\\Pos_API.csproj": {}
   },
   "projects": {
-    "E:\\Projects\\POS_API\\DataAccess\\DataAccess.csproj": {
+    "E:\\Project\\POS_API\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\POS_API\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "E:\\Project\\POS_API\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "E:\\Projects\\POS_API\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\Airtech Solutions\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\POS_API\\DataAccess\\obj\\",
+        "projectPath": "E:\\Project\\POS_API\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\Airtech Soutions\\.nuget\\packages\\",
+        "outputPath": "E:\\Project\\POS_API\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Airtech Solutions\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Airtech Soutions\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,13 +34,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net6.0": {
@@ -87,25 +77,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Projects\\POS_API\\Pos_API\\Pos_API.csproj": {
+    "E:\\Project\\POS_API\\Pos_API\\Pos_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\POS_API\\Pos_API\\Pos_API.csproj",
+        "projectUniqueName": "E:\\Project\\POS_API\\Pos_API\\Pos_API.csproj",
         "projectName": "Pos_API",
-        "projectPath": "E:\\Projects\\POS_API\\Pos_API\\Pos_API.csproj",
-        "packagesPath": "C:\\Users\\Airtech Solutions\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\POS_API\\Pos_API\\obj\\",
+        "projectPath": "E:\\Project\\POS_API\\Pos_API\\Pos_API.csproj",
+        "packagesPath": "C:\\Users\\Airtech Soutions\\.nuget\\packages\\",
+        "outputPath": "E:\\Project\\POS_API\\Pos_API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Airtech Solutions\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Airtech Soutions\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -119,8 +105,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Projects\\POS_API\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "E:\\Projects\\POS_API\\DataAccess\\DataAccess.csproj"
+              "E:\\Project\\POS_API\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "E:\\Project\\POS_API\\DataAccess\\DataAccess.csproj"
               }
             }
           }
@@ -129,13 +115,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net6.0": {
@@ -177,7 +157,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
