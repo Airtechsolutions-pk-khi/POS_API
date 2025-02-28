@@ -6,6 +6,7 @@ namespace DataAccess.Models
 	public class CompanyQuotationList
     {
         public int CompanyQuotationID { get; set; }
+        public int CustomerID { get; set; }
         public string QuotationNo { get; set; }
         public Nullable<System.DateTime> QuotationDate { get; set; }
         public Nullable<System.DateTime> ExpiryDate { get; set; }
@@ -20,6 +21,7 @@ namespace DataAccess.Models
         public string BuyerContact { get; set; }
         public string BuyerVAT { get; set; }
         public string Notes { get; set; }
+        public string TermAndCondition { get; set; }
         public Nullable<double> TotalDiscount { get; set; }
         public Nullable<double> DiscountOnTotal { get; set; }
         public Nullable<double> TotalAmount { get; set; }

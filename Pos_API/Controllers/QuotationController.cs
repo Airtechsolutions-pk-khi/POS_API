@@ -38,7 +38,7 @@ namespace Pos_API.Controllers
 			if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
 			Global.StrDateTimeSqlFormat(model);
 			var res = await _data.SaveQuotation(model);
-			if (res.Description == "Customer is Already Exist!")
+			if (res.Description == "Quotation is Already Exist!")
 			{
 				return BadRequest(res);
 			}

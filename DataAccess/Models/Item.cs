@@ -8,23 +8,23 @@
         public int? CategoryID { get; set; }
 		public int? LocationID { get; set; }
 		public int? SubCategoryID { get; set; }
-		public string? CategoryName { get; set; }
-		public string? SubCategoryName { get; set; }
+		public string? CategoryName { get; set; } = "";
+		public string? SubCategoryName { get; set; } = "";
 		public int? UnitID { get; set; }
-		public string? Name { get; set; }
+		public string? Name { get; set; } = "";
 		public float? Quantity { get; set; }
         public double? DiscountPrice { get; set; }
-        public string? ArabicName { get; set; }
-		public string? NameOnReceipt { get; set; }
-		public string? Description { get; set; }
-		public string? ArabicDescription { get; set; }
+		public string? ArabicName { get; set; } = "";
+		public string? NameOnReceipt { get; set; } = "";
+		public string? Description { get; set; } = "";
+		public string? ArabicDescription { get; set; } = "";
 		public string? Image { get; set; }
         public Nullable<bool> IsSelected { get; set; }
         public Nullable<double> UnitPrice { get; set; }
         public Nullable<double> RefundPrice { get; set; }
         public Nullable<double> RefundQuantity { get; set; }
-        public string? Barcode { get; set; }
-		public string? SKU { get; set; }
+        public string? Barcode { get; set; } = "";
+		public string? SKU { get; set; } = "";
 		public int? DisplayOrder { get; set; }
         public int? ItemMode { get; set; }
         public bool? IsOpenPrice { get; set; }

@@ -92,6 +92,7 @@ namespace DataAccess.Data.DataModel
             {
                 var parameters = new
                 {
+                    quotation.CustomerID,
                     quotation.QuotationNo,
                     quotation.QuotationDate,
                     quotation.ExpiryDate,
@@ -105,6 +106,7 @@ namespace DataAccess.Data.DataModel
                     quotation.BuyerAddress,
                     quotation.BuyerContact,
                     quotation.BuyerVAT,
+                    quotation.Notes,
                     quotation.TotalDiscount,
                     quotation.DiscountOnTotal,
                     quotation.TotalAmount,
@@ -118,7 +120,8 @@ namespace DataAccess.Data.DataModel
                     quotation.UserID,
                     LastUpdatedDate = DateTime.UtcNow.AddMinutes(180),
                     quotation.LastUpdatedBy,
-                    quotation.Notes
+                    quotation.TermAndCondition
+                    
                 };
  
 
