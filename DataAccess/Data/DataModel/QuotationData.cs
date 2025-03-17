@@ -17,11 +17,25 @@ namespace DataAccess.Data.DataModel
             _service = service;
             _cache = cache;
         }
+        public async Task<IEnumerable<CompanyQuotationList>> GetAllQuotationData(int UserID)
+        {
+            IEnumerable<CompanyQuotationList>? res;
+            try
+            {
+                res = await _service.LoadData<CompanyQuotationList, dynamic>("[dbo].[sp_QuotationAll_P_API]", new { UserID });
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return res;
+        }
         public async Task<IEnumerable<CompanyQuotationList>> GetAllQuotation(int UserID, int CompanyQuotationID)
         {
             try
             {
-                // Execute stored procedure and get multiple result sets
+                
                 var result = await _service.LoadMultipleData<CompanyQuotationList, CQuotationDetailList, dynamic>(
                     "[dbo].[sp_QuotationAll_V2_P_API]",
                     new { UserID, CompanyQuotationID }
@@ -30,7 +44,7 @@ namespace DataAccess.Data.DataModel
                 var companyQuotations = result.Item1.ToList(); // First result set (quotations)
                 var companyQuotationDetails = result.Item2.ToList(); // Second result set (quotation details)
 
-                // Mapping details to the main quotations
+                
                 var quotationDict = companyQuotations.ToDictionary(q => q.CompanyQuotationID);
 
                 foreach (var detail in companyQuotationDetails)
@@ -75,7 +89,7 @@ namespace DataAccess.Data.DataModel
                 return new RspModel
                 {
                     Status = 1,
-                    Description = "Quotation added successfully!"
+                    Description = "Quotation Deleted successfully!"
                 };
 
             
@@ -251,9 +265,9 @@ namespace DataAccess.Data.DataModel
 
         //    return model;
         //}
-        public async Task EditQuotation(CompanyQuotationList customer) =>
-            await _service.SaveData<dynamic>("[dbo].[sp_UpdateCustomer_P_API]",
-                new { ParamTable1 = JsonConvert.SerializeObject(customer) });
+        public async Task EditQuotation(CompanyQuotationList companyQuotation) =>
+            await _service.SaveData<dynamic>("[dbo].[sp_UpdateCompanyQuotation_P_API]",
+                new { ParamTable1 = JsonConvert.SerializeObject(companyQuotation) });
         
     }
 }

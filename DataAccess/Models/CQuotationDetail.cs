@@ -10,6 +10,7 @@ namespace DataAccess.Models
         public Nullable<int> ItemID { get; set; }
         public string ItemName { get; set; }
         public string ItemNameArabic { get; set; }
+        public string Description { get; set; }
         public Nullable<double> UnitPrice { get; set; }
         public Nullable<double> Quantity { get; set; }
         public Nullable<double> Price { get; set; }

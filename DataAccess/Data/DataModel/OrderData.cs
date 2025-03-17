@@ -46,8 +46,8 @@ namespace DataAccess.Data.DataModel
 			var orderID = or.OrderID;
 			var TransactionNo = or.TransactionNo;
 			var OrderNo = or.OrderNo;
-
-			foreach (var item in order.Items)
+            double? ItemDiscountAmount = 0;
+            foreach (var item in order.Items)
 			{
 				int OrderDetailID = 0;
 				try
@@ -74,12 +74,25 @@ namespace DataAccess.Data.DataModel
                     {
                         OrderDetailID = int.Parse(new DBHelper().GetTableFromSP("sp_UpdateOrderDetail_P_API", p).Rows[0]["ID"].ToString());
                     }
-                    
 
-				}
+                    ItemDiscountAmount += item.DiscountPrice;
+                }
 				catch { }
 
-				if (item.Modifiers != null && OrderDetailID > 0)
+                try
+                {
+                    SqlParameter[] updateParams = new SqlParameter[2];
+                    updateParams[0] = new SqlParameter("@OrderId", orderID);
+                    updateParams[1] = new SqlParameter("@ItemDiscountAmount", ItemDiscountAmount);
+
+                    new DBHelper().ExecuteNonQueryReturn("sp_UpdateOrderCheckout_P_API", updateParams);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error updating OrderCheckout: " + ex.Message);
+                }
+
+                if (item.Modifiers != null && OrderDetailID > 0)
 				{
 					foreach (var m in item.Modifiers)
 					{

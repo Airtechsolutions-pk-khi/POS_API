@@ -19,7 +19,18 @@ namespace Pos_API.Controllers
 			_data = data;
 		}
 
-		[HttpGet("GetQuotation/{UserID}/{CompanyQuotationID}")]
+        [HttpGet("GetQuotation/{UserID}")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> GetItemsList(int UserID)
+        {
+            _logger.LogInformation("Getting all data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            var result = await _data.GetAllQuotationData(UserID);
+            if (result == null) return NotFound();
+            return Ok(new { message = Message.Success, data = result });
+        }
+
+        [HttpGet("GetQuotation/{UserID}/{CompanyQuotationID}")]
 		[Authorize(Roles = "Cashier")]
 		public async Task<IActionResult> GetItemsList(int UserID, int CompanyQuotationID)
 		{
@@ -56,7 +67,7 @@ namespace Pos_API.Controllers
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
             Global.StrDateTimeSqlFormat(CompanyQuotationID);
             var res = await _data.DeleteQuotation(CompanyQuotationID);
-            if (res.Description == "Customer is Already Exist!")
+            if (res.Description == "Quotation is Already Exist!")
             {
                 return BadRequest(res);
             }

@@ -34,7 +34,7 @@ namespace Pos_API.Controllers
 			if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
 			var waitersTask = _waiterdata.GetAllWaiters(LocationID);
 			var tablesTask = _tabledata.GetAllTables(LocationID);
-			var customersTask = _customerdata.GetAllCustomers(UserID);
+			var customersTask = _customerdata.GetAllCustomers(LocationID,UserID);
 
 			await Task.WhenAll(waitersTask, tablesTask, customersTask);
 

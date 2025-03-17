@@ -37,32 +37,40 @@ namespace DataAccess.Data.DataModel
                 {
                     if (item.CardType == "Talabat")
                     {
-                        result.TalabatTotal = item.Total;
+                        result.TalabatTotal += item.Total;
                     }
                     else if (item.CardType == "Visa")
                     {
-                        result.VisaTotal = item.Total;
+                        result.VisaTotal += item.Total;
+                    }
+                    else if (item.CardType == "Debit Card")
+                    {
+                        result.VisaTotal += item.Total;
                     }
                     else if (item.CardType == "Master")
                     {
-                        result.MasterTotal = item.Total;
+                        result.MasterTotal += item.Total;
                     }
                     else if (item.CardType == "StcPay")
                     {
-                        result.StcpayTotal = item.Total;
+                        result.StcpayTotal += item.Total;
                     }
                     else if (item.CardType == "Benefit Pay")
                     {
-                        result.BenefitPayTotal = item.Total;
+                        result.BenefitPayTotal += item.Total;
+                    }
+                    else if (item.CardType == "Benifitpay")
+                    {
+                        result.BenefitPayTotal += item.Total;
                     }
                     else if (item.CardType == "Jahez")
                     {
-                        result.JahezTotal = item.Total;
+                        result.JahezTotal += item.Total;
                     }
                      
                     else if (item.CardType == "Ahlan")
                     {
-                        result.AhlanTotal = item.Total;
+                        result.AhlanTotal += item.Total;
                     }
                 }                
             }
@@ -90,14 +98,17 @@ namespace DataAccess.Data.DataModel
                 
                 foreach (var item in data)
                 {
-                    result.CounterSellAmount = item.CounterSellAmount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Counter Order").Select(x => x.Value).FirstOrDefault());
-                    result.CounterSellCount = item.CounterSellCount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Counter Order").Select(x => x.Count).FirstOrDefault());
+                    result.CounterSellAmount = item.CounterSellAmount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Counter Order" || x.OrderType == "Counter Or").Select(x => x.Value).FirstOrDefault());
+                    result.CounterSellCount = item.CounterSellCount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Counter Order" || x.OrderType == "Counter Or").Select(x => x.Count).FirstOrDefault());
 
                     result.DeliveryAmount = item.DeliveryAmount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Delivery").Select(x => x.Value).FirstOrDefault());
                     result.DeliveryCount = item.DeliveryCount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Delivery").Select(x => x.Count).FirstOrDefault());
 
                     result.PickUpAmount = item.PickUpAmount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Pick Up").Select(x => x.Value).FirstOrDefault());
                     result.PickUpCount = item.PickUpCount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Pick Up").Select(x => x.Count).FirstOrDefault());
+
+                    result.DineInAmount = item.DineInAmount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Dine In").Select(x => x.Value).FirstOrDefault());
+                    result.DineInCount = item.DineInAmount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Dine In").Select(x => x.Count).FirstOrDefault());
 
                     result.TakeawayAmount = item.TakeawayAmount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Take Away").Select(x => x.Value).FirstOrDefault());
                     result.TakeawayCount = item.TakeawayCount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Take Away").Select(x => x.Count).FirstOrDefault());

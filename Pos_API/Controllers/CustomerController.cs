@@ -48,5 +48,23 @@ namespace Pos_API.Controllers
             await _data.EditCustomer(model);
             return Ok(new { message = Message.Success });
         }
+
+        [HttpPost("Delete/{CustomerID}")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> DeleteCustomer(int CustomerID)
+        {
+            _logger.LogInformation("Saving data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            Global.StrDateTimeSqlFormat(CustomerID);
+            var res = await _data.DeleteCustomer(CustomerID);
+            if (res.Description == "Error!")
+            {
+                return BadRequest(res);
+            }
+            else
+            {
+                return Ok(res);
+            }
+        }
     }
 }

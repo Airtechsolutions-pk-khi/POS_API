@@ -52,6 +52,8 @@ namespace DataAccess.Models
         public double? TakeawayCount { get; set; } = 0;
         public double? TakeawayAmount { get; set; } = 0;
         public double? PickUpCount { get; set; } = 0;
+        public double? DineInAmount { get; set; } = 0;
+        public double? DineInCount { get; set; } = 0;
         public double? PickUpAmount { get; set; } = 0;
         public double? WebCashCount { get; set; } = 0;
         public double? WebCashAmount { get; set; } = 0;
