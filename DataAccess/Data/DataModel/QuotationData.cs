@@ -82,8 +82,10 @@ namespace DataAccess.Data.DataModel
         {
             RspModel model = new();
 
-             
-                var quotationID = await _service.LoadData<int, dynamic>("[dbo].[sp_DeleteCompanyQuotation_P_API]", CompanyQuotationID);
+            var parameters = new { CompanyQuotationID }; // Correct way to pass parameters
+
+            var quotationID = await _service.LoadData<int, dynamic>("[dbo].[sp_DeleteCompanyQuotation_P_API]", parameters);
+            //var quotationID = await _service.LoadData<int, dynamic>("[dbo].[sp_DeleteCompanyQuotation_P_API]", CompanyQuotationID);
                
                 
                 return new RspModel

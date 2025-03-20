@@ -65,7 +65,7 @@ namespace Pos_API.Controllers
         {
             _logger.LogInformation("Saving data...");
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
-            Global.StrDateTimeSqlFormat(CompanyQuotationID);
+            //Global.StrDateTimeSqlFormat(CompanyQuotationID);
             var res = await _data.DeleteQuotation(CompanyQuotationID);
             if (res.Description == "Quotation is Already Exist!")
             {
