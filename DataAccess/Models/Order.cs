@@ -32,8 +32,9 @@ namespace DataAccess.Models
 		public string? CounterType { get; set; } = "";
 		public string? Country { get; set; } = "";
 		public string? ContactNo { get; set; } = "";
-		public int? DeliveryStatus { get; set; } 
-		public string? FbrInvoiceNumber { get; set; } = "";
+		public int? DeliveryStatus { get; set; }
+        public decimal? DiscountOnItem { get; set; }
+        public string? FbrInvoiceNumber { get; set; } = "";
 		public bool? IsOrderFbr { get; set; } 
 		public string? FbrStatus { get; set; } = "";
 		public double? GrandTotal { get; set; } = 0;
@@ -89,7 +90,8 @@ namespace DataAccess.Models
         public DateTime? CreatedOn { get; set; }
 		public double? Total { get; set; }
 		public decimal? AmountDiscount { get; set; }
-		public decimal? VATper { get; set; }
+        public decimal? DiscountOnItem { get; set; } 
+        public decimal? VATper { get; set; }
 		public int OrderNo { get; set; }
 		public int TransactionNo { get; set; }				
 		public double? GrandTotal { get; set; }

@@ -28,6 +28,16 @@ namespace DataAccess.Data.DataModel
 		{
 
             var or = new OrderReturn();
+
+             
+            double? ItemDiscountAmount = 0;
+
+            // Calculate ItemDiscountAmount first
+            foreach (var item in order.Items)
+            {
+                ItemDiscountAmount += item.DiscountPrice;
+            }
+            order.ItemDiscountAmount = ItemDiscountAmount;
             if (order.ID > 0)
             {
                 or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_UpdateHoldOrder_P_API_V2]",
@@ -46,7 +56,7 @@ namespace DataAccess.Data.DataModel
 			var orderID = or.OrderID;
 			var TransactionNo = or.TransactionNo;
 			var OrderNo = or.OrderNo;
-            double? ItemDiscountAmount = 0;
+           // double? ItemDiscountAmount = 0;
             foreach (var item in order.Items)
 			{
 				int OrderDetailID = 0;
@@ -75,7 +85,7 @@ namespace DataAccess.Data.DataModel
                         OrderDetailID = int.Parse(new DBHelper().GetTableFromSP("sp_UpdateOrderDetail_P_API", p).Rows[0]["ID"].ToString());
                     }
 
-                    ItemDiscountAmount += item.DiscountPrice;
+                    //ItemDiscountAmount += item.DiscountPrice;
                 }
 				catch { }
 
