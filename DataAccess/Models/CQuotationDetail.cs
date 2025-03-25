@@ -7,9 +7,12 @@ namespace DataAccess.Models
     {
         public int CQuotationDetailID { get; set; }
         public int CompanyQuotationID { get; set; }
-        public Nullable<int> ItemID { get; set; }
-        public string ItemName { get; set; }
-        public string ItemNameArabic { get; set; }
+        //public Nullable<int> ItemID { get; set; }
+        public Nullable<int> ID { get; set; }
+        //public string ItemName { get; set; }
+        public string Name { get; set; }
+        //public string ItemNameArabic { get; set; }
+        public string ArabicName { get; set; }
         public string Description { get; set; }
         public Nullable<double> UnitPrice { get; set; }
         public Nullable<double> Quantity { get; set; }

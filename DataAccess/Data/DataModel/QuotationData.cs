@@ -17,12 +17,12 @@ namespace DataAccess.Data.DataModel
             _service = service;
             _cache = cache;
         }
-        public async Task<IEnumerable<CompanyQuotationList>> GetAllQuotationData(int UserID)
+        public async Task<IEnumerable<CompanyQuotationList>> GetAllQuotationData(string StartDate, string EndDate, int UserID)
         {
             IEnumerable<CompanyQuotationList>? res;
             try
             {
-                res = await _service.LoadData<CompanyQuotationList, dynamic>("[dbo].[sp_QuotationAll_P_API]", new { UserID });
+                res = await _service.LoadData<CompanyQuotationList, dynamic>("[dbo].[sp_QuotationAll_P_API]", new { StartDate, EndDate, UserID });
             }
             catch (Exception ex)
             {
@@ -152,9 +152,9 @@ namespace DataAccess.Data.DataModel
                         var detailParams = new
                         {
                             CompanyQuotationID = quotationID1,
-                            detail.ItemID,
-                            detail.ItemName,
-                            detail.ItemNameArabic,
+                            ItemID =  detail.ID,
+                            ItemName = detail.Name,
+                            ItemNameArabic = detail.ArabicName ?? "",
                             detail.UnitPrice,
                             detail.Quantity,
                             detail.Price,
@@ -185,91 +185,110 @@ namespace DataAccess.Data.DataModel
             }
         }
 
-        //public async Task<RspModel> SaveQuotation(CompanyQuotationList quotation)
-        //{
+        public async Task<RspModelCus> EditQuotation(CompanyQuotationList quotation)
+        {
+            try
+            {
+                var parameters = new
+                {
+                    quotation.CompanyQuotationID,
+                    quotation.CustomerID,
+                    quotation.QuotationNo,
+                    quotation.QuotationDate,
+                    quotation.ExpiryDate,
+                    quotation.SupplyDate,
+                    quotation.TaxNo,
+                    quotation.SellerName,
+                    quotation.SellerAddress,
+                    quotation.SellerVAT,
+                    quotation.SellerContact,
+                    quotation.BuyerName,
+                    quotation.BuyerAddress,
+                    quotation.BuyerContact,
+                    quotation.BuyerVAT,
+                    quotation.Notes,
+                    quotation.TotalDiscount,
+                    quotation.DiscountOnTotal,
+                    quotation.TotalAmount,
+                    quotation.SubTotal,
+                    quotation.NetTotal,
+                    quotation.TotalVAT,
+                    quotation.GrandTotal,
+                    quotation.DeliveryCharges,
+                    quotation.ServiceCharges,
+                    quotation.StatusID,
+                    quotation.UserID,
+                    LastUpdatedDate = DateTime.UtcNow.AddMinutes(180),
+                    quotation.LastUpdatedBy,
+                    quotation.TermAndCondition
+                };
 
-        //    RspModel model = new RspModel();
-        //    RspModel error = new RspModel();
+                // Execute stored procedure to edit quotation
+                var quotationIDList = await _service.LoadData<int, dynamic>("[dbo].[sp_EditCompanyQuotation_P_API]", parameters);
+                int quotationID = quotationIDList.FirstOrDefault();
 
-        //    try
-        //    {
-        //        var parameters = new
-        //        {
-        //            quotation.QuotationNo,
-        //            quotation.QuotationDate,
-        //            quotation.SupplyDate,
-        //            quotation.TaxNo,
-        //            quotation.SellerName,
-        //            quotation.SellerAddress,
-        //            quotation.SellerVAT,
-        //            quotation.SellerContact,
-        //            quotation.BuyerName,
-        //            quotation.BuyerAddress,
-        //            quotation.BuyerContact,
-        //            quotation.BuyerVAT,
-        //            quotation.TotalDiscount,
-        //            quotation.TotalAmount,
-        //            quotation.TotalVAT,
-        //            quotation.GrandTotal,
-        //            quotation.StatusID,
-        //            quotation.UserID,
-        //            LastUpdatedDate = DateTime.UtcNow.AddMinutes(180),
-        //            quotation.LastUpdatedBy,
-        //            quotation.Notes
-        //        };
+                // If quotation details exist, insert them
+                if (quotation.CompanyQuotationDetails?.Any() == true)
+                {
+                    var detailTasks = quotation.CompanyQuotationDetails.Select(detail =>
+                    {
+                        var detailParams = new
+                        {
+                            CompanyQuotationID = quotationID,
+                            ItemID = detail.ID,
+                            ItemName = detail.Name,
+                            ItemNameArabic = detail.ArabicName ?? "",
+                            detail.UnitPrice,
+                            detail.Quantity,
+                            detail.Price,
+                            detail.Discount,
+                            detail.TaxRate,
+                            detail.TaxAmount,
+                            detail.Total,
+                            detail.StatusID
+                        };
 
-        //        // Call stored procedure with Dapper
-        //        var quotationID = await _service.LoadData<int, dynamic>("[dbo].[sp_InsertCompanyQuotation_P_API]", parameters);
+                        return _service.LoadData<int, dynamic>("[dbo].[sp_InsertCompanyQuotationDetail_P_API]", detailParams);
+                    });
 
-        //        // Insert Quotation Details if ID is returned
-        //        if (quotation.CompanyQuotationDetails?.Any() == true)
-        //        {
-        //            foreach (var detail in quotation.CompanyQuotationDetails)
-        //            {
-        //                var detailParams = new
-        //                {
-        //                    CompanyQuotationID = quotationID,
-        //                    detail.ItemID,
-        //                    detail.ItemName,
-        //                    detail.ItemNameArabic,
-        //                    detail.UnitPrice,
-        //                    detail.Quantity,
-        //                    detail.Price,
-        //                    detail.Discount,
-        //                    detail.TaxRate,
-        //                    detail.TaxAmount,
-        //                    detail.Total,
-        //                    detail.StatusID
-        //                };
+                    await Task.WhenAll(detailTasks);
+                     
+                }
 
-        //                await _service.LoadData<int, dynamic>("[dbo].[sp_InsertCompanyQuotationDetail_P_API]", detailParams);
-        //            }
-        //        }
+                // Fetch customer data
+                var customerData = await _service.LoadData<Customer, dynamic>("[dbo].[sp_GetCustomerById_P_API]", new { quotation.CustomerID });
+                var customer = customerData.FirstOrDefault();
 
-        //         model = new()
-        //        {
-        //            Status = 1,
-        //            Description = "Quotation is added!"
-        //        };
-        //        return model;
+                return new RspModelCus
+                {
+                    Status = 1,
+                    Description = "Quotation updated successfully!",
+                    Data = new QuotationResponse
+                    {
+                        QuotationID = quotationID,
+                        Customer = customer
+                    }
+                };
 
-        //        //return Ok(new { Success = true, Message = "Quotation inserted successfully!", QuotationID = quotationID });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        error = new()
-        //        {
-        //            Status = 0,
-        //            Description = "Failed to add quotation!"
-        //        };
-        //        return error;
-        //    }
+                //return new RspModel
+                //{
+                //    Status = 1,
+                //    Description = "Quotation updated successfully!"
+                //};
+            }
+            catch (Exception ex)
+            {
+                return new RspModelCus
+                {
+                    Status = 0,
+                    Description = $"Failed to update quotation! Error: {ex.Message}"
+                };
+            }
+        }
 
-        //    return model;
-        //}
-        public async Task EditQuotation(CompanyQuotationList companyQuotation) =>
-            await _service.SaveData<dynamic>("[dbo].[sp_UpdateCompanyQuotation_P_API]",
-                new { ParamTable1 = JsonConvert.SerializeObject(companyQuotation) });
-        
+        //public async Task EditQuotation(CompanyQuotationList companyQuotation) =>
+        //    await _service.SaveData<dynamic>("[dbo].[sp_UpdateCompanyQuotation_P_API]",
+        //        new { ParamTable1 = JsonConvert.SerializeObject(companyQuotation) });
+
     }
 }

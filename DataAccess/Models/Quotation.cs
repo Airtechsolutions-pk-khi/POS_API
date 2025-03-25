@@ -8,7 +8,7 @@ namespace DataAccess.Models
         public int CompanyQuotationID { get; set; }
         public int CustomerID { get; set; }
         public string QuotationNo { get; set; } = "";
-        public Nullable<System.DateTime> QuotationDate { get; set; }
+        public Nullable<System.DateTime> QuotationDate { get; set; }  
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public Nullable<System.DateTime> SupplyDate { get; set; }
         public string TaxNo { get; set; } = "";

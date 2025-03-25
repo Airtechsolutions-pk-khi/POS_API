@@ -19,13 +19,13 @@ namespace Pos_API.Controllers
 			_data = data;
 		}
 
-        [HttpGet("GetQuotation/{UserID}")]
+        [HttpGet("GetQuotation/{StartDate}/{EndDate}/{UserID}")]
         [Authorize(Roles = "Cashier")]
-        public async Task<IActionResult> GetItemsList(int UserID)
+        public async Task<IActionResult> GetItemsList(string StartDate ,string EndDate, int UserID)
         {
             _logger.LogInformation("Getting all data...");
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
-            var result = await _data.GetAllQuotationData(UserID);
+            var result = await _data.GetAllQuotationData(StartDate, EndDate, UserID);
             if (result == null) return NotFound();
             return Ok(new { message = Message.Success, data = result });
         }
@@ -84,8 +84,8 @@ namespace Pos_API.Controllers
             _logger.LogInformation("Saving data...");
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
             Global.StrDateTimeSqlFormat(model);
-            await _data.EditQuotation(model);
-            return Ok(new { message = Message.Success });
+            var res = await _data.EditQuotation(model);
+            return Ok(res);
         }
     }
 }
