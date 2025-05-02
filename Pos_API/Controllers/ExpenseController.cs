@@ -37,7 +37,16 @@ namespace Pos_API.Controllers
             }
 			
 		}
-
+        [HttpGet("GetPaymentType")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> GetPaymentType()
+        {
+            _logger.LogInformation("Getting data...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            var result = await _data.GetPaymentType();
+            if (result == null) return BadRequest();
+            return Ok(new { message = Message.Success, data = result });
+        }
         [HttpPost("InsertExpense")]
         [Authorize(Roles = "Cashier")]
         public async Task<IActionResult> InsertExpense(Expense model)

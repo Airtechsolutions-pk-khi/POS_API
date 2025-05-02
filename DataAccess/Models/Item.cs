@@ -29,6 +29,7 @@
         public int? ItemMode { get; set; }
         public bool? IsOpenPrice { get; set; }
         public bool? IsFeatured { get; set; }
+        public bool? IsStock { get; set; }
         public double? Price { get; set; }
         public double? MinPrice { get; set; }
         public double? NewPrice { get; set; }

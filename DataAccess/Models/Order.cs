@@ -58,7 +58,8 @@ namespace DataAccess.Models
         public string? ReferenceNo { get; set; } = "";
         public string? CardHolderName { get; set; } = "";
 		public string? CardType { get; set; } = "";
-		public bool? IsPartial { get; set; }
+        public decimal? Cashback { get; set; }
+        public bool? IsPartial { get; set; }
 		public double? PartialAmount { get; set; }= 0;
 		public double? FbrAmount { get; set; } = 0;
 		public string? FbrInvoiceResponse { get; set; } = "";
@@ -78,6 +79,7 @@ namespace DataAccess.Models
         public string? CashierName { get; set; }
         public string? PaymentType { get; set; }
         public string? CompanyName { get; set; }
+        public double? ItemDiscountAmount { get; set; } = 0;
         public string? CRN { get; set; }
         public string? TaxID { get; set; }
         public string? Email { get; set; }
@@ -90,7 +92,8 @@ namespace DataAccess.Models
         public DateTime? CreatedOn { get; set; }
 		public double? Total { get; set; }
 		public decimal? AmountDiscount { get; set; }
-        public decimal? DiscountOnItem { get; set; } 
+        public decimal? DiscountOnItem { get; set; }
+        public decimal? Cashback { get; set; }
         public decimal? VATper { get; set; }
 		public int OrderNo { get; set; }
 		public int TransactionNo { get; set; }				

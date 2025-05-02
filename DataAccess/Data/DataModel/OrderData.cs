@@ -29,7 +29,7 @@ namespace DataAccess.Data.DataModel
 
             var or = new OrderReturn();
 
-             
+           
             double? ItemDiscountAmount = 0;
 
             // Calculate ItemDiscountAmount first
@@ -59,11 +59,19 @@ namespace DataAccess.Data.DataModel
            // double? ItemDiscountAmount = 0;
             foreach (var item in order.Items)
 			{
-				int OrderDetailID = 0;
+                SqlParameter[] pd = new SqlParameter[4];
+                pd[0] = new SqlParameter("@ItemID", item.ID);
+                pd[1] = new SqlParameter("@LocationID", order.LocationID);
+                pd[2] = new SqlParameter("@Quantity", item.Quantity);
+                pd[3] = new SqlParameter("@LastUpdatedDate", DateTime.UtcNow.AddMinutes(180));
+                
+                new DBHelper().ExecuteNonQueryReturn("sp_DeductStockAdmin", pd);
+
+                int OrderDetailID = 0;
 				try
 				{
-
-					item.StatusID = 1;
+                    
+                    item.StatusID = 1;
 					SqlParameter[] p = new SqlParameter[10];
 					p[0] = new SqlParameter("@OrderId", orderID);
 					p[1] = new SqlParameter("@Name", item.Name);
@@ -120,8 +128,10 @@ namespace DataAccess.Data.DataModel
 					}
 				}
 			}
+            
 
-			or.Items = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
+            or.Items = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
+            or.ItemDiscountAmount = ItemDiscountAmount;
 			var odm = await _service.LoadData<OrderModifierDetail, dynamic>("[dbo].[sp_GetOrderModifierByOrderId_P_API]", new { or.OrderID });
 			foreach (var item in or.Items)
 			{
@@ -223,6 +233,10 @@ namespace DataAccess.Data.DataModel
                 if (item.PartialAmount == 0)
                 {
                     item.IsPartial = false;
+                }
+                else
+                {
+                    item.IsPartial = true;
                 }
                 
             }

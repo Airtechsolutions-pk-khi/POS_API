@@ -74,24 +74,27 @@ namespace DataAccess.Data.DataModel
 
         public async Task<RspModel> SaveExpense(Expense expense)
         {
+             
             RspModel model = new RspModel();
             try
             {
-                SqlParameter[] parm = new SqlParameter[11];
+                SqlParameter[] parm = new SqlParameter[14];
                 parm[0] = new SqlParameter("@ExpenseTypeID", expense.ExpenseTypeID);
                 parm[1] = new SqlParameter("@LocationID", expense.LocationID);
-                parm[2] = new SqlParameter("@Name", expense.Name);
-                parm[3] = new SqlParameter("@Amount", expense.Amount);
-                parm[4] = new SqlParameter("@Date", expense.Date);
-                parm[5] = new SqlParameter("@Reason", expense.Reason);
-                parm[6] = new SqlParameter("@StatusID", 1);
-                parm[7] = new SqlParameter("@CreatedDate", DateTime.UtcNow.AddMinutes(180));
-
-                parm[8] = new SqlParameter("@Contact", expense.Contact);
-                parm[9] = new SqlParameter("@Description", expense.Description);
-                parm[10] = new SqlParameter("@PaymentMethod", expense.PaymentMethod);
+                parm[2] = new SqlParameter("@PaymentTypeID", expense.PaymentTypeID);
+                parm[3] = new SqlParameter("@ExpenseNo", expense.ExpenseNo);
+                parm[4] = new SqlParameter("@Name", expense.Name);
+                parm[5] = new SqlParameter("@InvoiceReferenceNo", expense.InvoiceReferenceNo);
+                parm[6] = new SqlParameter("@Amount", expense.Amount);
+                parm[7] = new SqlParameter("@Date", expense.Date);
+                parm[8] = new SqlParameter("@Reason", expense.Reason);
+                parm[9] = new SqlParameter("@StatusID", 1);
+                parm[10] = new SqlParameter("@CreatedDate", DateTime.UtcNow.AddMinutes(180));
+                parm[11] = new SqlParameter("@Contact", expense.Contact);
+                parm[12] = new SqlParameter("@Description", expense.Description);
+                parm[13] = new SqlParameter("@PaymentMethod", expense.PaymentMethod);
                 
-                int? id = int.Parse(new DBHelper().GetTableFromSP("sp_InsertExpense_P_API_V2", parm).Rows[0]["ID"].ToString());
+                int? id = int.Parse(new DBHelper().GetTableFromSP("sp_InsertExpense_P_API_V3", parm).Rows[0]["ID"].ToString());
                 if (id != null || id > 0)
                 {
                     model = new()
@@ -130,6 +133,16 @@ namespace DataAccess.Data.DataModel
             return res;
         }
 
+        public async Task<IEnumerable<PaymentType>> GetPaymentType()
+        {
+            IEnumerable<PaymentType>? res;
+
+            
+            res = await _service.LoadData<PaymentType, dynamic>("[dbo].[sp_GetPaymentType_P_API]", new { });
+           
+            return res;
+        }
+
         public async Task<IEnumerable<Expense>> GetExpenseByLocationForReport(int LocationID, DateTime? FromDate, DateTime? ToDate)
         {
             IEnumerable<Expense>? res;
@@ -151,7 +164,7 @@ namespace DataAccess.Data.DataModel
             //res = _cache.Get<IEnumerable<Expense>>(key);
             //if (res == null)
             //{
-                res = await _service.LoadData<Expense, dynamic>("[dbo].[sp_GetExpenseByLocation_P_API]", new { LocationID});
+                res = await _service.LoadData<Expense, dynamic>("[dbo].[sp_GetExpenseByLocation_V2_P_API]", new { LocationID});
                // _cache.Set(key, res, TimeSpan.FromMinutes(1));
             //}
             return res;
@@ -187,25 +200,32 @@ namespace DataAccess.Data.DataModel
 
         public async Task<RspModel> UpdateExpense(Expense expense)
         {
+
             int id = 0;
             RspModel model = new RspModel();
             try
             {
-                SqlParameter[] parm = new SqlParameter[12];
-                parm[0] = new SqlParameter("@ExpenseTypeID", expense.ExpenseTypeID);
-                parm[1] = new SqlParameter("@LocationID", expense.LocationID);
-                parm[2] = new SqlParameter("@Name", expense.Name);
-                parm[3] = new SqlParameter("@Amount", expense.Amount);
-                parm[4] = new SqlParameter("@Date", expense.Date);
-                parm[5] = new SqlParameter("@Reason", expense.Reason);
-                parm[6] = new SqlParameter("@StatusID", 1);
-                parm[7] = new SqlParameter("@LastUpdatedDate", DateTime.UtcNow.AddMinutes(180));
-                parm[8] = new SqlParameter("@ExpenseID", expense.ExpenseID);
+                SqlParameter[] parm = new SqlParameter[15];
+                 
+                parm[0] = new SqlParameter("@ExpenseID", expense.ExpenseID);
+                parm[1] = new SqlParameter("@ExpenseTypeID", expense.ExpenseTypeID);
+                parm[2] = new SqlParameter("@LocationID", expense.LocationID);
+                parm[3] = new SqlParameter("@PaymentTypeID", expense.LocationID);
+                parm[4] = new SqlParameter("@ExpenseNo", expense.ExpenseNo);
+                parm[5] = new SqlParameter("@Name", expense.Name);
+                parm[6] = new SqlParameter("@InvoiceReferenceNo", expense.InvoiceReferenceNo);
+                parm[7] = new SqlParameter("@Amount", expense.Amount);
+                parm[8] = new SqlParameter("@Date", expense.Date);
+                parm[9] = new SqlParameter("@Reason", expense.Reason);
+                parm[10] = new SqlParameter("@StatusID", 1);
+                parm[11] = new SqlParameter("@CreatedDate", DateTime.UtcNow.AddMinutes(180));
+                parm[12] = new SqlParameter("@Contact", expense.Contact);
+                parm[13] = new SqlParameter("@Description", expense.Description);
+                parm[14] = new SqlParameter("@PaymentMethod", expense.PaymentMethod);
 
-                parm[9] = new SqlParameter("@Contact", expense.Contact);
-                parm[10] = new SqlParameter("@Description", expense.Description);
-                parm[11] = new SqlParameter("@PaymentMethod", expense.PaymentMethod);
-                id = int.Parse(new DBHelper().GetTableFromSP("sp_UpdateExpense_P_API_V2", parm).Rows[0]["ID"].ToString());
+
+
+                id = int.Parse(new DBHelper().GetTableFromSP("sp_UpdateExpense_P_API_V3", parm).Rows[0]["ID"].ToString());
                 if (id != null || id > 0)
                 {
                     model = new()

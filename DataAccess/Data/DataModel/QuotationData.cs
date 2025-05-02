@@ -17,19 +17,52 @@ namespace DataAccess.Data.DataModel
             _service = service;
             _cache = cache;
         }
-        public async Task<IEnumerable<CompanyQuotationList>> GetAllQuotationData(string StartDate, string EndDate, int UserID)
+        public async Task<IEnumerable<CompanyQuotationList>> GetAllQuotationData(string StartDate, string EndDate, int UserID, int LocationID)
         {
             IEnumerable<CompanyQuotationList>? res;
             try
             {
-                res = await _service.LoadData<CompanyQuotationList, dynamic>("[dbo].[sp_QuotationAll_P_API]", new { StartDate, EndDate, UserID });
+                //res = await _service.LoadData<CompanyQuotationList, dynamic>("[dbo].[sp_QuotationAll_P_API]", new { StartDate, EndDate, UserID });
+                var result = await _service.LoadMultipleData<CompanyQuotationList, CQuotationDetailList, dynamic>(
+                    "[dbo].[sp_QuotationAll_P_API_V2]",
+                    new { StartDate, EndDate, UserID, LocationID }
+                );
+
+                 
+
+                // Debug before processing
+                if (result == null)
+                {
+                    Console.WriteLine("Result is NULL");
+                }
+                else
+                {
+                    Console.WriteLine($"Result Count: {result.Item1?.Count()} Quotations, {result.Item2?.Count()} Details");
+                }
+
+                var companyQuotations = result.Item1.ToList(); // First result set (quotations)
+                var companyQuotationDetails = result.Item2.ToList(); // Second result set (quotation details)
+
+
+                var quotationDict = companyQuotations.ToDictionary(q => q.CompanyQuotationID);
+
+                foreach (var detail in companyQuotationDetails)
+                {
+                    if (quotationDict.TryGetValue(detail.CompanyQuotationID, out var quotation))
+                    {
+                        quotation.CompanyQuotationDetails ??= new List<CQuotationDetailList>();
+                        quotation.CompanyQuotationDetails.Add(detail);
+                    }
+                }
+
+                return companyQuotations;
             }
             catch (Exception ex)
             {
 
                 throw;
             }
-            return res;
+             
         }
         public async Task<IEnumerable<CompanyQuotationList>> GetAllQuotation(int UserID, int CompanyQuotationID)
         {
@@ -96,13 +129,13 @@ namespace DataAccess.Data.DataModel
 
             
         }
-        public async Task<RspModel> SaveQuotation(CompanyQuotationList quotation)
+        public async Task<RspModelQ> SaveQuotation(CompanyQuotationList quotation)
         {
-            RspModel model = new();
+            RspModelQ model = new();
 
             if (quotation == null)
             {
-                return new RspModel { Status = 0, Description = "Invalid quotation data!" };
+                return new RspModelQ { Status = 0, Description = "Invalid quotation data!" };
             }
             try
             {
@@ -136,8 +169,9 @@ namespace DataAccess.Data.DataModel
                     quotation.UserID,
                     LastUpdatedDate = DateTime.UtcNow.AddMinutes(180),
                     quotation.LastUpdatedBy,
-                    quotation.TermAndCondition
-                    
+                    quotation.TermAndCondition,
+                    quotation.LocationID
+
                 };
  
 
@@ -169,15 +203,16 @@ namespace DataAccess.Data.DataModel
                     }
                 }
 
-                return new RspModel
+                return new RspModelQ
                 {
                     Status = 1,
-                    Description = "Quotation added successfully!"
+                    Description = "Quotation added successfully!",
+                    QuotationNo = quotation.QuotationNo
                 };
             }
             catch (Exception ex)
             {
-                return new RspModel
+                return new RspModelQ
                 {
                     Status = 0,
                     Description = $"Failed to add quotation! Error: {ex.Message}"
@@ -220,11 +255,12 @@ namespace DataAccess.Data.DataModel
                     quotation.UserID,
                     LastUpdatedDate = DateTime.UtcNow.AddMinutes(180),
                     quotation.LastUpdatedBy,
-                    quotation.TermAndCondition
+                    quotation.TermAndCondition,
+                    quotation.LocationID
                 };
 
                 // Execute stored procedure to edit quotation
-                var quotationIDList = await _service.LoadData<int, dynamic>("[dbo].[sp_EditCompanyQuotation_P_API]", parameters);
+                var quotationIDList = await _service.LoadData<int, dynamic>("[dbo].[sp_EditCompanyQuotation_P_API_V2]", parameters);
                 int quotationID = quotationIDList.FirstOrDefault();
 
                 // If quotation details exist, insert them

@@ -13,6 +13,7 @@ namespace DataAccess.Models
 		public double? TaxAmount { get; set; } = 0;
 		public double? RefundAmount { get; set; } = 0;
 		public double? NetSales { get; set; } = 0;
+         
         public int? CashOrder { get; set; } = 0;
         public double? ItemDiscountAmount { get; set; } = 0;
         public double? OldInvRefundAmount { get; set; } = 0;

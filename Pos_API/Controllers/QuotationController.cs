@@ -18,14 +18,14 @@ namespace Pos_API.Controllers
 			_logger = logger;
 			_data = data;
 		}
-
-        [HttpGet("GetQuotation/{StartDate}/{EndDate}/{UserID}")]
+        //This one is using in App
+        [HttpGet("GetQuotation/{StartDate}/{EndDate}/{UserID}/{LocationID}")]
         [Authorize(Roles = "Cashier")]
-        public async Task<IActionResult> GetItemsList(string StartDate ,string EndDate, int UserID)
+        public async Task<IActionResult> GetItemsList(string StartDate ,string EndDate, int UserID,int LocationID)
         {
             _logger.LogInformation("Getting all data...");
             if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
-            var result = await _data.GetAllQuotationData(StartDate, EndDate, UserID);
+            var result = await _data.GetAllQuotationData(StartDate, EndDate, UserID, LocationID);
             if (result == null) return NotFound();
             return Ok(new { message = Message.Success, data = result });
         }

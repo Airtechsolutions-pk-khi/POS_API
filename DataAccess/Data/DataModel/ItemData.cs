@@ -24,7 +24,8 @@ namespace DataAccess.Data.DataModel
             //res = _cache.Get<IEnumerable<Item>>(key);
             //if (res == null)
             //{
-                res = await _service.LoadData<Item, dynamic>("[dbo].[sp_GetItems_P_API_V2]", new
+            //here V2 is live sp_GetItems_P_API_V2 and V3 is just for testing on new hosting
+            res = await _service.LoadData<Item, dynamic>("[dbo].[sp_GetItems_P_API_V3]", new
                 {
                     LocationID = LocationID,
                     PageNumber = pagingParams.PageNumber,
