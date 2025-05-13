@@ -43,7 +43,8 @@ namespace DataAccess.Models
         public double? TotalRefund { get; set; } = 0;
         public double? AmountDiscount { get; set; } = 0;
 		public double? ServiceCharges { get; set; } = 0;
-		public double? Tax { get; set; } = 0;
+        public double? DeliveryCharges { get; set; } = 0;
+        public double? Tax { get; set; } = 0;
 		public string? PaymentType { get; set; } = "";
 		public double? CashPayment { get; set; } = 0;
 		public double? CardPayment { get; set; } = 0;

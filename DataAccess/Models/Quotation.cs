@@ -9,8 +9,10 @@ namespace DataAccess.Models
         public int CustomerID { get; set; }
         public int LocationID { get; set; }
         public string QuotationNo { get; set; } = "";
-        public Nullable<System.DateTime> QuotationDate { get; set; }  
+        public Nullable<System.DateTime> QuotationDate { get; set; }
+        public string? FormattedQuotationDate => QuotationDate?.ToString("dd-MM-yyyy");
         public Nullable<System.DateTime> ExpiryDate { get; set; }
+        public string? FormattedExpiryDate => ExpiryDate?.ToString("dd-MM-yyyy");
         public Nullable<System.DateTime> SupplyDate { get; set; }
         public string TaxNo { get; set; } = "";
         public string SellerName { get; set; } = "";
