@@ -142,7 +142,6 @@ namespace DataAccess.Data.DataModel
                 var parameters = new
                 {
                     quotation.CustomerID,
-                    quotation.QuotationNo,
                     quotation.QuotationDate,
                     quotation.ExpiryDate,
                     quotation.SupplyDate,
