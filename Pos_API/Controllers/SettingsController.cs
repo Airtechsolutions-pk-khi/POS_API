@@ -1,4 +1,5 @@
 ﻿using DataAccess.Data.IDataModel;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pos_API.GlobalAndCommon;
@@ -45,5 +46,26 @@ namespace Pos_API.Controllers
 			if (waiters == null || tables == null || customers == null) return BadRequest();
 			return Ok( new { message = Message.Success, data = new { waiters, tables, customers }});
 		}
-	}
+        [HttpGet("GetTableFloor/{LocationID}/{UserID}")]
+        [Authorize(Roles = "Cashier")]
+        public async Task<IActionResult> GetTableFloorData(int LocationID, int UserID)
+        {
+            _logger.LogInformation("Getting data ...");
+            if (!ModelState.IsValid) return BadRequest("Model State is not Valid!");
+            
+            var result = _tabledata.GetTablesFLoorData(LocationID);
+            if (result == null)
+            {
+                RspModel model = new()
+                {
+                    Status = 0,
+                    Description = "Data Not Found"
+                };
+                
+                return Ok(model);
+            }
+            
+            return Ok(new { message = Message.Success, data = new {  result  } });
+        }
+    }
 }

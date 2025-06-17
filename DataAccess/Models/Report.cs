@@ -30,7 +30,8 @@ namespace DataAccess.Models
 		public double? CheckoutOrders { get; set; } = 0;
          
         public double? Delivery { get; set; } = 0;
-		public double? TotalExpanse { get; set; } = 0;
+        public double? DeliveryCharges { get; set; } = 0;
+        public double? TotalExpanse  { get; set; } = 0;
 		public double? DeliveryOrders { get; set; } = 0;
 		public double? Pickup { get; set; } = 0;
 		 	 

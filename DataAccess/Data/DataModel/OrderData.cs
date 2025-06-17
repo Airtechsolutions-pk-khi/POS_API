@@ -38,6 +38,7 @@ namespace DataAccess.Data.DataModel
                 ItemDiscountAmount += item.DiscountPrice;
             }
             order.ItemDiscountAmount = ItemDiscountAmount;
+           
             if (order.ID > 0)
             {
                 or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_UpdateHoldOrder_P_API_V2]",
@@ -49,8 +50,7 @@ namespace DataAccess.Data.DataModel
                 or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_InsertOrder_P_API_V2]",
                 new { ParamTable1 = JsonConvert.SerializeObject(order) });
             }
-            
-
+             
 			//or.GrandTotal = or.Total;
 			var Tax = or.Tax;
 			var orderID = or.OrderID;

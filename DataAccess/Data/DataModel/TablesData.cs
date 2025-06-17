@@ -28,9 +28,56 @@ namespace DataAccess.Data.DataModel
 			}
 			return res;
 		}
-		//await _service.LoadData<Table, dynamic>(
-		//	"[dbo].[sp_GetTables_P_API]",
-		//	new { LocationID });
+        public async Task<IEnumerable<FloorTreeDto>> GetTablesFLoorData(int LocationID)
+        {
+            IEnumerable<FloorTreeDto>? res;
+            string key = string.Format("{0}{1}", LocationID.ToString(), "TablesFloorTree");
 
-	}
+            res = _cache.Get<IEnumerable<FloorTreeDto>>(key);
+            if (res == null)
+            {
+                // Get Floors
+                var floors = await _service.LoadData<FloorTreeDto, dynamic>("[dbo].[sp_GetFloors_P_API]", new { LocationID });
+
+                // Get Tables
+                var tables = await _service.LoadData<TableTreeDto, dynamic>("[dbo].[sp_GetFloorTables_P_API]", new { LocationID });
+
+                // Get Waiters (SubUsers with UserType = 8)
+                var waiters = await _service.LoadData<SubUser, dynamic>("[dbo].[sp_GetFloorWaiters_P_API]", new { LocationID, UserType = 8 });
+
+                // Build the tree structure
+                res = floors.Select(floor => new FloorTreeDto
+                {
+                    ID = floor.ID,
+                    Title = floor.Title,
+                    Name = floor.Name,
+                    Tables = tables.Where(t => t.FloorID == floor.ID).Select(table => new TableTreeDto
+                    {
+                        ID = table.ID,
+                        TableID = table.TableID,
+                        TableName = table.TableName,
+                        Capacity = table.Capacity,
+                        TableType = table.TableType,
+                        TableNo = table.TableNo,
+                        Waiters = waiters.Where(w => w.LocationID == LocationID) // You might need to add TableID to SubUser or define the relationship
+                            .Select(waiter => new WaiterDto
+                            {
+                                ID = waiter.ID,
+                                UserName = waiter.UserName,
+                                FirstName = waiter.FirstName,
+                                LastName = waiter.LastName,
+                                Designation = waiter.Designation,
+                                Email = waiter.Email,
+                                ContactNo = waiter.ContactNo
+                            }).ToList()
+                    }).ToList()
+                }).ToList();
+
+                _cache.Set(key, res, TimeSpan.FromMinutes(1));
+            }
+            return res;
+        }
+
+
+    }
 }

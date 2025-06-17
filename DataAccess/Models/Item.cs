@@ -36,10 +36,10 @@
 		public double? Cost { get; set; }
 		public string? ItemType { get; set; }
 		public string? LastUpdatedBy { get; set; }
-		public DateTime? LastUpdatedDate { get; set; }
-		public int? StatusID { get; set; }
-		public DateTime? CreatedOn { get; set; }
-		public string? CreatedBy { get; set; }
+		public DateTime? LastUpdatedDate { get; set; } = DateTime.UtcNow.AddMinutes(180);
+        public int? StatusID { get; set; }
+		public DateTime? CreatedOn { get; set; } = DateTime.UtcNow.AddMinutes(180);
+        public string? CreatedBy { get; set; } = "";
 		public double? CurrentStockLevel { get; set; }
 		public List<OrderModifierDetail?>? Modifiers { get; set; } = new List<OrderModifierDetail?>();
 		

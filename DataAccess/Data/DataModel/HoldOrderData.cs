@@ -142,6 +142,20 @@ namespace DataAccess.Data.DataModel
                 {
                      or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_UpdateCreditOrder_P_API_V2]",
                             new { ParamTable1 = JsonConvert.SerializeObject(order) });
+
+                    var Tax = or.Tax;
+                    var orderID = or.OrderID;
+                    var TransactionNo = or.TransactionNo;
+                    var OrderNo = or.OrderNo;
+
+                    
+                    or.Items = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
+                    var odm = await _service.LoadData<OrderModifierDetail, dynamic>("[dbo].[sp_GetOrderModifierByOrderId_P_API]", new { or.OrderID });
+                    foreach (var item in or.Items)
+                    {
+                        item.Modifiers = odm.Where(x => x.OrderDetailID == item.ID).ToList();
+                    }
+
                 }
                 catch (Exception ex)
                 {
