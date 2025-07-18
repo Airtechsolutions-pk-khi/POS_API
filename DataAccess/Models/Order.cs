@@ -5,8 +5,11 @@ namespace DataAccess.Models
 	{
 		public int ID { get; set; }
         public int? OrderID { get; set; }
+        public int? TableID { get; set; }
         public string? CustomerID { get; set; }
-		public int? LocationID { get; set; } 
+        public string? WaiterName { get; set; } = "";
+        public string? TableNames { get; set; } = "";
+        public int? LocationID { get; set; } 
 		public int? TransactionNo { get; set; }
 		public int? OrderNo { get; set; }
 		public int? TableNo { get; set; } = 0;
@@ -70,9 +73,24 @@ namespace DataAccess.Models
         public string? Mobile { get; set; } = "";
         public string? CustomerAddress { get; set; } = "";      
         public IEnumerable<T>? Items { get; set; }
-	}
-
-	public class OrderReturn
+        public IEnumerable<TableOrder>? TableOrders { get; set; }
+        public IEnumerable<OrderSubuser>? OrderSubusers { get; set; }
+    }
+    public class TableOrder
+    {
+        public int TableOrderID { get; set; }
+        public int? OrderID { get; set; }
+        public int? TableID { get; set; }
+        public int? TableStatus { get; set; }
+    }
+    public class OrderSubuser
+    {
+        public int OrderSubuserID { get; set; }
+        public int? OrderID { get; set; }
+        public int? SubUserID { get; set; }
+        public int? Type { get; set; }
+    }
+    public class OrderReturn
 	{
 		public int OrderID { get; set; }
 		public string? OrderType { get; set; }
@@ -83,6 +101,8 @@ namespace DataAccess.Models
         public double? ItemDiscountAmount { get; set; } = 0;
         public string? CRN { get; set; }
         public string? TaxID { get; set; }
+        public string? TableNames { get; set; }
+        public string? WaiterName { get; set; }
         public string? Email { get; set; }
         public string? CounterType { get; set; }
         public double? DiscountPercent { get; set; } = 0;
@@ -101,6 +121,8 @@ namespace DataAccess.Models
 		public double? GrandTotal { get; set; }
 		public double? Tax { get; set; }
         public double? ServiceCharges { get; set; }
+
+        public double? DeliveryCharges { get; set; }
         public string? FullName { get; set; }
         public string? Mobile { get; set; }
         public string? CustomerAddress { get; set; }

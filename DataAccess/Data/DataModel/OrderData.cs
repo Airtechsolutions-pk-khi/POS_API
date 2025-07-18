@@ -26,13 +26,11 @@ namespace DataAccess.Data.DataModel
 
 		public async Task<OrderReturn> SaveData(Order<Item> order)
 		{
-
+             
             var or = new OrderReturn();
-
-           
+ 
             double? ItemDiscountAmount = 0;
-
-            // Calculate ItemDiscountAmount first
+ 
             foreach (var item in order.Items)
             {
                 ItemDiscountAmount += item.DiscountPrice;
@@ -47,16 +45,16 @@ namespace DataAccess.Data.DataModel
             }
             if (order.ID == 0)
             {
-                or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_InsertOrder_P_API_V2]",
+                or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[sp_InsertOrder_P_API_V3]",
                 new { ParamTable1 = JsonConvert.SerializeObject(order) });
             }
              
-			//or.GrandTotal = or.Total;
+			 
 			var Tax = or.Tax;
 			var orderID = or.OrderID;
 			var TransactionNo = or.TransactionNo;
 			var OrderNo = or.OrderNo;
-           // double? ItemDiscountAmount = 0;
+            
             foreach (var item in order.Items)
 			{
                 SqlParameter[] pd = new SqlParameter[4];
@@ -93,7 +91,7 @@ namespace DataAccess.Data.DataModel
                         OrderDetailID = int.Parse(new DBHelper().GetTableFromSP("sp_UpdateOrderDetail_P_API", p).Rows[0]["ID"].ToString());
                     }
 
-                    //ItemDiscountAmount += item.DiscountPrice;
+                    
                 }
 				catch { }
 
@@ -128,6 +126,30 @@ namespace DataAccess.Data.DataModel
 					}
 				}
 			}
+
+            //if (order.TableOrders != null && order.TableOrders.Any())
+            //{
+            //    foreach (var tableOrder in order.TableOrders)
+            //    {
+            //        SqlParameter[] pd = new SqlParameter[2];
+            //        pd[0] = new SqlParameter("@OrderID", orderID);
+            //        pd[1] = new SqlParameter("@TableID", tableOrder.TableID);
+            //        //pd[2] = new SqlParameter("@TableStatus", tableOrder.TableStatus);
+            //        new DBHelper().ExecuteNonQueryReturn("sp_InsertTableOrder_P_API", pd);
+            //    }
+            //}
+
+            //if (order.OrderSubusers != null && order.OrderSubusers.Any())
+            //{
+            //    foreach (var orderSubUser in order.OrderSubusers)
+            //    {
+            //        SqlParameter[] pd = new SqlParameter[2];
+            //        pd[0] = new SqlParameter("@OrderID", orderID);
+            //        pd[1] = new SqlParameter("@SubUserID", orderSubUser.SubUserID);
+            //        //pd[2] = new SqlParameter("@Type", orderSubUser.Type);
+            //        new DBHelper().ExecuteNonQueryReturn("sp_InsertOrderSubuser_P_API", pd);
+            //    }
+            //}
             
 
             or.Items = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
@@ -214,7 +236,7 @@ namespace DataAccess.Data.DataModel
 			//res = _cache.Get<IEnumerable<Order<OrderDetail>>>(key);
 			//if (res == null)
 			//{
-				res = await _service.LoadData<Order<OrderDetail>, dynamic>("[dbo].[sp_GetOrderByLocation_P_API]", new { LocationID, FromDate, ToDate });
+				res = await _service.LoadData<Order<OrderDetail>, dynamic>("[dbo].[sp_GetOrderByLocation_P_API_V3]", new { LocationID, FromDate, ToDate });
             //foreach (var item in res)
             //{
             //	if (item.RefundAmount != 0)

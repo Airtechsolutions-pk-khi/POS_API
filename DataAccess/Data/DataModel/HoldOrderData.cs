@@ -66,7 +66,48 @@ namespace DataAccess.Data.DataModel
             else
             {
                 OrderID = int.Parse(new DBHelper().GetTableFromSP("Insert_HoldOrder_P_API", p).Rows[0]["OrderID"].ToString());
-                //or = await _service.SaveSingleQueryable<OrderReturn, dynamic>("[dbo].[Update_HoldOrder_P_API]", p);
+
+                if (order.TableOrders != null && order.TableOrders.Any())
+                {
+                    if (order.TableOrders.Count() > 1)  // Check count of TableOrders
+                    {
+                        foreach (var tableOrder in order.TableOrders)
+                        {
+                            SqlParameter[] pd = new SqlParameter[3];
+                            pd[0] = new SqlParameter("@OrderID", OrderID);
+                            pd[1] = new SqlParameter("@TableID", tableOrder.TableID);
+                            pd[2] = new SqlParameter("@TableStatus", 3); // Status 3 for multiple tables merged
+                            new DBHelper().ExecuteNonQueryReturn("sp_InsertTableOrderStatus_P_API", pd);
+                        }
+                    }
+                    else if (order.TableOrders.Count() == 1)
+                    {
+                        foreach (var tableOrder in order.TableOrders)
+                        {
+                            SqlParameter[] pd = new SqlParameter[3];
+                            pd[0] = new SqlParameter("@OrderID", OrderID);
+                            pd[1] = new SqlParameter("@TableID", tableOrder.TableID);
+                            pd[2] = new SqlParameter("@TableStatus", 2); // Status 2 for single table occupied
+                            new DBHelper().ExecuteNonQueryReturn("sp_InsertTableOrderStatus_P_API", pd);
+                        }
+                    }
+                    else
+                    {
+                        //Console.WriteLine("Warning: TableOrders collection exists but is empty for OrderID: " + orderID);
+                    }
+                }
+                if (order.OrderSubusers != null && order.OrderSubusers.Any())
+                {
+                    foreach (var orderSubUser in order.OrderSubusers)
+                    {
+                        SqlParameter[] pd = new SqlParameter[3];
+                        pd[0] = new SqlParameter("@OrderID", OrderID);
+                        pd[1] = new SqlParameter("@SubUserID", orderSubUser.SubUserID);
+                        pd[2] = new SqlParameter("@Type", orderSubUser.Type);
+                        new DBHelper().ExecuteNonQueryReturn("sp_InsertOrderSubuser_P_API", pd);
+                    }
+                }
+
             }
 
 
@@ -210,6 +251,7 @@ namespace DataAccess.Data.DataModel
                             (new DBHelper().ExecuteNonQueryReturn)("sp_InsertModifier_P_API", p);
                         }
                     }
+ 
                 }
                 or.Items = await _service.LoadData<OrderDetail, dynamic>("[dbo].[sp_GetOrderDetailsByOrderId_P_API]", new { or.OrderID });
                 var odm = await _service.LoadData<OrderModifierDetail, dynamic>("[dbo].[sp_GetOrderModifierByOrderId_P_API]", new { or.OrderID });

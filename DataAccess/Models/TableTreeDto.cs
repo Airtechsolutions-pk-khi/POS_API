@@ -35,6 +35,7 @@ namespace DataAccess.Models
         public string CreatedBy { get; set; }
 
         public int? StatusID { get; set; }
+        public int TableStatus { get; set; }
         public List<WaiterDto> Waiters { get; set; } = new List<WaiterDto>();
     }
 }

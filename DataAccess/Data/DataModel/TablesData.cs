@@ -59,6 +59,12 @@ namespace DataAccess.Data.DataModel
                         Capacity = table.Capacity,
                         TableType = table.TableType,
                         TableNo = table.TableNo,
+                        x = table.x,
+                        y= table.y, 
+                        Width = table.Width,    
+                        Height = table.Height,
+                        StatusID = table.StatusID,  
+                        TableStatus = table.TableStatus,
                         Waiters = waiters.Where(w => w.LocationID == LocationID) // You might need to add TableID to SubUser or define the relationship
                             .Select(waiter => new WaiterDto
                             {
