@@ -36,15 +36,18 @@ namespace Pos_API.Controllers
 			var waitersTask = _waiterdata.GetAllWaiters(LocationID);
 			var tablesTask = _tabledata.GetAllTables(LocationID);
 			var customersTask = _customerdata.GetAllCustomers(LocationID,UserID);
+			var daysRemaining = _customerdata.GetRemainingDays(UserID);
 
-			await Task.WhenAll(waitersTask, tablesTask, customersTask);
+			await Task.WhenAll(waitersTask, tablesTask, customersTask, daysRemaining);
 
 			var waiters = waitersTask.Result;
 			var tables = tablesTask.Result;
 			var customers = customersTask.Result;
+			var remainingDays = daysRemaining.Result;
 
-			if (waiters == null || tables == null || customers == null) return BadRequest();
-			return Ok( new { message = Message.Success, data = new { waiters, tables, customers }});
+
+            if (waiters == null || tables == null || customers == null || remainingDays == null) return BadRequest();
+			return Ok( new { message = Message.Success, data = new { waiters, tables, customers, remainingDays } });
 		}
         [HttpGet("GetTableFloor/{LocationID}/{UserID}")]
         [Authorize(Roles = "Cashier")]

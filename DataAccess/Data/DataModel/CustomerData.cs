@@ -89,6 +89,16 @@ namespace DataAccess.Data.DataModel
             };
             return model1;
         }
+
+        public async Task<int> GetRemainingDays(int UserID)
+        {
+            var result = await _service.LoadData<int, dynamic>(
+                "[dbo].[sp_GetRemainingDays]",
+                new { UserID });
+
+            return result.FirstOrDefault();
+        }
+
         public async Task EditCustomer(Customer customer) =>
             await _service.SaveData<dynamic>("[dbo].[sp_UpdateCustomer_P_API_V2]",
                 new { ParamTable1 = JsonConvert.SerializeObject(customer) });

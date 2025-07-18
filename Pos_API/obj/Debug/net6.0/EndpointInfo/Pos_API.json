@@ -324,6 +324,29 @@
         }
       }
     },
+    "/api/Customer/Delete/{CustomerID}": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Expense/Insert": {
       "post": {
         "tags": [
@@ -348,6 +371,18 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Expense/GetPaymentType": {
+      "get": {
+        "tags": [
+          "Expense"
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -1136,7 +1171,55 @@
         }
       }
     },
-    "/api/Quotation/GetQuotation/{UserID}": {
+    "/api/Quotation/GetQuotation/{StartDate}/{EndDate}/{UserID}/{LocationID}": {
+      "get": {
+        "tags": [
+          "Quotation"
+        ],
+        "parameters": [
+          {
+            "name": "StartDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "EndDate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "UserID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "LocationID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Quotation/GetQuotation/{UserID}/{CompanyQuotationID}": {
       "get": {
         "tags": [
           "Quotation"
@@ -1144,6 +1227,15 @@
         "parameters": [
           {
             "name": "UserID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "CompanyQuotationID",
             "in": "path",
             "required": true,
             "schema": {
@@ -1408,6 +1500,38 @@
           }
         }
       }
+    },
+    "/api/Settings/GetTableFloor/{LocationID}/{UserID}": {
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "parameters": [
+          {
+            "name": "LocationID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "UserID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1421,19 +1545,22 @@
           },
           "companyQuotationID": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           },
-          "itemID": {
+          "id": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "itemName": {
+          "name": {
             "type": "string",
             "nullable": true
           },
-          "itemNameArabic": {
+          "arabicName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
             "type": "string",
             "nullable": true
           },
@@ -1487,6 +1614,14 @@
             "type": "integer",
             "format": "int32"
           },
+          "customerID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "locationID": {
+            "type": "integer",
+            "format": "int32"
+          },
           "quotationNo": {
             "type": "string",
             "nullable": true
@@ -1496,10 +1631,20 @@
             "format": "date-time",
             "nullable": true
           },
+          "formattedQuotationDate": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
           "expiryDate": {
             "type": "string",
             "format": "date-time",
             "nullable": true
+          },
+          "formattedExpiryDate": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
           },
           "supplyDate": {
             "type": "string",
@@ -1543,6 +1688,10 @@
             "nullable": true
           },
           "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "termAndCondition": {
             "type": "string",
             "nullable": true
           },
@@ -1610,6 +1759,34 @@
             "type": "string",
             "nullable": true
           },
+          "customerType": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyID": {
+            "type": "string",
+            "nullable": true
+          },
+          "vatNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationalID": {
+            "type": "string",
+            "nullable": true
+          },
           "companyQuotationDetails": {
             "type": "array",
             "items": {
@@ -1660,6 +1837,10 @@
             "type": "string",
             "nullable": true
           },
+          "nationalID": {
+            "type": "string",
+            "nullable": true
+          },
           "mobile": {
             "type": "string",
             "format": "tel",
@@ -1678,6 +1859,22 @@
             "nullable": true
           },
           "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyID": {
+            "type": "string",
+            "nullable": true
+          },
+          "vatNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerType": {
             "type": "string",
             "nullable": true
           },
@@ -1718,12 +1915,25 @@
             "format": "int32",
             "nullable": true
           },
+          "paymentTypeID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "locationID": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
           "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "expenseNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoiceReferenceNo": {
             "type": "string",
             "nullable": true
           },
@@ -1740,6 +1950,18 @@
             "type": "string",
             "nullable": true
           },
+          "contact": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "type": "string",
+            "nullable": true
+          },
           "statusID": {
             "type": "integer",
             "format": "int32",
@@ -1753,6 +1975,10 @@
           "lastUpdatedDate": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "categoryName": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -1919,6 +2145,10 @@
             "type": "boolean",
             "nullable": true
           },
+          "isStock": {
+            "type": "boolean",
+            "nullable": true
+          },
           "price": {
             "type": "number",
             "format": "double",
@@ -1993,7 +2223,20 @@
             "format": "int32",
             "nullable": true
           },
+          "tableID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "customerID": {
+            "type": "string",
+            "nullable": true
+          },
+          "waiterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "tableNames": {
             "type": "string",
             "nullable": true
           },
@@ -2121,6 +2364,11 @@
             "format": "int32",
             "nullable": true
           },
+          "discountOnItem": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
           "fbrInvoiceNumber": {
             "type": "string",
             "nullable": true
@@ -2159,6 +2407,11 @@
             "nullable": true
           },
           "serviceCharges": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "deliveryCharges": {
             "type": "number",
             "format": "double",
             "nullable": true
@@ -2232,6 +2485,11 @@
             "type": "string",
             "nullable": true
           },
+          "cashback": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
           "isPartial": {
             "type": "boolean",
             "nullable": true
@@ -2276,6 +2534,20 @@
               "$ref": "#/components/schemas/Item"
             },
             "nullable": true
+          },
+          "tableOrders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TableOrder"
+            },
+            "nullable": true
+          },
+          "orderSubusers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderSubuser"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2309,6 +2581,56 @@
           },
           "name": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderSubuser": {
+        "type": "object",
+        "properties": {
+          "orderSubuserID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "subUserID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TableOrder": {
+        "type": "object",
+        "properties": {
+          "tableOrderID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "tableID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "tableStatus": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           }
         },
