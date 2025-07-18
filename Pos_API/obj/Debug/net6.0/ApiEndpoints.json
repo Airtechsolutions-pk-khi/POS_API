@@ -179,6 +179,22 @@
   },
   {
     "ContainingType": "Pos_API.Controllers.CustomerController",
+    "Method": "DeleteCustomer",
+    "RelativePath": "api/Customer/Delete/{CustomerID}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CustomerID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.CustomerController",
     "Method": "Edit",
     "RelativePath": "api/Customer/Edit",
     "HttpMethod": "POST",
@@ -313,6 +329,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.ExpenseController",
+    "Method": "GetPaymentType",
+    "RelativePath": "api/Expense/GetPaymentType",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -725,13 +751,49 @@
   {
     "ContainingType": "Pos_API.Controllers.QuotationController",
     "Method": "GetItemsList",
-    "RelativePath": "api/Quotation/GetQuotation/{UserID}",
+    "RelativePath": "api/Quotation/GetQuotation/{StartDate}/{EndDate}/{UserID}/{LocationID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "StartDate",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "EndDate",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "UserID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.QuotationController",
+    "Method": "GetItemsList",
+    "RelativePath": "api/Quotation/GetQuotation/{UserID}/{CompanyQuotationID}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "UserID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "CompanyQuotationID",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -842,6 +904,27 @@
     "ContainingType": "Pos_API.Controllers.SettingsController",
     "Method": "GetAllSettingsData",
     "RelativePath": "api/Settings/GetAllSettingsData/{LocationID}/{UserID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LocationID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "UserID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pos_API.Controllers.SettingsController",
+    "Method": "GetTableFloorData",
+    "RelativePath": "api/Settings/GetTableFloor/{LocationID}/{UserID}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

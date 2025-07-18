@@ -9,5 +9,7 @@ namespace DataAccess.Data.IDataModel
         Task EditCustomer(Customer customer);
         Task<RspModel> DeleteCustomer(int CustomerID);
         Task<RspModel> SaveCustomer(Customer customer);
+
+        Task<int> GetRemainingDays(int UserID);
     }
 }
