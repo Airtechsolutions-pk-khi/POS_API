@@ -81,6 +81,9 @@ namespace DataAccess.Data.DataModel
             var data = await _service.LoadData<SalesSummary, dynamic>(
                  "[dbo].[sp_SalesSummaryMultiLoc_V2_Track_API]",
                  new { Locations, OrderStartDate, OrderLastDate });
+
+           
+
             foreach (var item in data)
             {
                 item.Checkout = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Counter Order").Select(x => x.Value).FirstOrDefault());
@@ -100,6 +103,11 @@ namespace DataAccess.Data.DataModel
 
                 item.WebCard = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Web Card").Select(x => x.Value).FirstOrDefault());
                 item.WebCardCount = Convert.ToDouble(dataOT.Where(x => x.OrderType == "Web Card").Select(x => x.Count).FirstOrDefault());
+
+                //item.CreditOrderAmount = item.CreditOrderAmount - item.CreditOrderDue;
+
+                item.GrossSales = item.CashOrderAmount + item.CardOrderAmount + item.CreditOrderAmount;
+                 
             }
             return data;
         }
