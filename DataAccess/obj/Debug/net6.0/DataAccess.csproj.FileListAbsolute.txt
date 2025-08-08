@@ -85,3 +85,16 @@ E:\Projects\POS_API_Git\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.dll
 E:\Projects\POS_API_Git\POS_API\DataAccess\obj\Debug\net6.0\refint\DataAccess.dll
 E:\Projects\POS_API_Git\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.pdb
 E:\Projects\POS_API_Git\POS_API\DataAccess\obj\Debug\net6.0\ref\DataAccess.dll
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\bin\Debug\net6.0\DataAccess.deps.json
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\bin\Debug\net6.0\DataAccess.dll
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\bin\Debug\net6.0\DataAccess.pdb
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.csproj.AssemblyReference.cache
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.AssemblyInfoInputs.cache
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.AssemblyInfo.cs
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.csproj.CoreCompileInputs.cache
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.sourcelink.json
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.dll
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\obj\Debug\net6.0\refint\DataAccess.dll
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\obj\Debug\net6.0\DataAccess.pdb
+E:\ATG\AIRPOS\POS API\POS_API\DataAccess\obj\Debug\net6.0\ref\DataAccess.dll
